@@ -8,6 +8,7 @@ Shows real time logbook entries, mission offers, currently active mission detail
 Application is served on a local port, so it can be run locally or on multiple network devices at once.  
 Created to be displayed on external device (monitor, tablet or smartphone).
 
+Note: lua module supports only Windows named pipes, so currently it will run exclusevly on this platform.
 
 ## One time setup
 
@@ -92,8 +93,4 @@ In order to build executable of X4 External App server yourself:
    `npm run package`
 
 Output executable will be created in `\dist` folder
-
-## Notes
-
-Lua module supports only Windows named pipes, so it will run exclusevly on this platform.
 
