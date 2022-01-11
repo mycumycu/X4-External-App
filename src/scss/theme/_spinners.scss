@@ -1,0 +1,577 @@
+/* ==========================================
+    SPINNERS [1. rotating plane]
+========================================== */
+
+/*
+ *  Usage:
+ *
+      <div class="sk-rotating-plane"></div>
+ *
+ */
+
+
+.sk-rotating-plane {
+  width: $spinkit-size;
+  height: $spinkit-size;
+  background-color: $spinkit-spinner-color;
+  margin: $spinkit-spinner-margin;
+  animation: sk-rotatePlane 1.2s infinite ease-in-out;
+}
+
+@keyframes sk-rotatePlane {
+  0% {
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  } 50% {
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  } 100% {
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
+
+
+/* ==========================================
+    SPINNERS [2. double bounce]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-double-bounce">
+        <div class="sk-child sk-double-bounce1"></div>
+        <div class="sk-child sk-double-bounce2"></div>
+      </div>
+ *
+ */
+
+
+.sk-double-bounce {
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+  margin: $spinkit-spinner-margin;
+
+  .sk-child {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: $spinkit-spinner-color;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-doubleBounce 2.0s infinite ease-in-out;
+  }
+
+  .sk-double-bounce2 {
+    animation-delay: -1.0s;
+  }
+}
+
+@keyframes sk-doubleBounce {
+  0%, 100% { transform: scale(0) }
+  50% { transform: scale(1.0) }
+}
+
+
+/* ==========================================
+    SPINNERS [3. wave]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-wave">
+        <div class="sk-rect sk-rect1"></div>
+        <div class="sk-rect sk-rect2"></div>
+        <div class="sk-rect sk-rect3"></div>
+        <div class="sk-rect sk-rect4"></div>
+        <div class="sk-rect sk-rect5"></div>
+      </div>
+ *
+ */
+
+
+.sk-wave {
+  $rectCount: 5;
+  $animationDuration: 1.2s;
+  $delayRange: 0.4s;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size * 1.25;
+  height: $spinkit-size;
+  text-align: center;
+  font-size: 10px;
+
+  .sk-rect {
+    background-color: $spinkit-spinner-color;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    animation: sk-waveStretchDelay $animationDuration infinite ease-in-out;
+  }
+
+  @for $i from 1 through $rectCount {
+    .sk-rect#{$i} { animation-delay: - $animationDuration + $delayRange / ($rectCount - 1) * ($i - 1); }
+  }
+}
+
+@keyframes sk-waveStretchDelay {
+  0%, 40%, 100% { transform: scaleY(0.4) }
+  20% { transform: scaleY(1.0) }
+}
+
+
+/* ==========================================
+    SPINNERS [4. wandering cubes]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-wandering-cubes">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+      </div>
+ *
+ */
+
+
+.sk-wandering-cubes {
+  $animationDuration: 1.8s;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+
+  .sk-cube {
+    background-color: $spinkit-spinner-color;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: sk-wanderingCube $animationDuration ease-in-out #{-$animationDuration} infinite both;
+  }
+
+  .sk-cube2 {
+    animation-delay: -$animationDuration / 2;
+  }
+}
+
+@keyframes sk-wanderingCube {
+  $cubeDistance: 30px;
+  0% {
+    transform: rotate(0deg);
+  } 25% {
+    transform: translateX($cubeDistance) rotate(-90deg) scale(0.5);
+  } 50% {
+    /* Hack to make FF rotate in the right direction */
+    transform: translateX($cubeDistance) translateY($cubeDistance) rotate(-179deg);
+  } 50.1% {
+    transform: translateX($cubeDistance) translateY($cubeDistance) rotate(-180deg);
+  } 75% {
+    transform: translateX(0) translateY($cubeDistance) rotate(-270deg) scale(0.5);
+  } 100% {
+    transform: rotate(-360deg);
+  }
+}
+
+
+/* ==========================================
+    SPINNERS [5. pluse]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-spinner sk-spinner-pulse"></div>
+ *
+ */
+
+
+.sk-spinner-pulse {
+  width: $spinkit-size;
+  height: $spinkit-size;
+  margin: $spinkit-spinner-margin;
+  background-color: $spinkit-spinner-color;
+  border-radius: 100%;
+  animation: sk-pulseScaleOut 1.0s infinite ease-in-out;
+}
+
+@keyframes sk-pulseScaleOut {
+  0% {
+    transform: scale(0);
+  } 100% {
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+
+/* ==========================================
+    SPINNERS [6. cashing dots]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-chasing-dots">
+        <div class="sk-child sk-dot1"></div>
+        <div class="sk-child sk-dot2"></div>
+      </div>
+ *
+ */
+
+
+.sk-chasing-dots {
+  $animationDuration: 2.0s;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+  text-align: center;
+  animation: sk-chasingDotsRotate $animationDuration infinite linear;
+
+  .sk-child {
+    width: 60%;
+    height: 60%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    background-color: $spinkit-spinner-color;
+    border-radius: 100%;
+    animation: sk-chasingDotsBounce $animationDuration infinite ease-in-out;
+  }
+
+  .sk-dot2 {
+    top: auto;
+    bottom: 0;
+    animation-delay: - $animationDuration/2;
+  }
+}
+
+@keyframes sk-chasingDotsRotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sk-chasingDotsBounce {
+  0%, 100% {
+    transform: scale(0);
+  } 50% {
+    transform: scale(1.0);
+  }
+}
+
+
+/* ==========================================
+    SPINNERS [7. three bounce]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+ *
+ */
+
+
+.sk-three-bounce {
+  $animationDuration: 1.4s;
+  $delayRange: 0.32s;
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size * 2;
+  text-align: center;
+
+  .sk-child {
+    width: $spinkit-size / 2;
+    height: $spinkit-size / 2;
+    background-color: $spinkit-spinner-color;
+
+    border-radius: 100%;
+    display: inline-block;
+    animation: sk-three-bounce $animationDuration ease-in-out 0s infinite both;
+  }
+
+  .sk-bounce1 { animation-delay: -$delayRange; }
+  .sk-bounce2 { animation-delay: -$delayRange / 2; }
+}
+
+@keyframes sk-three-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  } 40% {
+    transform: scale(1.0);
+  }
+}
+
+
+/* ==========================================
+    SPINNERS [8. circle]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-circle">
+        <div class="sk-circle1 sk-child"></div>
+        <div class="sk-circle2 sk-child"></div>
+        <div class="sk-circle3 sk-child"></div>
+        <div class="sk-circle4 sk-child"></div>
+        <div class="sk-circle5 sk-child"></div>
+        <div class="sk-circle6 sk-child"></div>
+        <div class="sk-circle7 sk-child"></div>
+        <div class="sk-circle8 sk-child"></div>
+        <div class="sk-circle9 sk-child"></div>
+        <div class="sk-circle10 sk-child"></div>
+        <div class="sk-circle11 sk-child"></div>
+        <div class="sk-circle12 sk-child"></div>
+      </div>
+ *
+ */
+
+
+.sk-circle {
+  $circleCount: 12;
+  $animationDuration: 1.2s;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+
+  .sk-child {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .sk-child:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    height: 15%;
+    background-color: $spinkit-spinner-color;
+    border-radius: 100%;
+    animation: sk-circleBounceDelay $animationDuration infinite ease-in-out both;
+  }
+
+  @for $i from 2 through $circleCount {
+    .sk-circle#{$i} { transform: rotate(360deg / $circleCount * ($i - 1)); }
+  }
+
+  @for $i from 2 through $circleCount {
+    .sk-circle#{$i}:before { animation-delay: - $animationDuration + $animationDuration / $circleCount * ($i - 1); }
+  }
+}
+
+@keyframes sk-circleBounceDelay {
+  0%, 80%, 100% { transform: scale(0) }
+  40% { transform: scale(1.0) }
+}
+
+
+/* ==========================================
+    SPINNERS [9. cube grid]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-cube-grid">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+      </div>
+ *
+ */
+
+
+.sk-cube-grid {
+  $delayRange: 0.4s;
+
+  width: $spinkit-size;
+  height: $spinkit-size;
+  margin: $spinkit-spinner-margin;
+
+  .sk-cube {
+    width: 33.33%;
+    height: 33.33%;
+    background-color: $spinkit-spinner-color;
+    float: left;
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  }
+
+  /*
+   * Spinner positions
+   * 1 2 3
+   * 4 5 6
+   * 7 8 9
+   */
+
+  .sk-cube1 { animation-delay: $delayRange * 0.50 }
+  .sk-cube2 { animation-delay: $delayRange * 0.75 }
+  .sk-cube3 { animation-delay: $delayRange }
+  .sk-cube4 { animation-delay: $delayRange * 0.25 }
+  .sk-cube5 { animation-delay: $delayRange * 0.50 }
+  .sk-cube6 { animation-delay: $delayRange * 0.75 }
+  .sk-cube7 { animation-delay: 0.0s }
+  .sk-cube8 { animation-delay: $delayRange * 0.25 }
+  .sk-cube9 { animation-delay: $delayRange * 0.50 }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%, 70%, 100% { transform:scale3D(1.0, 1.0, 1.0) }
+  35%           { transform:scale3D(0.0, 0.0, 1.0) }
+}
+
+
+/* ==========================================
+    SPINNERS [10. fading circle]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-fading-circle">
+        <div class="sk-circle1 sk-circle"></div>
+        <div class="sk-circle2 sk-circle"></div>
+        <div class="sk-circle3 sk-circle"></div>
+        <div class="sk-circle4 sk-circle"></div>
+        <div class="sk-circle5 sk-circle"></div>
+        <div class="sk-circle6 sk-circle"></div>
+        <div class="sk-circle7 sk-circle"></div>
+        <div class="sk-circle8 sk-circle"></div>
+        <div class="sk-circle9 sk-circle"></div>
+        <div class="sk-circle10 sk-circle"></div>
+        <div class="sk-circle11 sk-circle"></div>
+        <div class="sk-circle12 sk-circle"></div>
+      </div>
+ *
+ */
+
+
+.sk-fading-circle {
+  $circleCount: 12;
+  $animationDuration: 1.2s;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+
+  .sk-circle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .sk-circle:before {
+    content: '';
+    display: block;
+    margin: 0 auto;
+    width: 15%;
+    height: 15%;
+    background-color: $spinkit-spinner-color;
+    border-radius: 100%;
+    animation: sk-circleFadeDelay $animationDuration infinite ease-in-out both;
+  }
+
+  @for $i from 2 through $circleCount {
+    .sk-circle#{$i} { transform: rotate(360deg / $circleCount * ($i - 1)); }
+  }
+
+  @for $i from 2 through $circleCount {
+    .sk-circle#{$i}:before { animation-delay: - $animationDuration + $animationDuration / $circleCount * ($i - 1); }
+  }
+
+}
+
+@keyframes sk-circleFadeDelay {
+  0%, 39%, 100% { opacity: 0 }
+  40% { opacity: 1 }
+}
+
+
+/* ==========================================
+    SPINNERS [11. folding cube]
+========================================== */
+/*
+ *  Usage:
+ *
+      <div class="sk-folding-cube">
+        <div class="sk-cube1 sk-cube"></div>
+        <div class="sk-cube2 sk-cube"></div>
+        <div class="sk-cube4 sk-cube"></div>
+        <div class="sk-cube3 sk-cube"></div>
+      </div>
+ *
+ */
+
+
+.sk-folding-cube {
+  $cubeCount: 4;
+  $animationDuration: 2.4s;
+  $delayRange: $animationDuration/2;
+
+  margin: $spinkit-spinner-margin;
+  width: $spinkit-size;
+  height: $spinkit-size;
+  position: relative;
+  transform: rotateZ(45deg);
+
+  .sk-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform: scale(1.1);
+  }
+
+  .sk-cube:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $spinkit-spinner-color;
+    animation: sk-foldCubeAngle $animationDuration infinite linear both;
+    transform-origin: 100% 100%;
+  }
+
+  // Rotation / angle
+  @for $i from 2 through $cubeCount {
+    .sk-cube#{$i} {
+      transform: scale(1.1) rotateZ(90deg * ($i - 1));
+    }
+  }
+
+  @for $i from 2 through $cubeCount {
+    .sk-cube#{$i}:before {
+      animation-delay: $delayRange / $cubeCount * ($i - 1);
+    }
+  }
+}
+
+@keyframes sk-foldCubeAngle {
+  0%, 10% {
+    transform: perspective(140px) rotateX(-180deg);
+    opacity: 0;
+  } 25%, 75% {
+    transform: perspective(140px) rotateX(0deg);
+    opacity: 1;
+  } 90%, 100% {
+    transform: perspective(140px) rotateY(180deg);
+    opacity: 0;
+  }
+}

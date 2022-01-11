@@ -1,0 +1,393 @@
+/*
+* ===================================================
+*    Custom Bootstrapious Utils
+* ===================================================
+*/
+
+/*
+   Text utils
+   ------------------------
+*/
+
+.text-uppercase {
+    @include uppercase;
+    letter-spacing: 0.1em;
+}
+
+.text-sm {
+    font-size: $font-size-sm;
+}
+
+.text-base {
+    font-size: $font-size-base;
+}
+
+.text-lg {
+    font-size: $font-size-lg * 1.2;
+}
+.text-xl {
+    font-size: $font-size-lg * 1.4;
+}
+.text-xxl {
+    font-size: $font-size-lg * 1.7;
+}
+.text-xs {
+    font-size: 0.8rem !important;
+}
+
+.text-sm {
+    font-size: 0.9rem !important;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-primary {
+    text-shadow: 2px 2px 2px rgba($primary, 0.1);
+}
+
+.text-decoration-underline {
+    text-decoration: underline;
+}
+
+.text-inherit {
+    color: inherit;
+}
+
+/*
+    Rounded corners - lg, sm
+   ------------------------
+*/
+
+.rounded-lg {
+    border-radius: $border-radius-lg;
+}
+
+.rounded-sm {
+    border-radius: $border-radius-sm;
+}
+
+.rounded-xl {
+    border-radius: 10rem;
+}
+
+/*
+    Responsive borders - border-[breakpoint]
+   ------------------------
+*/
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+        .border#{$infix} {
+            border: $border-width solid $border-color !important;
+        }
+        .border#{$infix}-start {
+            border-left: $border-width solid $border-color !important;
+        }
+        .border#{$infix}-top {
+            border-top: $border-width solid $border-color !important;
+        }
+        .border#{$infix}-end {
+            border-right: $border-width solid $border-color !important;
+        }
+        .border#{$infix}-bottom {
+            border-bottom: $border-width solid $border-color !important;
+        }
+    }
+}
+
+/*
+    Opacity helpers - .opacity-[1-9]
+    ------------------------
+*/
+
+$opacity: 0 1 2 3 4 5 6 7 8 9 10;
+
+@each $current-opacity in $opacity {
+    .opacity-#{$current-opacity} {
+        opacity: #{$current-opacity/10};
+    }
+}
+
+/*
+    Z-index helpers - .z-index-[10-50]
+    ------------------------
+*/
+
+$z-index: 10 20 30 40 50;
+
+@each $current-z-index in $z-index {
+    .z-index-#{$current-z-index} {
+        z-index: #{$current-z-index};
+        position: relative;
+    }
+}
+
+/*
+     Letter spacing helpers - .letter-spacing-[0-5]
+    ------------------------
+*/
+
+.letter-spacing-0 {
+    letter-spacing: 0 !important;
+}
+
+$spacing: 0.1em 0.2em 0.3em 0.4em 0.5em;
+
+@each $current-spacing in $spacing {
+    $i: index($spacing, $current-spacing);
+
+    .letter-spacing-#{$i} {
+        letter-spacing: #{$current-spacing};
+    }
+}
+
+/*
+     Colours and backgrounds
+    ------------------------
+*/
+
+@each $color, $value in $theme-colors {
+    .text-hover-#{$color} {
+        transition: $transition-base;
+
+        &:focus,
+        &:hover {
+            color: $value !important;
+        }
+    }
+
+    a.text-hover-#{$color} {
+        transition: $transition-base;
+
+        &:focus,
+        &:hover {
+            color: $value !important;
+        }
+    }
+
+    .bg-#{$color}-light {
+        background-color: theme-color-level($color, -11);
+    }
+
+    .border-#{$color} {
+        border-color: $value !important;
+    }
+}
+
+@each $color, $value in $grays {
+    .bg-gray-#{$color} {
+        background: $value !important;
+    }
+
+    .text-gray-#{$color} {
+        color: $value !important;
+    }
+
+    .border-gray-#{$color} {
+        border-color: $value !important;
+    }
+}
+
+@each $color, $value in $theme-colors {
+    .badge-#{$color}-light {
+        color: $value;
+        background-color: theme-color-level($color, -11);
+    }
+}
+
+/*
+     Transparent overlays
+    ------------------------
+*/
+
+.overlay-content {
+    position: relative;
+    z-index: 20;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    .light-overlay#{$infix},
+    .overlay-hover-light#{$infix} {
+        @include media-breakpoint-up($next) {
+            position: relative;
+
+            &::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: " ";
+                background: #fff;
+            }
+        }
+    }
+
+    .overlay-hover-light#{$infix} {
+        @include media-breakpoint-up($next) {
+            &::after {
+                transition: $transition-fade;
+                opacity: 0;
+            }
+        }
+    }
+
+    .light-overlay#{$infix},
+    .overlay-hover-light#{$infix}:hover {
+        @include media-breakpoint-up($next) {
+            &::after {
+                opacity: 0.4;
+            }
+        }
+    }
+
+    .light-overlay#{$infix}-0,
+    .overlay-hover-light#{$infix}-0:hover {
+        @include media-breakpoint-up($next) {
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    .dark-overlay#{$infix} {
+        position: relative;
+
+        @include media-breakpoint-up($next) {
+            &::after {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                content: " ";
+                opacity: 0.4;
+                background: #000;
+            }
+        }
+    }
+
+    .dark-overlay#{$infix}-0 {
+        @include media-breakpoint-up($next) {
+            &::after {
+                display: none;
+            }
+        }
+    }
+}
+
+/*
+     Other
+    ------------------------
+*/
+
+.overflow-visible {
+    overflow: visible !important;
+}
+
+.shadow-0 {
+    box-shadow: none !important;
+}
+
+.pie-with-centered-text {
+    position: relative;
+
+    .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.bg-none {
+    background: none !important;
+}
+
+.bg-cover {
+    background-size: cover !important;
+}
+
+.toast,
+.toast-container {
+    z-index: 999 !important;
+}
+
+.icon {
+    @include square(40px);
+    border-radius: 50%;
+    &-sm {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.bgDark {
+    background: $bgDarkHover;
+}
+
+@each $color, $value in $customDashColors {
+    .bg-#{$color} {
+        background: $value !important;
+    }
+    .text-#{$color} {
+        color: $value !important;
+    }
+    .border-#{$color} {
+        border-color: $value !important;
+    }
+}
+
+.avatar-badge {
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: $primary;
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0;
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.availability-status {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $primary;
+    position: absolute;
+    top: 4px;
+    right: 0;
+    border: 2px solid #fff;
+}
+
+.inherit-link {
+    color: inherit;
+    &:hover,
+    &:focus {
+        color: $primary;
+        text-decoration: none;
+    }
+}
+
+.transform-none {
+    transform: none !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.login-footer,
+.register-footer {
+    z-index: 9999;
+}

@@ -1,0 +1,39 @@
+{
+  "author": "Mycu",
+  "name": "x4_external_app",
+  "version": "1.0.0",
+  "bin": "server.js",
+  "pkg": {
+    "assets": [
+      "node_modules/**/*",
+      "dist/**/*"
+    ],
+    "targets": [
+      "node10-win-x64"
+    ],
+    "outputPath": "dist"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "package": "npm run build && pkg . --targets latest-win --output dist/x4_external_app.exe"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-regular-svg-icons": "^5.15.4",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "chokidar": "^3.5.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "portfinder": "^1.0.28",
+    "vue": "^3.2.25",
+    "vue3-perfect-scrollbar": "^1.5.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.0",
+    "sass": "1.32.0",
+    "vite": "^2.7.2"
+  }
+}

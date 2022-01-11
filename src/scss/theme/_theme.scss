@@ -1,0 +1,20 @@
+// custom mixins
+@import "mixins-custom";
+// general styling
+@import "general";
+// icons styling
+@import "icons";
+// charts page styling
+@import "charts";
+// Dorms  page styling
+@import "forms";
+// login  page styling
+@import "login";
+// utils style
+@import "utils";
+// avatars styling
+@import "avatar";
+// 3rd party scripts override
+@import "3rd-party";
+// demo styling
+@import "demo";

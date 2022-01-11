@@ -1,0 +1,304 @@
+/*
+* ==========================================================
+*     NoUI Slider
+* ==========================================================
+*/
+
+.nouislider {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.noUi-target {
+    background: $gray-600;
+    border-radius: 0;
+    border: 1px solid $gray-600;
+    box-shadow: none;
+}
+
+.noUi-handle {
+    background: $gray-700;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    &:focus {
+        outline: none;
+    }
+    &:before,
+    &:after {
+        background: $gray-500;
+    }
+}
+
+.noUi-tooltip {
+    border-radius: 0;
+    background: $gray-600;
+    border-color: transparent;
+    color: $black;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.noUi-connect {
+    background: $primary;
+}
+
+/*
+*
+* ==========================================
+* 3rd PARTIES CUSTOM STYLING - [DATEPICKER]
+* ==========================================
+*
+*/
+
+.datepicker-picker {
+    font-family: $font-family-sans-serif !important;
+}
+
+.datepicker-dropdown {
+    z-index: 999 !important;
+}
+
+.datepicker-controls .button {
+    border: none !important;
+    padding: 0.5rem !important;
+    background: $light !important;
+    font-weight: $font-weight-bold !important;
+}
+
+.datepicker-cell {
+    border-radius: 0 !important;
+    font-size: 0.9rem;
+}
+
+.datepicker-main {
+    padding: 1rem !important;
+}
+
+.datepicker-cell.selected,
+.datepicker-cell.selected:hover {
+    background: $primary !important;
+    font-weight: $font-weight-normal;
+}
+
+.datepicker-cell.selected,
+.datepicker-cell.selected:hover {
+    background: $primary !important;
+    font-weight: $font-weight-normal;
+}
+
+/*
+*
+* ==========================================
+* Multi.js - MultiSelect
+* ==========================================
+*
+*/
+.multi-wrapper {
+    border-radius: 0;
+    border-color: $input-border-color;
+    background: $dark-shade-2;
+
+    .non-selected-wrapper,
+    .selected-wrapper,
+    .search-input {
+        background: none;
+    }
+
+    .search-input {
+        border-bottom-color: $input-border-color;
+    }
+}
+.multi-wrapper .item {
+    color: $body-color;
+    font-weight: $font-weight-normal;
+    font-size: 0.9rem;
+    text-decoration: none;
+    &:hover {
+        background: $primary;
+        color: $white;
+    }
+}
+
+.non-selected-wrapper .item {
+    &.selected {
+        display: none;
+    }
+}
+
+/*
+*
+* ==========================================
+* Multi.js - MultiSelect
+* ==========================================
+*
+*/
+.choices__inner {
+    transition: all 0.3s;
+}
+
+.choices__input {
+    margin: 2px;
+    background: none;
+}
+
+.choices__list--multiple .choices__item {
+    margin: 2px;
+    background: $primary;
+    border-color: $primary;
+}
+
+.choices[data-type*="select-multiple"] .choices__button,
+.choices[data-type*="text"] .choices__button {
+    border-left: 1px solid lighten($primary, 10%);
+}
+
+/*
+*
+* ==========================================
+* Autocomplete.js
+* ==========================================
+*
+*/
+.autoComplete_wrapper {
+    width: 100%;
+    position: relative;
+
+    ul {
+        border-radius: 0;
+
+        li {
+            border-radius: 0;
+        }
+    }
+
+    .form-control:focus {
+        box-shadow: none !important;
+    }
+}
+
+.autoComplete_wrapper ul {
+    list-style: none;
+    border: 1px solid $input-border-color;
+    padding: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: darken($dark-shade-2, 2%);
+
+    li {
+        padding: 0.5rem 1rem;
+        transition: all 0.3s;
+        cursor: pointer;
+        &:hover {
+            background: $dark-shade-3;
+        }
+    }
+}
+
+.autoComplete_wrapper > ul > li mark {
+    padding: 0 !important;
+    background: none !important;
+    color: white !important;
+}
+
+.autoComplete_wrapper > input {
+    width: 100%;
+    border-radius: $input-border-radius;
+    border-color: $input-border-color;
+    padding: $input-btn-padding-y $input-btn-padding-x;
+    padding-left: $input-btn-padding-x;
+}
+
+/*
+*
+* ==========================================
+* Quill - Text Editor
+* ==========================================
+*
+*/
+.ql-editor {
+    min-height: 15rem;
+}
+
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+    background: none;
+}
+
+.ql-toolbar.ql-snow {
+    background: $dark-shade-3;
+    border-radius: 0;
+    padding: 1rem;
+    border-bottom: none;
+    border-color: lighten($dark-shade-1, 5%);
+
+    button {
+        color: $gray-500;
+        &:hover,
+        &:focus {
+            color: $gray-500;
+        }
+    }
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none;
+    stroke: $gray-500;
+
+    &:hover,
+    &:focus {
+        stroke: $primary;
+    }
+}
+
+.ql-toolbar .ql-fill,
+.ql-toolbar .ql-blockquote {
+    fill: $gray-500;
+    stroke: none;
+    &:hover,
+    &:focus {
+        fill: $primary;
+    }
+}
+
+.ql-toolbar .ql-picker {
+    color: $gray-500;
+    &:hover,
+    &.ql-active,
+    &:focus {
+        color: $primary;
+    }
+}
+
+.ql-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    background: $dark-shade-1;
+}
+
+.ql-container.ql-snow {
+    border-color: lighten($dark-shade-1, 5%);
+    border-radius: 0;
+    color: $gray-300;
+}
+
+.ql-editor.ql-blank::before {
+    color: $gray-300;
+}
+
+/*
+*
+* ==========================================
+* Just Validate - Form Validator
+* ==========================================
+*
+*/
+.js-validate-error-field {
+    border-color: $danger !important;
+    color: $danger !important;
+}
+.js-validate-error-label {
+    color: $danger !important;
+    margin-top: $form-text-margin-top !important;
+    font-size: $form-text-font-size !important;
+}

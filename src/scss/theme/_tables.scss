@@ -1,0 +1,93 @@
+/*
+* ==========================================================
+*     SIMPLE DATATABLES
+* ==========================================================
+*/
+
+.dataTable-table > tbody > tr > td,
+.dataTable-table > tbody > tr > th,
+.dataTable-table > tfoot > tr > td,
+.dataTable-table > tfoot > tr > th,
+.dataTable-table > thead > tr > td,
+.dataTable-table > thead > tr > th {
+    padding: 0.75rem;
+}
+
+.dataTable-sorter::after {
+    top: 4px;
+}
+.dataTable-sorter::before {
+    bottom: 4px;
+}
+
+.dataTable-pagination {
+    display: flex;
+    @include list-unstyled();
+}
+
+.dataTable-pagination li a {
+    position: relative;
+    display: block;
+    color: $pagination-color;
+    text-decoration: if($link-decoration == none, null, none);
+    background-color: $pagination-bg;
+    border: $pagination-border-width solid $pagination-border-color;
+    @include transition($pagination-transition);
+
+    &:hover {
+        z-index: 2;
+        color: $pagination-hover-color;
+        text-decoration: if($link-hover-decoration == underline, none, null);
+        background-color: $pagination-hover-bg;
+        border-color: $pagination-hover-border-color;
+    }
+
+    &:focus {
+        z-index: 3;
+        color: $pagination-focus-color;
+        background-color: $pagination-focus-bg;
+        outline: $pagination-focus-outline;
+        box-shadow: $pagination-focus-box-shadow;
+    }
+}
+
+.dataTable-pagination li {
+    &:not(:first-child) a {
+        margin-left: $pagination-margin-start;
+    }
+
+    &.active a {
+        z-index: 3;
+        color: $pagination-active-color !important;
+        background: $pagination-active-bg !important;
+        border-color: $pagination-active-border-color !important;
+    }
+
+    &.disabled a {
+        color: $pagination-disabled-color;
+        pointer-events: none;
+        background-color: $pagination-disabled-bg;
+        border-color: $pagination-disabled-border-color;
+    }
+}
+
+.dataTable-wrapper.no-footer .dataTable-container {
+    border-bottom: none;
+}
+
+.dataTable-dropdown label {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+
+    select {
+        margin: 0 0.5rem;
+    }
+}
+
+.dataTable-sorter::after {
+    border-bottom-color: $gray-300;
+}
+.dataTable-sorter::before {
+    border-top-color: $gray-300;
+}

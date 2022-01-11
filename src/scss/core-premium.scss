@@ -1,0 +1,31 @@
+/*
+=========================================
+=========================================
+
+Bootstrap 5 Admin Dark Template Premium
+
+PREMIUM VERSION
+
+https://bootstrapious.com/p/bootstrap-4-dark-admin-premium
+
+=========================================
+========================================= */
+
+// functions.scss - Bootstrap functions
+@import "bootstrap/functions";
+@import "bootstrap/mixins";
+
+// your variables + overrides of Bootstrap variables
+@import "user/user-variables";
+
+// custom variables + overrides of Bootstrap variables for this theme
+@import "theme/variables";
+
+// bootstrap main
+@import "bootstrap/bootstrap";
+
+// theme components
+@import "theme/theme-premium";
+
+// your components
+@import "user/user";
