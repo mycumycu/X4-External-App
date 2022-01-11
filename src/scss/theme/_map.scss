@@ -1,0 +1,85 @@
+/*
+* ==========================================================
+*     Maps
+* ==========================================================
+*/
+.map-custom-popup {
+    .leaflet-popup-content-wrapper {
+        overflow: hidden;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        font-family: $font-family-base;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .leaflet-popup-content {
+        margin: 0;
+        background: #fff;
+    }
+
+    .leaflet-popup-tip {
+        background: #fff;
+        box-shadow: none;
+    }
+
+    a.leaflet-popup-close-button {
+        display: inline-block;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 0 !important;
+        text-align: center;
+        vertical-align: middle;
+        text-decoration: none;
+        color: #fff !important;
+        background: $dark !important;
+        font-weight: bold;
+        line-height: 30px !important;
+    }
+
+    .leaflet-popup-content {
+        p {
+            margin: 0 0 1rem;
+        }
+
+        a {
+            color: $link-color;
+        }
+    }
+
+    .popup-venue {
+        display: flex;
+
+        .image {
+            width: 200px;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        .text {
+            width: 400px;
+            padding: 1rem;
+        }
+    }
+}
+
+.map-custom-tooltip {
+    padding: 0.5rem;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background-color: #fff;
+    font-family: $font-family-base;
+    font-weight: bold;
+
+    &.active {
+        color: #fff;
+        border-color: $primary;
+        background-color: $primary;
+
+        &:before {
+            border-top-color: $primary;
+        }
+    }
+}

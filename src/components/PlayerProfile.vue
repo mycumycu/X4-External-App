@@ -1,0 +1,33 @@
+<template>
+  <div class="card card-profile mb-4">
+    <div class="card-header x4-backgound"></div>
+    <div class="card-body text-center">
+      <img class="card-profile-img" src="../assets/x4-logo.png" title="..."/>
+      <div class="mb-2">
+        <h3 class="mb-0 text-gray-400">
+          <span>{{ player.name }}</span>
+        </h3>
+        <small v-if="player.faction">{{ player.faction }}</small>
+        <div v-else>&nbsp;</div>
+      </div>
+      <div class="mb-4">
+        <div v-if="player.sector">{{ player.sector }}</div>
+        <div>{{ player.credits }}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: [
+    'player',
+  ],
+  data() {
+    return {}
+  },
+}
+</script>
+
+<style>
+</style>

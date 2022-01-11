@@ -1,0 +1,96 @@
+// Transition Mixin
+@mixin ondrTransition($duration: 0.2s, $ease: ease-out) {
+    transition: all $duration $ease;
+}
+
+// Text shadow Mixin
+@mixin textShadow($x-axis: 0, $y-axis: 1px, $blur: 1px, $color: #fff) {
+    text-shadow: $x-axis $y-axis $blur $color;
+}
+
+// Rounded Mixin
+@mixin rounded($radius: 5px) {
+    border-radius: $radius;
+}
+
+// uppercase Mixin
+@mixin uppercase() {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+// Remove Uppercase Mixin
+@mixin no-uppercase() {
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+// Horizontal gradient Mixin
+@mixin horizontal-gradient($startColor: #eee, $endColor: white) {
+    background-color: $startColor;
+    background-image: linear-gradient(to right, $startColor, $endColor);
+}
+
+// Gradient Mixin
+@mixin gradient($startColor: rgb(184, 205, 6), $endColor: rgb(12, 224, 184)) {
+    background-image: linear-gradient(-18deg, $startColor 0%, $endColor 100%);
+}
+
+// Position Mixin
+@mixin position($pos: null, $top: null, $right: null, $bottom: null, $left: null) {
+    position: $pos;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+}
+
+// Font Mixin
+@mixin font($size: null, $weight: null, $color: null, $line-height: null) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+    line-height: $line-height;
+}
+
+// Square Mixin
+@mixin square($dimension: null, $background: null, $color: null, $text-align: null) {
+    width: $dimension;
+    height: $dimension;
+    background: $background;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color;
+    text-align: $text-align;
+}
+
+// Size Mixin
+@mixin size($width, $height, $background: null) {
+    width: $width;
+    height: $height;
+}
+
+// Font Mixin
+@mixin font($size, $weight, $color, $line-height, $align, $transform, $spacing) {
+    font-size: $size;
+    font-weight: $weight;
+    color: $color;
+    line-height: $line-height;
+    text-align: $align;
+    text-transform: $transform;
+    letter-spacing: $spacing;
+}
+
+// Placeholder Mixin
+@mixin placeholder {
+    &::-moz-placeholder {
+        @content;
+    }
+    &::-webkit-input-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+}

@@ -1,0 +1,468 @@
+/*
+* ==========================================================
+*     GENERAL STYLING 
+* ==========================================================
+*/
+
+body {
+    position: relative;
+    overflow-x: hidden;
+}
+
+section {
+    padding: 2rem 0;
+}
+
+a {
+    transition: all 0.3s;
+    display: inline-block;
+    text-decoration: none;
+
+    &.bg-dash-dark-2 {
+        transition: all 0.3s;
+        &:hover,
+        &:focus {
+            background: $dark-shade-3 !important;
+        }
+    }
+}
+
+.container-fluid {
+    @include media-breakpoint-up(lg) {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+.card-footer {
+    background: lighten($dark-shade-2, 3%);
+    border-top: 1px solid $dark-shade-1;
+    &:last-child {
+        @include border-radius(0 0 $card-inner-border-radius $card-inner-border-radius);
+    }
+}
+
+.card-cap-transparent {
+    background: rgba($black, 0.03);
+}
+
+p {
+    line-height: 1.7;
+}
+
+button {
+    cursor: pointer;
+}
+
+i,
+span,
+strong {
+    display: inline-block;
+}
+
+input {
+    outline: none;
+}
+
+pre {
+    color: $textGray;
+}
+
+.page-content {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    padding-bottom: 70px;
+    background: $dark-shade-3;
+}
+
+i[class*="svg-"] {
+    transform: translateY(-2px);
+}
+
+.dropdown-item {
+    border-bottom: 1px solid $dropdown-border-color;
+}
+.dropdown-menu {
+    li:last-of-type {
+        .dropdown-item {
+            border-bottom: none;
+        }
+    }
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -2px;
+    font-size: 1rem;
+}
+
+.megamenu {
+    width: 100%;
+    margin-top: 0 !important;
+    z-index: 11 !important;
+}
+
+/*
+* ==========================================================
+*     NAVBAR
+* ==========================================================
+*/
+
+nav.navbar {
+    .navbar-brand {
+        @include media-breakpoint-up(xl) {
+            .brand-sm {
+                display: none;
+            }
+            &.active {
+                .brand-sm {
+                    display: block;
+                }
+                .brand-big {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .brand-big {
+        @include media-breakpoint-down(xl) {
+            display: none;
+        }
+    }
+
+    // Animating dropdown menus
+    .dropdown-menu {
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+    .dropdown-menu.show {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+        transform: translateY(0px);
+        transition: 0.3s ease all;
+    }
+
+    a.nav-link {
+        position: relative;
+        .badge {
+            @include square(20px, null, #fff, center);
+            border-radius: 50%;
+            padding: 0;
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: -10px;
+        }
+    }
+
+    .menu-large {
+        position: static !important;
+    }
+}
+
+.search-panel {
+    display: none;
+}
+.search-inner {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba($bgDark, 0.95);
+    z-index: 9;
+
+    button {
+        @include media-breakpoint-up(lg) {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-bottom: 1px solid $input-border-color;
+        }
+        font-size: 1.5rem;
+    }
+
+    input {
+        border: none;
+        border-bottom: 1px solid $input-border-color;
+        &::placeholder {
+            @include media-breakpoint-up(lg) {
+                font-size: 1.4rem;
+            }
+        }
+        @include media-breakpoint-up(lg) {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    nav.navbar {
+        .badge {
+            width: 19px;
+            height: 19px;
+        }
+        .dropdown {
+            position: static;
+        }
+        .dropdown-menu {
+            width: 90vw;
+            right: 2.5vw;
+            left: 2.5vw;
+            margin: 0 auto;
+        }
+    }
+}
+
+.sidebar-toggle {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    border-radius: 50%;
+    background: darken($dark-shade-2, 2%);
+    border: 2px solid lighten($bgDark, 7%);
+    outline: none;
+    color: $body-color;
+    &.active {
+        transform: rotateY(180deg);
+        @include media-breakpoint-down(xl) {
+            transform: rotateY(0deg);
+        }
+    }
+    @include media-breakpoint-down(xl) {
+        transform: rotateY(180deg);
+    }
+}
+
+/*
+* ==========================================================
+*     SIDEBAR
+* ==========================================================
+*/
+
+nav#sidebar {
+    background: $dark-shade-2;
+    min-width: 280px;
+    max-width: 280px;
+    color: darken($body-color, 2%);
+    overflow: hidden;
+    border-right: 1px solid $dark-shade-1;
+
+    @include media-breakpoint-down(xl) {
+        margin-left: -90px;
+        min-width: 90px;
+        max-width: 90px;
+        text-align: center;
+    }
+
+    .avatar {
+        width: 45px;
+        height: 45px;
+    }
+
+    .sidebar-header {
+        .avatar {
+            width: 45px;
+            height: 45px;
+            @include media-breakpoint-down(xl) {
+                margin: 0 auto;
+            }
+        }
+        .title {
+            @include media-breakpoint-down(xl) {
+                display: none;
+            }
+        }
+    }
+
+    /*==== Shrinked Sidebar ====*/
+    &.shrinked {
+        min-width: 90px;
+        max-width: 90px;
+        text-align: center;
+
+        @include media-breakpoint-down(xl) {
+            margin-left: 0;
+        }
+
+        .sidebar-header {
+            .avatar {
+                margin: 0 auto;
+            }
+            .title {
+                display: none;
+            }
+        }
+
+        .svg-icon {
+            @include media-breakpoint-up(xl) {
+                margin-right: 0;
+
+                & + span {
+                    padding-left: 0;
+                    border-left: none;
+                }
+            }
+        }
+    }
+}
+
+.sidebar-item {
+    li a {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        padding-left: 50px;
+        background: $dark-shade-3;
+    }
+
+    &.active {
+        > .sidebar-link {
+            background: lighten($dark-shade-2, 2%);
+            border-left: 2px solid $primary;
+            color: $gray-500;
+            &:hover {
+                background: lighten($dark-shade-2, 2%);
+            }
+            .svg-icon {
+                color: $primary;
+            }
+        }
+        ul {
+            .sidebar-link {
+                border-left: 2px solid $primary;
+            }
+        }
+    }
+    /* submenu item active */
+    li.active > a.sidebar-link {
+        background: darken($dark-shade-2, 2%);
+        color: $gray-500;
+    }
+
+    .collapse {
+        background: $dark-shade-3;
+        li:not(.active) {
+            .sidebar-link {
+                &:hover {
+                    background: darken($dark-shade-2, 2%);
+                    color: $gray-500;
+                }
+            }
+        }
+    }
+}
+
+.sidebar-link {
+    color: inherit;
+    position: relative;
+    padding: 1.2rem 1.2rem;
+    text-decoration: none;
+    display: block;
+    border-left: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: darken($body-color, 5%);
+
+    @include media-breakpoint-down(xl) {
+        padding: 15px 2px;
+        border-left: none;
+        font-size: 0.8rem;
+        flex-direction: column;
+    }
+
+    .svg-icon {
+        @include media-breakpoint-up(xl) {
+            margin-right: 1rem;
+
+            & + span {
+                padding-left: 1rem;
+                border-left: 1px solid lighten($dark-shade-1, 4%);
+            }
+        }
+    }
+
+    &:hover {
+        background: lighten($dark-shade-2, 2%);
+        color: inherit;
+        .svg-icon {
+            color: $primary;
+        }
+    }
+
+    &[data-bs-toggle="collapse"] {
+        &::before {
+            content: "";
+            display: block;
+            width: 20px;
+            height: 20px;
+            transform: translateY(-50%);
+            background: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' aria-labelledby='title' aria-describedby='desc' role='img' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3Ctitle%3EAngle Left%3C/title%3E%3Cdesc%3EA line styled icon from Orion Icon Library.%3C/desc%3E%3Cpath data-name='layer1' fill='none' stroke='%23666' stroke-miterlimit='10' stroke-width='5' d='M39 20.006L25 32l14 12.006' stroke-linejoin='round' stroke-linecap='round'%3E%3C/path%3E%3C/svg%3E");
+            background-position: right center;
+            transform-origin: center center;
+            transition: all 0.3s;
+            @include position(absolute, $top: 50%, $right: 20px);
+
+            @include media-breakpoint-down(xl) {
+                transform: translateX(50%) rotate(90deg);
+                @include position(absolute, auto, 50%, 0, auto);
+            }
+        }
+    }
+    &[aria-expanded="true"],
+    &[aria-expanded="aria-expanded"] {
+        &::before {
+            transform: translateY(-50%) rotate(-90deg);
+            @include media-breakpoint-down(xl) {
+                transform: translateX(-50%) rotate(90deg);
+            }
+        }
+        &:hover {
+            background: lighten($dark-shade-2, 2%);
+        }
+    }
+    .badge {
+        vertical-align: middle;
+    }
+}
+
+#sidebar.shrinked {
+    .sidebar-item {
+        a.sidebar-link {
+            padding: 15px 2px;
+            font-size: 0.8rem;
+            flex-direction: column;
+
+            &[data-bs-toggle="collapse"] {
+                &::before {
+                    transform: translateX(50%) rotate(-90deg);
+                    @include position(absolute, auto, 50%, 0, auto);
+                }
+                &[aria-expanded="true"],
+                &[aria-expanded="aria-expanded"] {
+                    &::before {
+                        transform: translateX(50%) rotate(90deg);
+                    }
+                }
+            }
+            svg {
+                margin-right: 0 !important;
+                margin-bottom: 4px;
+            }
+        }
+    }
+}

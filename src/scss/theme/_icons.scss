@@ -1,0 +1,42 @@
+/*
+* ===================================================
+*    Custom Orion Icons
+* ===================================================
+*/
+
+.svg-icon {
+    width: 32px;
+    height: 32px;
+    vertical-align: text-bottom;
+    stroke: currentColor;
+    stroke-width: 3;
+    transform: translateY(-1px);
+    color: inherit;
+
+    --layer1: currentColor;
+    --layer2: currentColor;
+    --layer3: currentColor;
+
+    &.svg-icon-light {
+        stroke-width: 2;
+    }
+
+    &.svg-icon-heavy {
+        stroke-width: 4;
+    }
+}
+
+.svg-icon-big {
+    width: 64px;
+    height: 64px;
+}
+
+.svg-icon-sm {
+    width: 20px;
+    height: 20px;
+}
+
+.svg-icon-xs {
+    width: 18px;
+    height: 18px;
+}

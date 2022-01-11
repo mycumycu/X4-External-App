@@ -1,0 +1,35 @@
+/*
+* ==========================================================
+*     LOGIN PAGE
+* ==========================================================
+*/
+.login-page {
+    position: relative;
+
+    &::before {
+        content: "";
+        display: block;
+        z-index: -1;
+        background: url(../img/bg.jpg);
+        background-size: cover;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .container {
+        min-height: 100vh;
+        z-index: 999;
+    }
+
+    .info {
+        background: rgba($primary, 0.9);
+        color: #fff;
+        @include media-breakpoint-up(lg) {
+            min-height: 70vh;
+        }
+    }
+}
