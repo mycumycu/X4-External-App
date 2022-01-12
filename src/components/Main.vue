@@ -5,7 +5,7 @@
 
     <div class="page-content form-page">
       <!-- Breadcrumb-->
-      <breadcrumb v-if="!dataFetchError" />
+      <breadcrumb v-if="!dataFetchError"/>
 
       <section class="pt-0 pb-1">
         <div class="container-fluid">
@@ -15,7 +15,7 @@
           <div class="row gy-4" v-if="!dataFetchError">
             <!-- First column (player profile / active mission) -->
             <div :class="`order-${this.profile[0]}`" class="col-lg-3 app-column-1  d-flex flex-column">
-             <player-profile :player="player"/>
+              <player-profile :player="player"/>
               <active-mission :activeMission="activeMission" v-if="!dataFetchError"/>
             </div>
 
@@ -186,10 +186,12 @@ export default {
     /**
      */
     parseActiveMissionData(gameData) {
-      this.activeMission = {
-        name: gameData.activemissions[1].name,
-        description: gameData.activemissions[1].description,
-        reward: gameData.activemissions[1].rewardtext,
+      if (gameData.activemissions !== "") {
+        this.activeMission = {
+          name: gameData.activemissions[1].name,
+          description: gameData.activemissions[1].description,
+          reward: gameData.activemissions[1].rewardtext,
+        }
       }
     },
 
@@ -350,12 +352,13 @@ export default {
    *
    */
   mounted() {
+    let dataFetchInterval = 2000;
     this.profile = JSON.parse(localStorage.getItem("appProfile")) || []
 
     this.getData();
     setInterval(() => {
       this.getData();
-    }, 2000)
+    }, dataFetchInterval)
   },
 
 }
