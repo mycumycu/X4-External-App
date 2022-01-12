@@ -9,7 +9,7 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 654px);
+        max-height: calc(100vh - 655px);
       }
     }
 
@@ -32,7 +32,7 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 649px);
+        max-height: calc(100vh - 674px);
       }
     }
 
@@ -56,13 +56,13 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 691px);
+        max-height: calc(100vh - 717px);
       }
     }
 
     .ps-mission-offers {
       @media (min-width: 990px) {
-        height: calc(100vh - 450px);
+        height: calc(100vh - 407px);
       }
     }
 
@@ -74,7 +74,12 @@ html {
 
 
   }
+  @media (min-width: 990px) {
+    overflow: hidden;
+  }
 }
+
+
 
 p {
   line-height: 1.5;
