@@ -61,7 +61,7 @@ It's also possible to exclude missions having certain difficulty level or to exc
 * reputation gains
 * completed trades
 
-The user can choose from several predefined application layouts by switching column order and/or increase font size.   
+User can choose from several predefined application layouts by switching column order and/or increase font size.   
 Changes made are stored automatically.
 
 ![X4 External App UI elements](https://i.imgur.com/M4wPt2b.png)
@@ -89,7 +89,9 @@ In order to build executable of X4 External App server yourself:
    `cd x4_external_app`
 3. Install packages:  
    `npm install`
-4. Build exe with:  
+4. Create *.env.* file from existing *.env.example* file  
+   `copy .env.example .env`
+5. Build exe with:  
    `npm run package`
 
 Output executable will be created in `\dist` folder
