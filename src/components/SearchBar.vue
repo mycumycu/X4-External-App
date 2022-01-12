@@ -1,6 +1,6 @@
 <template>
   <div class="input-group">
-    <input class="form-control" type="text" placeholder="Message" @keyup='search' v-model="phrase"/>
+    <input class="form-control" type="text" placeholder="Start typing..." @keyup='search' v-model="phrase"/>
     <button class="btn btn-outline-secondary rounded-0 search-btn" type="button" @click="clear">
       <font-awesome-icon :icon="icon" />
     </button>
