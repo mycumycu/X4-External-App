@@ -122,6 +122,7 @@ export default {
       activeMission: {
         name: null,
         description: null,
+        rewardtext: null,
         reward: null,
       },
 
@@ -190,7 +191,8 @@ export default {
         this.activeMission = {
           name: gameData.activemissions[1].name,
           description: gameData.activemissions[1].description,
-          reward: gameData.activemissions[1].rewardtext,
+          reward: gameData.activemissions[1].reward,
+          rewardtext: gameData.activemissions[1].rewardtext,
         }
       }
     },
