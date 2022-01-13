@@ -7,7 +7,7 @@
           <div class="brand-text brand-sm"><strong class="text-primary">X4</strong><strong>APP</strong></div>
         </a>
         </div>
-
+        <div v-if="this.isPending">New version is out. <a href="https://github.com/mycumycu/X4-External-App/releases" target="_blank">Download it from github.</a></div>
         <ul class="list-inline mb-0">
           <!-- Profiles dropdown -->
           <li class="list-inline-item dropdown px-lg-2">
@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  props: ['isPending'],
   data() {
     return {
       htmlClassArray: [

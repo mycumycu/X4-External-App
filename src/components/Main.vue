@@ -2,7 +2,6 @@
 <template>
   <div class="d-flex align-items-stretch">
     <!-- Sidebar Navigation-->
-
     <div class="page-content form-page">
       <!-- Breadcrumb-->
       <breadcrumb v-if="!dataFetchError"/>
@@ -107,6 +106,9 @@ import Breadcrumb from "./Breadcrumb.vue";
 
 export default {
   components: { Breadcrumb, NoConnection, SearchBar, LogbookEntry, MissionOffers, ActiveMission, PlayerProfile },
+  emits: [
+    'updatePending'
+  ],
   props: [
     'appProfile'
   ],
@@ -161,6 +163,8 @@ export default {
         }).then(response => response.text())
             .then((response) => {
               let gameData = JSON.parse(response);
+              this.$emit('updatePending', gameData.updatePending)
+
               this.dataFetchError = false;
 
               this.parsePlayerProfileData(gameData)

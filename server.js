@@ -5,23 +5,48 @@ require('dotenv').config({ path: dotenvAbsolutePath });
 
 let express = require('express');
 let app = express();
-let serveStatic = require('serve-static');
 
 const hostname = process.env.APP_HOST || '127.0.0.1';
 const port = process.env.APP_PORT || 8080;
 
-let dataObject = {};
-let lastOutputMessage = null;
 
 class Server {
+    dataObject = {};
+    updatePending = false;
+    lastOutputMessage = null;
+
     constructor(app, hostname, port) {
         this.app = app;
         this.hostname = hostname;
         this.port = port;
     }
 
-    getVersion() {
+    /**
+     * Check if new release is out
+     */
+    checkVersion() {
+        const versionCheck = require('github-version-checker');
         const { version } = require('./package.json');
+
+        const options = {
+            token: '',
+            repo: 'X4-External-App',
+            owner: 'mycumycu',
+            currentVersion: version,
+        };
+
+        versionCheck(options, null).then((update) => {
+            if (update) { // update is null if there is no update available, so check here
+                console.log("An update is available! " + update.name);
+                console.log("You are on version " + options.currentVersion + "!");
+                this.updatePending = true;
+            } else {
+                console.log("You are up to date.");
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+
         this.outputMessage(`X4 External App Server v${version}`);
     }
 
@@ -29,6 +54,7 @@ class Server {
      *
      */
     serve() {
+        let serveStatic = require('serve-static');
         let portfinder = require('portfinder');
         portfinder.getPort({ port: this.port }, (err, port) => {
             this.app.use(serveStatic(__dirname + "/dist"));
@@ -60,10 +86,10 @@ class Server {
             stream.on('data', (d) => {
                 try {
                     let buffer = Buffer.from(d);
-                    dataObject = JSON.parse(buffer.toString());
+                    this.dataObject = JSON.parse(buffer.toString());
                     this.outputMessage('Correct data stream received.');
                 } catch (e) {
-                    dataObject = null;
+                    this.dataObject = null;
                     this.outputMessage('Invalid data stream format.');
                 }
 
@@ -74,13 +100,13 @@ class Server {
                 }
                 process.argv.push(d.toString())
             }).on('error', () => {
-                dataObject = null;
+                this.dataObject = null;
                 this.outputMessage('Disconnected from pipe. Retrying...')
                 this.readFromPipe();
 
             })
         } catch (e) {
-            dataObject = null;
+            this.dataObject = null;
             this.outputMessage('Pipe data stream not yet ready. Retrying... ');
             setTimeout(() => {
                 this.readFromPipe();
@@ -102,7 +128,7 @@ class Server {
                 }
 
                 data = data.replace(/\\/g, '')
-                dataObject = JSON.parse(data);
+                this.dataObject = JSON.parse(data);
                 console.log('Development mode - reading data from file successful');
             });
         })
@@ -113,7 +139,10 @@ class Server {
      */
     setApi() {
         this.app.get('/api/data', (req, res) => {
-            res.json(dataObject);
+            if (this.dataObject) {
+                this.dataObject.updatePending = this.updatePending;
+            }
+            res.json(this.dataObject);
         });
     }
 
@@ -122,16 +151,15 @@ class Server {
      * @param message
      */
     outputMessage(message) {
-        if (lastOutputMessage !== message) {
+        if (this.lastOutputMessage !== message) {
             console.log(message)
-            lastOutputMessage = message;
+            this.lastOutputMessage = message;
         }
     }
 }
 
-
 let server = new Server(app, hostname, port);
-server.getVersion();
+server.checkVersion();
 server.dataFeed();
 server.setApi();
 server.serve();

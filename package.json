@@ -1,7 +1,7 @@
 {
   "author": "Mycu",
   "name": "x4_external_app",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "bin": "server.js",
   "pkg": {
     "assets": [
@@ -26,6 +26,7 @@
     "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
+    "github-version-checker": "^2.2.0",
     "portfinder": "^1.0.28",
     "vue": "^3.2.25",
     "vue3-perfect-scrollbar": "^1.5.5"

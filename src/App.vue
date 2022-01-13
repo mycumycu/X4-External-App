@@ -7,7 +7,8 @@ import X4Header from './components/X4Header.vue'</script>
 export default {
   data() {
     return {
-      profile: 1
+      profile: 1,
+      isPending: false,
     }
   },
   methods: {
@@ -16,6 +17,12 @@ export default {
      */
     setProfile(profile) {
       this.profile = profile;
+    },
+    /**
+     * @param isPending
+     */
+    updatePending(isPending) {
+      this.isPending = isPending;
     }
   },
 }
@@ -23,9 +30,12 @@ export default {
 
 <template>
   <div>
-    <X4-header @setProfile="setProfile"></X4-header>
+    <X4-header
+        :isPending="isPending"
+        @setProfile="setProfile"/>
     <Main
         :appProfile="profile"
+        @updatePending="updatePending"
     />
   </div>
 </template>
