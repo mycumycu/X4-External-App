@@ -187,6 +187,7 @@ export default {
     /**
      */
     parseActiveMissionData(gameData) {
+      this.activeMission = {};
       if (gameData.activemissions !== "") {
         this.activeMission = {
           name: gameData.activemissions[1].name,
