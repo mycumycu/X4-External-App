@@ -4,11 +4,13 @@ const dotenvAbsolutePath = path.join(__dirname, '.env');
 require('dotenv').config({ path: dotenvAbsolutePath });
 
 let express = require('express');
+const portfinder = require("portfinder");
 let app = express();
 
 const hostname = process.env.APP_HOST || '127.0.0.1';
 const port = process.env.APP_PORT || 8080;
 
+const chalk = require('chalk');
 
 class Server {
     dataObject = {};
@@ -37,33 +39,39 @@ class Server {
 
         versionCheck(options, null).then((update) => {
             if (update) { // update is null if there is no update available, so check here
-                console.log("An update is available! " + update.name);
-                console.log("You are on version " + options.currentVersion + "!");
+                this.outputMessage("An update is available! " + update.name);
+                this.outputMessage("You are on version " + options.currentVersion + "!");
                 this.updatePending = true;
             } else {
-                console.log("You are up to date.");
+                this.outputMessage(chalk.green(`You are up to date.`));
             }
         }).catch(function (error) {
-            console.error(error);
+            console.error(chalk.red(`Couldn't connect to github server to check updates.`));
         });
 
-        this.outputMessage(`X4 External App Server v${version}`);
+        this.outputMessage(chalk.green(`X4 External App Server v${version}`));
     }
 
     /**
      *
      */
     serve() {
+
         let serveStatic = require('serve-static');
         let portfinder = require('portfinder');
-        portfinder.getPort({ port: this.port }, (err, port) => {
-            this.app.use(serveStatic(__dirname + "/dist"));
-            this.app.listen(port, this.hostname, () => {
-                require('child_process').exec(`start http://${this.hostname}:${port}`);
-                console.log(`Server running at http://${this.hostname}:${port}/`);
+        let localIpV4Address = require("local-ipv4-address");
+
+        localIpV4Address().then((ipAddress) => {
+            portfinder.getPort({ port: this.port }, (err, port) => {
+                this.app.use(serveStatic(__dirname + "/dist"));
+                this.app.listen(port, () => {
+                    require('child_process').exec(`start http://${this.hostname}:${port}`);
+                    this.outputMessage(`*****************************`);
+                    this.outputMessage(`** Server running at http://${this.hostname}:${port}/`);
+                    this.outputMessage(`** LAN access: http://${ipAddress}:${port}/`);
+                    this.outputMessage(`*****************************`);
+                });
             });
-
-
         });
     }
 
@@ -129,7 +137,7 @@ class Server {
 
                 data = data.replace(/\\/g, '')
                 this.dataObject = JSON.parse(data);
-                console.log('Development mode - reading data from file successful');
+                this.outputMessage(`${chalk.yellowBright('Development mode')} - reading data from file successful`);
             });
         })
     }

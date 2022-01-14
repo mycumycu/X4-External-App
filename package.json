@@ -23,10 +23,12 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
+    "chalk": "4.1.2",
     "chokidar": "^3.5.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "github-version-checker": "^2.2.0",
+    "local-ipv4-address": "^0.0.2",
     "portfinder": "^1.0.28",
     "vue": "^3.2.25",
     "vue3-perfect-scrollbar": "^1.5.5"

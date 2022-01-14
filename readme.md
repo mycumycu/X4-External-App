@@ -49,7 +49,7 @@ Don't close it during playing.
 *X4 External App* will serve application on a local port. If default port (8080) is busy - a new, free one will be found.  
 App will automatically open in default browser.
 
-If you want to access it from a local network - change `127.0.0.1` to local IP address of machine running X4, e.g. `http://192.168.1.120:8080`.
+If you want to access it from a local network - change `localhost` to local IP address of machine running X4, e.g. `http://192.168.1.120:8080`.
 
 ## Usage
 
