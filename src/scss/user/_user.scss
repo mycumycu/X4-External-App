@@ -4,6 +4,7 @@
 
 html {
   background-color: $bgDarker;
+
   &.font-size-1 {
     font-size: 16px;
 
@@ -74,15 +75,21 @@ html {
 
 
   }
+
   @media (min-width: 990px) {
     overflow: hidden;
   }
 }
 
 
-
 p {
   line-height: 1.5;
+}
+
+.header {
+  .font-size {
+    font-size: 1.2rem;
+  }
 }
 
 .page-content {
@@ -208,9 +215,13 @@ h1, h2, h3, h4, h5, h6, strong {
   display: inline-block;
 }
 
-.no-connection{
-  .info{
+.no-connection {
+  .info {
     display: block;
     color: #fff;
   }
+}
+
+.fa-icon {
+  width: 1.4em!important;
 }

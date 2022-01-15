@@ -11,7 +11,7 @@
         <ul class="list-inline mb-0">
           <!-- Profiles dropdown -->
           <li class="list-inline-item dropdown px-lg-2">
-            <a class="nav-link text-reset px-1 pe-3" href="#" title="change font size" @click="changeFontSize">
+            <a class="nav-link text-reset px-1 pe-3 font-size" href="#" title="change font size" @click="changeFontSize">
               <font-awesome-icon :icon="'font'"/>
             </a>
             <a class="nav-link text-reset px-1 px-lg-0 set-profile" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="switch profile">

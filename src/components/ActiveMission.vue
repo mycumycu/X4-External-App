@@ -11,7 +11,7 @@
               <div class="text-small mb-0" v-if="activeMission.reward || activeMission.rewardtext ">
                 <div class="mt-2"><strong>Reward</strong></div>
                 <div class="text-muted text-xs" v-if="activeMission.reward > 0">
-                  <font-awesome-icon :icon="'coins'"/>
+                  <font-awesome-icon :icon="'coins'" :class="`fa-icon`"/>
                   {{ activeMission.reward.toLocaleString() }} Cr
                 </div>
                 <div class="text-muted text-xs" v-if="activeMission.rewardtext" v-html="activeMission.rewardtext"></div>

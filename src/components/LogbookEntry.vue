@@ -9,11 +9,11 @@
         <div class="text-muted text-sm" v-html="entry.text"></div>
         <div class="mt-2">
           <div class="text-muted text-sm" v-if="entry.factionname">
-            <font-awesome-icon :icon="'user-friends'"/>
+            <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
             {{ entry.factionname }}
           </div>
           <div class="text-muted text-sm" v-if="entry.money >0">
-            <font-awesome-icon :icon="'coins'"/>
+            <font-awesome-icon :icon="'coins'" :class="`fa-icon`"/>
             {{ entry.money.toLocaleString() }} Cr
           </div>
         </div>
