@@ -136,7 +136,7 @@ export default {
      */
     logbookExcludedRules() {
       return this.logbook.settings.rules.filter((item => {
-        return item.type === 'excluded' && item.phrase !== '';
+        return item.type === 'excluded' && item.phrase !== '' && item.enabled;
       })).map(item => {
         return item.phrase.toLowerCase();
       });
@@ -147,7 +147,7 @@ export default {
      */
     logbookFeaturedRules() {
       return this.logbook.settings.rules.filter((item => {
-        return item.type === 'featured' && item.phrase !== '';
+        return item.type === 'featured' && item.phrase !== '' && item.enabled;
       })).map(item => {
         return item.phrase.toLowerCase();
       });
