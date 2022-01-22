@@ -1,8 +1,8 @@
 <template>
   <div class="accordion-item border-top-0 border-start-0 border-end-0">
     <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="`#${elementId}`" aria-expanded="true" aria-controls="collapseOne">
-        [{{ this.missionsCount() }}] {{ value.name }}
+      <button class="accordion-button align-items-start" type="button" data-bs-toggle="collapse" :data-bs-target="`#${elementId}`" aria-expanded="true" aria-controls="collapseOne">
+        <span class="badge bg-primary-outline me-2 text-capitalize">{{ group }}</span> [{{ this.missionsCount() }}] {{ value.name }}
       </button>
     </h2>
     <div :id="elementId" class="accordion-collapse collapse show" aria-labelledby="headingOne" :data-bs-parent="`#${elementId}`">

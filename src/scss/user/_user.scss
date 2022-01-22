@@ -1,3 +1,12 @@
+@import "modal";
+@import "logbook-settings";
+@import "mission-offers-settings";
+
+*:focus,
+*:active{
+  box-shadow: none!important;
+}
+
 :root {
   color-scheme: dark;
 }
@@ -10,13 +19,13 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 655px);
+        max-height: calc(100vh - 644px);
       }
     }
 
     .ps-mission-offers {
       @media (min-width: 990px) {
-        height: calc(100vh - 381px);
+        height: calc(100vh - 365px);
       }
     }
 
@@ -33,7 +42,7 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 674px);
+        max-height: calc(100vh - 681px);
       }
     }
 
@@ -45,7 +54,7 @@ html {
 
     .ps-logbook {
       @media (min-width: 990px) {
-        height: calc(100vh - 357px);
+        height: calc(100vh - 373px);
       }
     }
 
@@ -57,19 +66,19 @@ html {
 
     .ps-active-mission {
       @media (min-width: 990px) {
-        max-height: calc(100vh - 717px);
+        max-height: calc(100vh - 715px);
       }
     }
 
     .ps-mission-offers {
       @media (min-width: 990px) {
-        height: calc(100vh - 407px);
+        height: calc(100vh - 395px);
       }
     }
 
     .ps-logbook {
       @media (min-width: 990px) {
-        height: calc(100vh - 381px);
+        height: calc(100vh - 387px);
       }
     }
 
@@ -99,7 +108,7 @@ p {
 
 .accordion {
   .accordion-button {
-    padding: 0.4rem;
+    padding: 0.4rem 0.4rem 0.4rem 0 ;
 
     &:not(.collapsed) {
       background: none;
@@ -110,13 +119,76 @@ p {
       box-shadow: none;
     }
   }
+}
 
+.logbook {
+  .featured {
+    border-left: transparent 8px solid;
+    padding-left: 10px;
+
+    &.color-1 {
+      border-left-color: $logbookColor1;
+    }
+
+    &.color-2 {
+      border-left-color: $logbookColor2;
+    }
+
+    &.color-3 {
+      border-left-color: $logbookColor3;
+    }
+
+    &.color-4 {
+      border-left-color: $logbookColor4;
+    }
+
+    &.color-5 {
+      border-left-color: $logbookColor5;
+    }
+
+    &.color-6 {
+      border-left-color: $logbookColor6;
+    }
+
+    &.color-7 {
+      border-left-color: $logbookColor7;
+    }
+
+  }
 }
 
 .highlighted {
   color: $primary;
   -webkit-animation: blink 2s infinite both;
   animation: blink 2s infinite both;
+
+  &.color-1 {
+    color: $logbookColor1;
+  }
+
+  &.color-2 {
+    color: $logbookColor2;
+  }
+
+  &.color-3 {
+    color: $logbookColor3;
+  }
+
+  &.color-4 {
+    color: $logbookColor4;
+  }
+
+  &.color-5 {
+    color: $logbookColor5;
+  }
+
+  &.color-6 {
+    color: $logbookColor6;
+  }
+
+  &.color-7 {
+    color: $logbookColor7;
+  }
 }
 
 .btn:focus,
@@ -223,5 +295,33 @@ h1, h2, h3, h4, h5, h6, strong {
 }
 
 .fa-icon {
-  width: 1.4em!important;
+  width: 1.4em !important;
+}
+
+.toggle-on {
+  color: #000;
+  border-color: #666;
+  background: #ccc;
+}
+
+.toggle-off {
+  color: #ccc;
+  border-color: #666;
+  background: #666;
+}
+
+.bg-primary-outline{
+  background: none;
+  border: $primary 1px solid;
+  color: $primary;
+  font-weight: 100;
+}
+
+.svg-inline--fa{
+  &.cursor-pointer{
+    transition: opacity 0.3s;
+    &:hover{
+      opacity: 0.5;
+    }
+  }
 }

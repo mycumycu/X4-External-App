@@ -22,26 +22,39 @@
             <div :class="`order-${this.profile[1]}`" class="col-lg-4 app-column-2 ">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title pb-3">Mission Offers</h4>
+                  <div class="d-flex justify-content-between">
+                    <div><h4 class="card-title pb-3">Mission Offers</h4></div>
+                    <div>
+                      <font-awesome-icon :icon="`cogs`" class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#mission-offers-setings"/>
+                      <Modal id="mission-offers-setings" title="Mission offers settings" size="modal-md">
+                        <MissionOffersSettings :settings="missionOffers.settings"/>
+                      </Modal>
+                    </div>
+                  </div>
                   <search-bar @search="filterMissionOffers"/>
                 </div>
                 <div class="list-group">
                   <div class="list-group-item border-0 py-2 px-lg-4">
                     <div class="d-flex flex-column">
                       <div>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(1) }" @click="filterMissionDifficulty(1)">Trival</button>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(2) }" @click="filterMissionDifficulty(2)">Very Easy</button>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(3) }" @click="filterMissionDifficulty(3)">Easy</button>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(4) }" @click="filterMissionDifficulty(4)">Medium</button>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(5) }" @click="filterMissionDifficulty(5)">Hard</button>
-                        <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isDifficultyBtnActive(6) }" @click="filterMissionDifficulty(6)">Very Hard</button>
+
+                        <div class="overflow-hidden" style="height: 50px">
+                      <span v-if="!missionDifficultiesRules">
+                        <span class="badge bg-secondary">Adjust mission offers settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                      </span>
+                          <span class="rules-string d-inline" v-if="missionDifficultiesRules">
+                        <span class="badge bg-primary me-1">Difficulties</span>
+                          <span v-for="value in missionDifficultiesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                      </span>
+                        </div>
+
                       </div>
                       <div>
-                        <div class="accordion pt-4">
+                        <div class="accordion pt-2">
                           <perfect-scrollbar :class="'ps-mission-offers'">
                             <div v-for="(value, group) in missionOffers.filtered">
                               <div v-if="shouldShowMissionGroup(value)">
-                                <h4 class="text-capitalize">{{ group }}</h4>
+
                                 <mission-offers
                                     v-for="(value, name) in value"
                                     :group="group"
@@ -62,18 +75,32 @@
             <div :class="`order-${this.profile[2]}`" class="col-lg-5 app-column-3 ">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title pb-3">Logbook</h4>
+                  <div class="d-flex justify-content-between">
+                    <div><h4 class="card-title pb-3">Logbook</h4></div>
+                    <div>
+                      <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#logbook-setings"/>
+                      <Modal id="logbook-setings" title="Logbook settings" size="modal-lg">
+                        <LogbookSettings :settings="logbook.settings"/>
+                      </Modal>
+                    </div>
+                  </div>
+
                   <search-bar @search="filterLogbook"/>
                 </div>
                 <div class="list-group-item border-start-0 border-end-0 border-bottom-0 py-2 px-lg-4">
                   <div class="d-flex flex-column">
-                    <div class="">
-                      <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isLogbookBtnActive('police interdiction') }" @click="filterLogbookPhrases('police interdiction')">Police
-                        interdiction
-                      </button>
-                      <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isLogbookBtnActive('reputation gained') }" @click="filterLogbookPhrases('reputation gained')">Reputation gained
-                      </button>
-                      <button class="btn btn-sm btn-filter me-1 mb-1" type="submit" :class="{ active: isLogbookBtnActive('trade completed') }" @click="filterLogbookPhrases('trade completed')">Trade completed</button>
+                    <div class="overflow-hidden" style="height: 50px">
+                      <span v-if="logbookExcludedRules.length<=0 && logbookFeaturedRules.length<=0">
+                        <span class="badge bg-secondary">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                      </span>
+                      <span class="rules-string d-inline" v-if="logbookExcludedRules.length>0">
+                        <span class="badge bg-primary me-1">Excluded</span>
+                        <span v-for="value in logbookExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                      </span>
+                      <span class="rules-string d-inline" v-if="logbookFeaturedRules.length>0">
+                        <span class="badge bg-primary me-1">Featured</span>
+                        <span v-for="value in logbookFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                      </span>
                     </div>
                     <div class="logbook">
                       <perfect-scrollbar :class="'ps-logbook'">
@@ -103,9 +130,13 @@ import LogbookEntry from "./LogbookEntry.vue";
 import SearchBar from "./SearchBar.vue";
 import NoConnection from "./NoConnection.vue";
 import Breadcrumb from "./Breadcrumb.vue";
+import Modal from "./Modal.vue";
+import LogbookSettings from "./LogbookSettings.vue";
+import MissionOffersSettings from "./MissionOffersSettings.vue";
+import {reactive} from "vue";
 
 export default {
-  components: { Breadcrumb, NoConnection, SearchBar, LogbookEntry, MissionOffers, ActiveMission, PlayerProfile },
+  components: { MissionOffersSettings, LogbookSettings, Modal, Breadcrumb, NoConnection, SearchBar, LogbookEntry, MissionOffers, ActiveMission, PlayerProfile },
   emits: [
     'updatePending'
   ],
@@ -132,25 +163,113 @@ export default {
         list: [],
         filtered: [],
         searchPhrase: '',
-        allowedDifficulties: [1, 2, 3, 4, 5, 6],
+        settings: reactive(
+            JSON.parse(localStorage.getItem("missionOffersSettings")) ||
+            {
+              difficulties: [
+                {
+                  index: 1,
+                  name: 'trivial',
+                  enabled: true
+                },
+                {
+                  index: 2,
+                  name: 'very easy',
+                  enabled: true
+                },
+                {
+                  index: 3,
+                  name: 'easy',
+                  enabled: true
+                },
+                {
+                  index: 4,
+                  name: 'medium',
+                  enabled: true
+                },
+                {
+                  index: 5,
+                  name: 'hard',
+                  enabled: true
+                },
+                {
+                  index: 6,
+                  name: 'very hard',
+                  enabled: true
+                },
+              ]
+            }
+        ),
       },
 
       logbook: {
         list: [],
         filtered: [],
         searchPhrase: '',
-        disallowedPhrases: [],
+        settings: reactive(
+            JSON.parse(localStorage.getItem("logbookSettings")) || {
+              rules: []
+            }
+        ),
       },
 
       profile: [3, 2, 1],
       dataFetchError: false,
     }
   },
+  computed: {
+    /**
+     * @return {*}
+     */
+    logbookExcludedRules() {
+      return this.logbook.settings.rules.filter((item => {
+        return item.type === 'excluded' && item.phrase !== '';
+      })).map(item => {
+        return item.phrase.toLowerCase();
+      });
+    },
+
+    /**
+     * @return {*}
+     */
+    logbookFeaturedRules() {
+      return this.logbook.settings.rules.filter((item => {
+        return item.type === 'featured' && item.phrase !== '';
+      })).map(item => {
+        return item.phrase.toLowerCase();
+      });
+    },
+    /**
+     * @return {*}
+     */
+    missionDifficultiesRules() {
+      return this.missionOffers.settings.difficulties.filter((item => {
+        return item.enabled;
+      })).map(item => {
+        return item.name.toLowerCase();
+      });
+    },
+  },
+  /**
+   */
   watch: {
     appProfile(newValue, oldValue) {
       localStorage.setItem("appProfile", JSON.stringify(newValue));
       this.profile = newValue;
-    }
+    },
+    'logbook.settings': {
+      handler(newList, oldList) {
+        this.filterLogbook(this.logbook.searchPhrase)
+      },
+      deep: true
+    },
+    'missionOffers.settings': {
+      handler(newList, oldList) {
+        this.filterMissionOffers(this.missionOffers.searchPhrase)
+      },
+      deep: true
+    },
+
   },
   methods: {
     /**
@@ -173,6 +292,9 @@ export default {
               this.parseLogbookData(gameData)
             })
       } catch (e) {
+        if (process.env.NODE_ENV || 'development') {
+          console.log(e)
+        }
         this.dataFetchError = true;
       }
     },
@@ -256,7 +378,9 @@ export default {
             if (
                 !mission ||
                 (!name.includes(this.missionOffers.searchPhrase) && !rewardtext.includes(this.missionOffers.searchPhrase)) ||
-                !this.missionOffers.allowedDifficulties.includes(mission.difficulty)
+                this.missionOffers.settings.difficulties.some(element => {
+                  return !element.enabled && element.index === mission.difficulty
+                })
             ) {
               delete this.missionOffers.filtered[key][missionTypeKey].missions[missionGroupKey];
             }
@@ -304,53 +428,42 @@ export default {
         let title = value.title.toLowerCase();
         let text = value.text.toLowerCase();
         let faction = value.factionname.toLowerCase();
+
+        value.rules = null;
+        // apply rules
+        this.logbook.settings.rules.some(element => {
+          let elementPhrase = element.phrase.toLowerCase();
+          if (
+              element.enabled &&
+              elementPhrase !== '' && (
+                  title.includes(elementPhrase) ||
+                  !element.params.titleonly &&
+                  (
+                      text.includes(elementPhrase) ||
+                      faction.includes(elementPhrase)
+                  )
+              )
+          ) {
+            value.rules = element;
+            return true;
+          }
+        });
+
         if (
             value &&
             (
                 (title.includes(this.logbook.searchPhrase) || text.includes(this.logbook.searchPhrase) || faction.includes(this.logbook.searchPhrase)) &&
-                !this.logbook.disallowedPhrases.some(substring => {
-                  return title.includes(substring) ||
-                      title.includes(substring) ||
-                      title.includes(substring)
-                })
+                (
+                    !value.rules ||
+                    value.rules.type !== 'excluded'
+                )
             )
         ) {
+
           filtered.push(value)
         }
       }
       this.logbook.filtered = filtered;
-    },
-
-    /**
-     * @param difficulty
-     */
-    filterMissionDifficulty(difficulty) {
-      this.isDifficultyBtnActive(difficulty) ? this.missionOffers.allowedDifficulties = this.missionOffers.allowedDifficulties.filter(e => e !== difficulty) : this.missionOffers.allowedDifficulties.push(difficulty);
-      this.filterMissionOffers(this.missionOffers.searchPhrase)
-    },
-
-    /**
-     * @param difficulty
-     * @return {boolean}
-     */
-    isDifficultyBtnActive(difficulty) {
-      return this.missionOffers.allowedDifficulties.includes(difficulty)
-    },
-
-    /**
-     * @param excludedPhrase
-     */
-    filterLogbookPhrases(excludedPhrase) {
-      !this.isLogbookBtnActive(excludedPhrase) ? this.logbook.disallowedPhrases = this.logbook.disallowedPhrases.filter(e => e !== excludedPhrase) : this.logbook.disallowedPhrases.push(excludedPhrase);
-      this.filterLogbook(this.logbook.searchPhrase)
-    },
-
-    /**
-     * @return {boolean}
-     * @param {string} excludedPhrase
-     */
-    isLogbookBtnActive(excludedPhrase) {
-      return !this.logbook.disallowedPhrases.includes(excludedPhrase)
     },
 
   },

@@ -12,10 +12,10 @@
           <!-- Profiles dropdown -->
           <li class="list-inline-item dropdown px-lg-2">
             <a class="nav-link text-reset px-1 pe-3 font-size" href="#" title="change font size" @click="changeFontSize">
-              <font-awesome-icon :icon="'font'"/>
+              <font-awesome-icon class="cursor-pointer" :icon="'font'"/>
             </a>
             <a class="nav-link text-reset px-1 px-lg-0 set-profile" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="switch profile">
-              <font-awesome-icon :icon="'th-large'"/>
+              <font-awesome-icon class="cursor-pointer" :icon="'th-large'"/>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
               <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setProfile([1,2,3])">
