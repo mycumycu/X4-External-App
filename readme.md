@@ -2,7 +2,7 @@
 
 External app for X4 Foundations game.
 
-![X4 External App main screen](https://i.imgur.com/NmMiR8Z.png)
+![X4 External App main screen](https://i.imgur.com/d2tnx9s.png)
 
 Shows real time logbook entries, mission offers, currently active mission details and player information.  
 Application is served on a local port, so it can be run locally or on multiple network devices at once.  
@@ -54,14 +54,38 @@ Application will detect and output the exact network address in console window.
 
 ## Usage
 
-![X4 External App UI elements](https://i.imgur.com/T2egYAs.png)
+#### Logbook
 
-App UI supports unrestricted filtering mission offers or latest logbook entries.  
-It's also possible to exclude missions having certain difficulty level or to exclude certain types of log entries, such as:
-* police interdictions
-* reputation gains
-* completed trades
+![X4 External App UI elements](https://i.imgur.com/gopHNqi.png)
 
+App UI supports unrestricted filtering the latest logbook entries.  
+
+You can also define phrases that should be excluded or feartured in logbook panel.
+To define such phrases, click on clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png) - setting window will open.  
+
+![X4 External App UI elements](https://i.imgur.com/Z9nw0Xa.png)
+
+Possible settings for each rule include:
+
+* on/off toggle - defines if certain rule is enabled
+* phrase - phrase to look for. All phrases are case-insensitive.
+* type - excluded means that an entry containing such a phrase will not be displayed, while highlighted means that it will be marked with a color.
+* blink - makes entry's title blinking
+* title only - when disabled, search will consider also message text and a faction name
+
+Important logbook messages (e.g. property under attack or being destroyed) will automatically blink catching attention.  
+All changes are stored automatically.  
+  
+#### Mission offers
+Mission offers can be filtered similarly to logbook entries.
+Also, you can define which mission difficulties should be displayed.
+To do so - just click on clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png)   
+Setting window will open.  
+
+![X4 External App UI elements](https://i.imgur.com/SgwMzcN.png)
+
+
+#### Application profiles
 User can choose from several predefined application layouts by switching column order and/or increase font size.   
 Changes made are stored automatically.
 
@@ -70,7 +94,7 @@ Changes made are stored automatically.
 Application will automatically adjust the height of the mission and logbook containers to fit the viewport height.  
 Layout is responsive, so it should look good on any device.
 
-Important logbook messages (e.g. property under attack or being destroyed) will blink catching attention.
+
 
 ## How it works
 
