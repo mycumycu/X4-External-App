@@ -21,10 +21,38 @@
 <script>
 export default {
   props: [
-    'player',
+    'gameData',
   ],
   data() {
-    return {}
+    return {
+      player: {
+        name: null,
+        faction: null,
+        sector: null,
+        credit: null,
+      },
+    }
+  },
+  /**
+   */
+  watch: {
+    'gameData': {
+      handler(newData, oldData) {
+        this.parsePlayerProfileData(newData)
+      },
+    },
+  },
+  methods: {
+    /**
+     */
+    parsePlayerProfileData(gameData) {
+      this.player = {
+        name: gameData.name,
+        faction: gameData.factionname,
+        sector: gameData.playersector,
+        credits: gameData.credits.toLocaleString() + ' Cr',
+      }
+    },
   },
 }
 </script>

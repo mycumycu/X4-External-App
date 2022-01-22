@@ -7,22 +7,22 @@ import X4Header from './components/X4Header.vue'</script>
 export default {
   data() {
     return {
-      profile: 1,
-      isPending: false,
+      appViewProfile: [1,2,3],
+      isPendingUpdate: false,
     }
   },
   methods: {
     /**
      * @param profile
      */
-    setProfile(profile) {
-      this.profile = profile;
+    setAppViewProfile(profile) {
+      this.appViewProfile = profile;
     },
     /**
      * @param isPending
      */
     updatePending(isPending) {
-      this.isPending = isPending;
+      this.isPendingUpdate = isPending;
     }
   },
 }
@@ -31,10 +31,10 @@ export default {
 <template>
   <div>
     <X4-header
-        :isPending="isPending"
-        @setProfile="setProfile"/>
+        :is-pending-update="isPendingUpdate"
+        @setAppViewProfile="setAppViewProfile"/>
     <Main
-        :appProfile="profile"
+        :app-profile="appViewProfile"
         @updatePending="updatePending"
     />
   </div>

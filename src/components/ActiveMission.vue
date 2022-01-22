@@ -28,10 +28,39 @@
 <script>
 export default {
   props: [
-    'activeMission',
+    'gameData',
   ],
   data() {
-    return {}
+    return {
+      activeMission: {
+        name: null,
+        description: null,
+        rewardtext: null,
+        reward: null,
+      },
+    }
+  },
+  /**
+   */
+  watch: {
+    'gameData': {
+      handler(newData, oldData) {
+        this.parseActiveMissionData(newData)
+      },
+    },
+  },
+  methods: {
+    parseActiveMissionData(gameData) {
+      this.activeMission = {};
+      if (gameData !== "") {
+        this.activeMission = {
+          name: gameData[1].name,
+          description: gameData[1].description,
+          reward: gameData[1].reward,
+          rewardtext: gameData[1].rewardtext,
+        }
+      }
+    },
   },
 }
 </script>

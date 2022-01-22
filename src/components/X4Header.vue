@@ -7,7 +7,7 @@
           <div class="brand-text brand-sm"><strong class="text-primary">X4</strong><strong>APP</strong></div>
         </a>
         </div>
-        <div v-if="this.isPending">New version is out. <a href="https://github.com/mycumycu/X4-External-App/releases" target="_blank">Download it from github.</a></div>
+        <div v-if="this.isPendingUpdate">New version is out. <a href="https://github.com/mycumycu/X4-External-App/releases" target="_blank">Download it from github.</a></div>
         <ul class="list-inline mb-0">
           <!-- Profiles dropdown -->
           <li class="list-inline-item dropdown px-lg-2">
@@ -18,13 +18,13 @@
               <font-awesome-icon class="cursor-pointer" :icon="'th-large'"/>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setProfile([1,2,3])">
+              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([1,2,3])">
                 <div class="ms-3"><strong class="d-block">Set profile #1</strong><span class="d-block text-xs">User profile / Mission offers / Logbook</span></div>
               </a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setProfile([3,2,1])">
+              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([3,2,1])">
                 <div class="ms-3"><strong class="d-block">Set profile #2</strong><span class="d-block text-xs">Logbook / Mission offers / User profile</span></div>
               </a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setProfile([2,1,3])">
+              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([2,1,3])">
                 <div class="ms-3"><strong class="d-block">Set profile #3</strong><span class="d-block text-xs">Mission offers / User profile / Logbook</span></div>
               </a></li>
             </ul>
@@ -37,7 +37,8 @@
 
 <script>
 export default {
-  props: ['isPending'],
+  props: ['isPendingUpdate'],
+  emits: ['setAppViewProfile'],
   data() {
     return {
       htmlClassArray: [
@@ -52,8 +53,8 @@ export default {
     /**
      * @param profile
      */
-    setProfile(profile) {
-      this.$emit('setProfile', profile)
+    setAppViewProfile(profile) {
+      this.$emit('setAppViewProfile', profile)
     },
     /**
      *
