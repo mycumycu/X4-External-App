@@ -6,16 +6,8 @@
           <h4 class="mb-4">Active mission</h4>
           <perfect-scrollbar :class="'ps-active-mission'">
             <div v-if="activeMission.name">
-              <h5 class="text-muted mb-2">{{ activeMission.name }}</h5>
-              <p class="text-small mb-0" v-html="activeMission.description"></p>
-              <div class="text-small mb-0" v-if="activeMission.reward || activeMission.rewardtext ">
-                <div class="mt-2"><strong>Reward</strong></div>
-                <div class="text-muted text-xs" v-if="activeMission.reward > 0">
-                  <font-awesome-icon :icon="'coins'" :class="`fa-icon`"/>
-                  {{ activeMission.reward.toLocaleString() }} Cr
-                </div>
-                <div class="text-muted text-xs" v-if="activeMission.rewardtext" v-html="activeMission.rewardtext"></div>
-              </div>
+              <active-mission-entry :mission="activeMission"/>
+              <active-mission-entry :mission="activeSubMission" v-if="activeSubMission.name" class="mt-4"/>
             </div>
             <div v-else>none</div>
           </perfect-scrollbar>
@@ -26,13 +18,23 @@
 </template>
 
 <script>
+import ActiveMissionEntry from "./ActiveMissionEntry.vue";
+
 export default {
+  components: { ActiveMissionEntry },
   props: [
     'gameData',
   ],
   data() {
     return {
       activeMission: {
+        name: null,
+        description: null,
+        rewardtext: null,
+        reward: null,
+        subMissions: {}
+      },
+      activeSubMission: {
         name: null,
         description: null,
         rewardtext: null,
@@ -52,12 +54,26 @@ export default {
   methods: {
     parseActiveMissionData(gameData) {
       this.activeMission = {};
+      this.activeSubMission = {};
+
       if (gameData !== "") {
+        let activeMission = gameData[1];
+
         this.activeMission = {
-          name: gameData[1].name,
-          description: gameData[1].description,
-          reward: gameData[1].reward,
-          rewardtext: gameData[1].rewardtext,
+          name: activeMission.name,
+          description: activeMission.description,
+          reward: activeMission.reward,
+          rewardtext: activeMission.rewardtext,
+        }
+
+        let subMission = activeMission.subMissions[1] || null;
+        if (activeMission.subMissions && subMission.active) {
+          this.activeSubMission = {
+            name: subMission.name,
+            description: subMission.description,
+            reward: subMission.reward,
+            rewardtext: subMission.rewardtext,
+          }
         }
       }
     },
