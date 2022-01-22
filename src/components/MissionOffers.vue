@@ -18,10 +18,10 @@
           <div>
 
             <div class="overflow-hidden" style="height: 50px">
-                      <span v-if="!missionDifficultiesRules">
+                      <span v-if="missionDifficultiesRules.length <=0">
                         <span class="badge bg-secondary">Adjust mission offers settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
                       </span>
-              <span class="rules-string d-inline" v-if="missionDifficultiesRules">
+              <span class="rules-string d-inline" v-if="missionDifficultiesRules.length > 0 ">
                         <span class="badge bg-primary me-1">Difficulties</span>
                           <span v-for="value in missionDifficultiesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                       </span>
