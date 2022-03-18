@@ -16,6 +16,7 @@ class Server {
     dataObject = {};
     updatePending = false;
     lastOutputMessage = null;
+    invalidDataStreamTimeout = null;
 
     constructor(app, hostname, port) {
         this.app = app;
@@ -96,9 +97,10 @@ class Server {
                     let buffer = Buffer.from(d);
                     this.dataObject = JSON.parse(buffer.toString());
                     this.outputMessage('Correct data stream received.');
+                    this.endInvalidStreamTimer();
                 } catch (e) {
-                    this.dataObject = null;
                     this.outputMessage('Invalid data stream format.');
+                    this.startInvalidStreamTimer()
                 }
 
                 if (d.toString().trim() === '[stdin end]') {
@@ -135,9 +137,15 @@ class Server {
                     return
                 }
 
-                data = data.replace(/\\/g, '')
-                this.dataObject = JSON.parse(data);
-                this.outputMessage(`${chalk.yellowBright('Development mode')} - reading data from file successful`);
+                try {
+                    data = data.replace(/\\/g, '')
+                    this.dataObject = JSON.parse(data);
+                    this.outputMessage(`${chalk.yellowBright('Development mode')} - reading data from file successful`);
+                    this.endInvalidStreamTimer();
+                } catch (e) {
+                    this.outputMessage('Invalid data stream format.');
+                    this.startInvalidStreamTimer()
+                }
             });
         })
     }
@@ -164,6 +172,26 @@ class Server {
             this.lastOutputMessage = message;
         }
     }
+
+    /**
+     * Show "there's no water" message if there's incorrect data for long enough
+     */
+    startInvalidStreamTimer() {
+        if (!this.invalidDataStreamTimeout) {
+            this.invalidDataStreamTimeout = setTimeout(() => {
+                this.dataObject = null;
+            }, 10000)
+        }
+    }
+
+    /**
+     *
+     */
+    endInvalidStreamTimer() {
+        clearTimeout(this.invalidDataStreamTimeout);
+        this.invalidDataStreamTimeout = null;
+    }
+
 }
 
 let server = new Server(app, hostname, port);
