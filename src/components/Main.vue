@@ -13,18 +13,18 @@
 
           <div class="row gy-4" v-if="!dataFetchError">
             <!-- First column (player profile / active mission) -->
-            <div :class="`order-${this.appViewProfile[0]}`" class="col-lg-3 app-column-1  d-flex flex-column">
+            <div :class="`order-${this.appViewProfile[0]}`" class="col-lg-3 app-column-1 d-flex flex-column">
               <player-profile :gameData="gameData.player"/>
               <active-mission :gameData="gameData.activeMissions"/>
             </div>
 
             <!-- Second column (mission offers) -->
-            <div :class="`order-${this.appViewProfile[1]}`" class="col-lg-4 app-column-2 ">
+            <div :class="`order-${this.appViewProfile[1]}`" class="col-lg-4 col-md-6 app-column-2 ">
               <mission-offers :gameData="gameData.missionOffers"/>
             </div>
 
             <!-- Third column (logbook) -->
-            <div :class="`order-${this.appViewProfile[2]}`" class="col-lg-5 app-column-3 ">
+            <div :class="`order-${this.appViewProfile[2]}`" class="col-lg-5 col-md-6 app-column-3 ">
               <logbook :gameData="gameData.logbook"/>
             </div>
           </div>
