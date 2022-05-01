@@ -29,17 +29,18 @@ export default {
 </script>
 
 <template>
-  <div>
-    <X4-header
-        :is-pending-update="isPendingUpdate"
-        @setAppViewProfile="setAppViewProfile"/>
-    <Main
-        :app-profile="appViewProfile"
-        @updatePending="updatePending"
-    />
-  </div>
+  <X4-header
+      :is-pending-update="isPendingUpdate"
+      @setAppViewProfile="setAppViewProfile"/>
+  <Main
+      :app-profile="appViewProfile"
+      @updatePending="updatePending"
+  />
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Muli:300,400,700');
+#app{
+
+}
 </style>

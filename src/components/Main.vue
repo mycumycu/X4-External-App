@@ -4,29 +4,26 @@
     <!-- Sidebar Navigation-->
     <div class="page-content form-page">
       <!-- Breadcrumb-->
-      <breadcrumb v-if="!dataFetchError"/>
+      <breadcrumb v-if="!dataFetchError && this.layout.showBreadcrumb"/>
 
-      <section class="pt-0 pb-1">
+      <section class="pt-4 pb-1">
         <div class="container-fluid">
 
           <no-connection v-if="dataFetchError"/>
 
           <div class="row gy-4" v-if="!dataFetchError">
-            <!-- First column (player profile / active mission) -->
-            <div :class="`order-${this.appViewProfile[0]}`" class="col-lg-3 app-column-1  d-flex flex-column">
-              <player-profile :gameData="gameData.player"/>
-              <active-mission :gameData="gameData.activeMissions"/>
-            </div>
-
-            <!-- Second column (mission offers) -->
-            <div :class="`order-${this.appViewProfile[1]}`" class="col-lg-4 app-column-2 ">
-              <mission-offers :gameData="gameData.missionOffers"/>
-            </div>
-
-            <!-- Third column (logbook) -->
-            <div :class="`order-${this.appViewProfile[2]}`" class="col-lg-5 app-column-3 ">
-              <logbook :gameData="gameData.logbook"/>
-            </div>
+            <template v-for="(column, columnIndex) in layout.columns">
+              <div :class="`app-column-${columnIndex} col-${column.width} mt-0`" class="d-flex flex-column">
+                <div v-for="(widget, index) in column.widgets">
+                  <component
+                      ref="widgets"
+                      :is="widget.componentName"
+                      :gameData="this.gameData[widget.gameDataKey]"
+                      :maxHeight="widget.maxHeight"
+                  />
+                </div>
+              </div>
+            </template>
           </div>
         </div>
       </section>
@@ -36,13 +33,15 @@
 
 <script>
 
-import PlayerProfile from './PlayerProfile.vue'
-import ActiveMission from "./ActiveMission.vue";
-import MissionOffers from "./MissionOffers.vue";
-import Logbook from "./Logbook.vue";
+import PlayerProfile from '../widgets/player_profile/PlayerProfile.vue'
+import ActiveMission from "../widgets/active_mission/ActiveMission.vue";
+import MissionOffers from "../widgets/mission_offers/MissionOffers.vue";
+import Logbook from "../widgets/logbook/Logbook.vue";
 import SearchBar from "./SearchBar.vue";
 import NoConnection from "./NoConnection.vue";
 import Breadcrumb from "./Breadcrumb.vue";
+import WidgetHeightWorker from "../widgetHeightWorker";
+import GlobalStore from "../globalStore";
 
 export default {
   components: { Logbook, Breadcrumb, NoConnection, SearchBar, MissionOffers, ActiveMission, PlayerProfile },
@@ -54,29 +53,35 @@ export default {
   ],
   data() {
     return {
-
-      gameData: {
-        player: null,
-        activeMissions: null,
-        missionOffers: null,
-        logbook: null,
-      },
+      gameData: {},
 
       appViewProfile: [],
       dataFetchError: false,
     }
   },
+  /**
+   *
+   */
   computed: {
-    //
+    layout() {
+      return GlobalStore.state.layout
+    }
   },
   /**
    */
   watch: {
-    'appProfile': {
+    appProfile: {
       handler(newValue, oldValue) {
         localStorage.setItem("appProfile", JSON.stringify(newValue));
         this.appViewProfile = newValue;
       },
+    },
+    layout: {
+      handler(newValue, oldValue) {
+        this.layout = newValue;
+        this.resizeWidgets();
+      },
+      deep: true,
     },
   },
   methods: {
@@ -92,11 +97,10 @@ export default {
               let gameData = JSON.parse(response);
               if (gameData) {
                 this.gameData = gameData;
-                this.$emit('updatePending', gameData.updatePending)
+                this.$emit('updatePending', gameData.updatePending);
 
                 this.dataFetchError = false;
-              }
-              else this.dataFetchError = true;
+              } else this.dataFetchError = true;
             })
       } catch (e) {
         if (process.env.NODE_ENV || 'development') {
@@ -105,12 +109,27 @@ export default {
         this.dataFetchError = true;
       }
     },
+
+    /**
+     *
+     */
+    async resizeWidgets() {
+      if (this.layout.limitHeight && this.$refs.widgets) {
+        for await (const widget of this.$refs.widgets) {
+          const heightWorker = new WidgetHeightWorker();
+          heightWorker.run(this.$refs, widget);
+        }
+      }
+    }
   },
 
   /**
    *
    */
   mounted() {
+    this.emitter.on('resizeWidgets', this.resizeWidgets )
+    this.resizeWidgets();
+
     let dataFetchInterval = 2000;
     this.appViewProfile = JSON.parse(localStorage.getItem("appProfile")) || []
 
@@ -118,6 +137,7 @@ export default {
     setInterval(() => {
       this.getData();
     }, dataFetchInterval)
+
   },
 
 }

@@ -16,77 +16,18 @@ html {
 
   &.font-size-1 {
     font-size: 16px;
-
-    .ps-active-mission {
-      @media (min-width: 990px) {
-        max-height: calc(100vh - 644px);
-      }
-    }
-
-    .ps-mission-offers {
-      @media (min-width: 990px) {
-        height: calc(100vh - 365px);
-      }
-    }
-
-    .ps-logbook {
-      @media (min-width: 990px) {
-        height: calc(100vh - 358px);
-      }
-    }
-
   }
 
   &.font-size-2 {
     font-size: 17px;
-
-    .ps-active-mission {
-      @media (min-width: 990px) {
-        max-height: calc(100vh - 681px);
-      }
-    }
-
-    .ps-mission-offers {
-      @media (min-width: 990px) {
-        height: calc(100vh - 381px);
-      }
-    }
-
-    .ps-logbook {
-      @media (min-width: 990px) {
-        height: calc(100vh - 373px);
-      }
-    }
-
-
   }
 
   &.font-size-3 {
     font-size: 18px;
-
-    .ps-active-mission {
-      @media (min-width: 990px) {
-        max-height: calc(100vh - 715px);
-      }
-    }
-
-    .ps-mission-offers {
-      @media (min-width: 990px) {
-        height: calc(100vh - 395px);
-      }
-    }
-
-    .ps-logbook {
-      @media (min-width: 990px) {
-        height: calc(100vh - 387px);
-      }
-    }
-
-
   }
 
   @media (min-width: 990px) {
-    overflow: hidden;
+    //overflow: hidden;
   }
 }
 

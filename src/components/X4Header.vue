@@ -14,31 +14,30 @@
             <a class="nav-link text-reset px-1 pe-3 font-size" href="#" title="change font size" @click="changeFontSize">
               <font-awesome-icon class="cursor-pointer" :icon="'font'"/>
             </a>
-            <a class="nav-link text-reset px-1 px-lg-0 set-profile" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="switch profile">
+            <a class="nav-link text-reset px-1 px-lg-0 set-profile" href="#" data-bs-toggle="modal" data-bs-target="#layout-setings" aria-haspopup="true" aria-expanded="false" title="change layout">
               <font-awesome-icon class="cursor-pointer" :icon="'th-large'"/>
             </a>
-            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([1,2,3])">
-                <div class="ms-3"><strong class="d-block">Set profile #1</strong><span class="d-block text-xs">User profile / Mission offers / Logbook</span></div>
-              </a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([3,2,1])">
-                <div class="ms-3"><strong class="d-block">Set profile #2</strong><span class="d-block text-xs">Logbook / Mission offers / User profile</span></div>
-              </a></li>
-              <li><a class="dropdown-item d-flex align-items-center" href="#" @click="setAppViewProfile([2,1,3])">
-                <div class="ms-3"><strong class="d-block">Set profile #3</strong><span class="d-block text-xs">Mission offers / User profile / Logbook</span></div>
-              </a></li>
-            </ul>
           </li>
         </ul>
       </div>
     </nav>
   </header>
+  <Modal id="layout-setings" title="Layout settings" size="modal-xl">
+    <LayoutSettings />
+  </Modal>
 </template>
 
 <script>
+import Modal from "../components/Modal.vue";
+import LayoutSettings from "./LayoutSettings.vue";
+
 export default {
+  components: {
+    LayoutSettings,
+    Modal
+  },
   props: ['isPendingUpdate'],
-  emits: ['setAppViewProfile'],
+  emits: ['setAppViewProfile','resizeWidgets'],
   data() {
     return {
       htmlClassArray: [
@@ -59,9 +58,10 @@ export default {
     /**
      *
      */
-    changeFontSize() {
+    async changeFontSize() {
       this.htmlClassIndex = this.htmlClassIndex < this.htmlClassArray.length - 1 ? this.htmlClassIndex + 1 : 0;
       this.setFontSize();
+      this.emitter.emit('resizeWidgets')
     },
 
     /**

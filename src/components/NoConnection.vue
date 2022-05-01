@@ -13,7 +13,7 @@
               <div class="mb-2">
                 There's no water in the pipe...
               </div>
-              <small class="pt-2 info">Check if SirNuke's Python Pipe Server and X4 External App are both running.<br/>Game save should also be loaded.</small>
+              <small class="pt-2 info">Check if SirNuke's Python Pipe Server and X4 External App are both running.<br/>Game save should also be loaded and unpaused.</small>
             </div>
           </div>
         </div>

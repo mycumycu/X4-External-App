@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid py-2">
+  <div class="container-fluid pt-2 pb-0">
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 py-3 px-0">
+      <ol class="breadcrumb mb-0 pt-3 px-0">
         <li class="breadcrumb-item"><a href="index.html">X4</a></li>
         <li class="breadcrumb-item active" aria-current="page">home</li>
       </ol>
@@ -12,6 +12,9 @@
 <script>
 export default {
   props: [],
+  /**
+   * @returns {{}}
+   */
   data() {
     return {}
   },

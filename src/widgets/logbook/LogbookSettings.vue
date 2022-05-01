@@ -71,7 +71,7 @@
 
 <script>
 import Toggle from '@vueform/toggle'
-import ColorPalette from "./ColorPalette.vue";
+import ColorPalette from "../../components/ColorPalette.vue";
 
 export default {
   components: {
@@ -134,6 +134,6 @@ export default {
 }
 </script>
 
-<style src="@vueform/toggle/themes/default.css"></style>
+<style src="../../../node_modules/@vueform/toggle/themes/default.css"></style>
 <style>
 </style>

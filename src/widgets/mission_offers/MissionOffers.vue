@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mt-4">
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <div><h4 class="card-title pb-3">Mission Offers</h4></div>
@@ -30,7 +30,7 @@
           </div>
           <div>
             <div class="accordion pt-2">
-              <perfect-scrollbar :class="'ps-mission-offers'">
+              <perfect-scrollbar :class="'ps-mission-offers resizable-element'" data-min-resizable-height="90">
                 <div v-for="(value, group) in missionOffers.filtered">
                   <div v-if="shouldShowMissionGroup(value)">
                     <mission-offers-group
@@ -51,10 +51,10 @@
 
 <script>
 
-import Modal from "./Modal.vue";
+import Modal from "../../components/Modal.vue";
 import MissionOffersGroup from "./MissionOffersGroup.vue";
 import MissionOffersSettings from "./MissionOffersSettings.vue";
-import SearchBar from "./SearchBar.vue";
+import SearchBar from "../../components/SearchBar.vue";
 import {reactive} from "vue";
 
 export default {
@@ -65,7 +65,8 @@ export default {
     SearchBar
   },
   props: [
-    'gameData'
+    'gameData',
+    'maxHeight',
   ],
   /**
    */
@@ -222,7 +223,6 @@ export default {
             }
         ),
       },
-
     }
   },
 }

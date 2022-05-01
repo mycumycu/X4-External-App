@@ -12,10 +12,10 @@ Note: lua module supports only Windows named pipes, so currently it will run exc
 
 ## One time setup
 
-1. Install SirNuke's Mod Support APIs  
+1. Install SirNukes Mod Support APIs  
    https://www.nexusmods.com/x4foundations/mods/503
 
-2. Download SirNuke's Python Pipe Server  
+2. Download SirNukes Python Pipe Server  
    https://github.com/bvbohnen/x4-projects/releases  
    
 3. Install *X4 External App* mod  
@@ -24,7 +24,7 @@ Note: lua module supports only Windows named pipes, so currently it will run exc
 4. Download *X4 External App server*   
    https://github.com/mycumycu/X4-External-App/releases
 
-5. Run SirNuke's Python Pipe Server, it will create `permissions.json` file.   
+5. Run SirNukes Python Pipe Server, it will create `permissions.json` file.   
    Add X4 External App ID (`ExternalApp`) to the permissions file:
 
 ```
@@ -39,11 +39,11 @@ That's it, you should be good to go.
 
 ## Running the X4 External App
 
-1. Start *SirNuke's Python Pipe Server* (via the `X4_Python_Pipe_Server.exe` file) 
+1. Start *SirNukes Python Pipe Server* (via the `X4_Python_Pipe_Server.exe` file) 
 2. Start the *X4 External App* server (`x4_external_app.exe`).
 3. Start the game and load your save file.
 
-So there should be two console windows open - one from *SirNuke's Python Pipe Server* and second from *X4 External App*. 
+So there should be two console windows open - one from *SirNukes Python Pipe Server* and second from *X4 External App*. 
 Don't close it during playing.    
   
 *X4 External App* will serve application on a local port. If default port (8080) is busy - a new, free one will be found.  
@@ -54,7 +54,25 @@ Application will detect and output the exact network address in console window.
 
 ## Usage
 
-#### Logbook
+### Application layout
+
+User can freely define app layout. To open configuration screen press layout icon ![layout icon](https://i.imgur.com/DsukxhO.png)   
+
+![layout screen](https://i.imgur.com/kGnNhxP.png)
+
+It's possible to define number of columns and its width.  
+Also, by dragging widgets into approtiate columns one can set their order.   
+
+If the "limit widget heights" option is checked - each widget can have "max height" property defined - application will then automatically adjust the height of the widget within the viewport height.  
+
+All changes made are stored automatically.
+
+  
+### App font size
+
+Clicking ![Font size icon](https://i.imgur.com/neFE6wC.png) icon switches between different font sizes. 
+
+### Logbook
 
 ![X4 External App UI elements](https://i.imgur.com/gopHNqi.png)
 
@@ -76,7 +94,7 @@ Possible settings for each rule include:
 Important logbook messages (e.g. property under attack or being destroyed) will automatically blink catching attention.  
 All changes are stored automatically.  
   
-#### Mission offers
+### Mission offers
 Mission offers can be filtered similarly to logbook entries.
 Also, you can define which mission difficulties should be displayed.
 To do so - just click on clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png)   
@@ -84,23 +102,11 @@ Setting window will open.
 
 ![X4 External App UI elements](https://i.imgur.com/SgwMzcN.png)
 
-
-#### Application profiles
-User can choose from several predefined application layouts by switching column order and/or increase font size.   
-Changes made are stored automatically.
-
-![X4 External App UI elements](https://i.imgur.com/M4wPt2b.png)
-
-Application will automatically adjust the height of the mission and logbook containers to fit the viewport height.  
-Layout is responsive, so it should look good on any device.
-
-
-
 ## How it works
 
-External App mod *(MD + LUA)* collects and sends data to SirNuke's Pipe Server *(Python)* custom module.  
+External App mod *(MD + LUA)* collects and sends data to SirNukes Pipe Server *(Python)* custom module.  
 Then this module creates another named pipe, allowing the *(Node.js)* server to read data from this pipe and serve it to a (Vue.js) SPA application.  
-A **big word of praise for SirNuke** - without his work this data communication wouldn't be possible.
+A **big word of praise for SirNukes** - without his work this data communication wouldn't be possible.
 
 SPA application was created with *Vue.js (v3)* using *Bootstrap (v5)* and all data is provided dynamically.
 

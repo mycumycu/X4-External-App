@@ -18,9 +18,14 @@ export default {
   props: [
     'mission'
   ],
+  /**
+   * @returns {{}}
+   */
   data() {
     return {}
   },
+  /**
+   */
   methods: {}
 }
 </script>

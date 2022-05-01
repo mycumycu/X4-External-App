@@ -51,6 +51,6 @@ export default {
 }
 </script>
 
-<style src="@vueform/toggle/themes/default.css"></style>
+<style src="../../../node_modules/@vueform/toggle/themes/default.css"></style>
 <style>
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card mt-4">
     <div class="card-header">
       <div class="d-flex justify-content-between">
         <div><h4 class="card-title pb-3">Logbook</h4></div>
@@ -29,7 +29,7 @@
                       </span>
         </div>
         <div class="logbook">
-          <perfect-scrollbar :class="'ps-logbook'">
+          <perfect-scrollbar :class="'ps-logbook resizable-element'" data-min-resizable-height="90">
             <logbook-entry
                 v-for="(entry, name) in logbook.filtered"
                 :name="name"
@@ -43,10 +43,10 @@
 
 <script>
 
-import Modal from "./Modal.vue";
+import Modal from "../../components/Modal.vue";
 import LogbookSettings from "./LogbookSettings.vue";
 import LogbookEntry from "./LogbookEntry.vue";
-import SearchBar from "./SearchBar.vue";
+import SearchBar from "../../components/SearchBar.vue";
 import {reactive} from "vue";
 
 export default {
@@ -54,12 +54,13 @@ export default {
     Modal, LogbookSettings, SearchBar, LogbookEntry
   },
   props: [
-      'gameData'
+    'gameData',
+    'maxHeight',
   ],
   /**
    */
   watch: {
-    'gameData': {
+    gameData: {
       handler(newData, oldData) {
         this.parseLogbookData(newData)
       },
@@ -152,8 +153,10 @@ export default {
         return item.phrase.toLowerCase();
       });
     },
-
   },
+  /**
+   * @returns {{logbook: {settings: UnwrapNestedRefs<any|{rules: *[]}>, filtered: *[], searchPhrase: string, list: *[]}}}
+   */
   data() {
     return {
       logbook: {
@@ -166,7 +169,6 @@ export default {
             }
         ),
       },
-
     }
   },
 }

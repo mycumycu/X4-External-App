@@ -1,10 +1,10 @@
 <template>
-  <div class="card mb-0">
+  <div class="card mt-4">
     <div class="card-body">
       <div class="d-flex align-items-center">
         <div class="ms-3 active-mission">
           <h4 class="mb-4">Active mission</h4>
-          <perfect-scrollbar :class="'ps-active-mission'">
+          <perfect-scrollbar :class="'ps-active-mission resizable-element'" data-min-resizable-height="40">
             <div v-if="activeMission.name">
               <active-mission-entry :mission="activeMission"/>
               <active-mission-entry :mission="activeSubMission" v-if="activeSubMission.name" class="mt-4"/>
@@ -24,7 +24,11 @@ export default {
   components: { ActiveMissionEntry },
   props: [
     'gameData',
+    'maxHeight',
   ],
+  /**
+   * @returns {{activeMission: {rewardtext: null, reward: null, name: null, description: null, subMissions: {}}, activeSubMission: {rewardtext: null, reward: null, name: null, description: null}}}
+   */
   data() {
     return {
       activeMission: {
@@ -45,13 +49,16 @@ export default {
   /**
    */
   watch: {
-    'gameData': {
+    gameData: {
       handler(newData, oldData) {
-        this.parseActiveMissionData(newData)
+        this.parseActiveMissionData(newData);
       },
     },
   },
   methods: {
+    /**
+     * @param gameData
+     */
     parseActiveMissionData(gameData) {
       this.activeMission = {};
       this.activeSubMission = {};

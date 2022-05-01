@@ -1,8 +1,8 @@
 <template>
-  <div class="card card-profile mb-4">
+  <div class="card card-profile mt-4">
     <div class="card-header x4-backgound"></div>
-    <div class="card-body text-center">
-      <img class="card-profile-img" src="../assets/x4-logo.png" title="..."/>
+    <div class="card-body text-center resizable-element" data-min-resizable-height="190">
+      <img class="card-profile-img" src="../../assets/x4-logo.png" title="..."/>
       <div class="mb-2">
         <h3 class="mb-0 text-gray-400">
           <span>{{ player.name }}</span>
@@ -19,9 +19,11 @@
 </template>
 
 <script>
+
 export default {
   props: [
     'gameData',
+    'maxHeight',
   ],
   data() {
     return {

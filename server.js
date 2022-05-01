@@ -138,7 +138,7 @@ class Server {
                 }
 
                 try {
-                    data = data.replace(/\\/g, '')
+                    //data = data.replace(/\\/g, '')
                     this.dataObject = JSON.parse(data);
                     this.outputMessage(`${chalk.yellowBright('Development mode')} - reading data from file successful`);
                     this.endInvalidStreamTimer();
