@@ -70,7 +70,7 @@ export default {
   watch: {
     layout: {
       handler(newValue, oldValue) {
-        this.layout = newValue;
+        GlobalStore.commit('updateLayout', newValue)
         this.resizeWidgets();
       },
       deep: true,

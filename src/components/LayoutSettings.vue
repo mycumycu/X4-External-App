@@ -255,26 +255,28 @@ export default {
      * @param heightValue
      */
     widgetHeightAdjust(columnNo, widgetNo, heightValue) {
-      let maxSum = 100;
-      const widgets = this.layout.columns[columnNo].widgets;
-      let currentSum = widgets.reduce((sum, widget) => Math.max(1, sum) + parseInt(widget.maxHeight), 0);
-      let widgetsCount = widgets.length;
+      if (columnNo) {
+        let maxSum = 100;
+        const widgets = this.layout.columns[columnNo].widgets;
+        let currentSum = widgets.reduce((sum, widget) => Math.max(1, sum) + parseInt(widget.maxHeight), 0);
+        let widgetsCount = widgets.length;
 
-      if (currentSum > maxSum) {
-        widgets.forEach((widget, index) => {
-          let isCurrentElement = index === widgetNo;
-          let isLastElement = (index + 1) === widgetsCount;
+        if (currentSum > maxSum) {
+          widgets.forEach((widget, index) => {
+            let isCurrentElement = index === widgetNo;
+            let isLastElement = (index + 1) === widgetsCount;
 
-          if (isCurrentElement) {
-            this.layout.columns[columnNo].widgets[index].maxHeight = heightValue;
-          } else {
-            let maxHeight = (maxSum - heightValue) / (widgetsCount - 1);
-            this.layout.columns[columnNo].widgets[index].maxHeight = this.selectOptions.widgetHeights.slice().reverse().find(height => height <= maxHeight);
-            if (isLastElement) {
-              this.layout.columns[columnNo].widgets[index].maxHeight = maxSum - widgets.slice(0, -1).reduce((sum, widget) => sum + widget.maxHeight, 0);
+            if (isCurrentElement) {
+              this.layout.columns[columnNo].widgets[index].maxHeight = heightValue;
+            } else {
+              let maxHeight = (maxSum - heightValue) / (widgetsCount - 1);
+              this.layout.columns[columnNo].widgets[index].maxHeight = this.selectOptions.widgetHeights.slice().reverse().find(height => height <= maxHeight);
+              if (isLastElement) {
+                this.layout.columns[columnNo].widgets[index].maxHeight = maxSum - widgets.slice(0, -1).reduce((sum, widget) => sum + widget.maxHeight, 0);
+              }
             }
-          }
-        })
+          })
+        }
       }
     },
     /**
@@ -322,7 +324,7 @@ export default {
     /**
      * Set available widgets
      */
-    setAvailableWidgets(){
+    setAvailableWidgets() {
       let usedWidgets = [];
 
       // get all widgets
