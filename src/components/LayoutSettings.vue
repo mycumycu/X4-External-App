@@ -35,14 +35,14 @@
         <div class="col-12">
           <draggable
               class="widget-area p-2"
-              :list="widgetConfig"
+              :list="availableWidgets"
               chosen-class="ghost"
               group="widgets"
               itemKey="name"
               :move="onMove"
               @add="onAdd">
             <template #item="{ element, index }">
-              <div class="widget-element p-3">{{ element.widgetName }}</div>
+              <div class="widget-element p-3">{{ this.widgetConfig[element.component].widgetName }}</div>
             </template>
           </draggable>
         </div>
@@ -77,7 +77,7 @@
           <template #item="{ element, index }">
             <div class="widget-element pb-3">
               <div class="name d-flex p-2 pe-0 justify-content-between">
-                {{ element.widgetName }}
+                {{ this.widgetConfig[element.component].widgetName }}
                 <span class="close"
                       @click="remove(columnNo, index, element)"
                       title="remove widget from the column">
@@ -106,32 +106,33 @@
 </template>
 
 <script>
-import Toggle from '@vueform/toggle'
 import draggable from 'vuedraggable'
-import WidgetConfig from "../widgets.js";
 import GlobalStore from "../globalStore";
 import WidgetHeightWorker from "../widgetHeightWorker";
 
 export default {
   components: {
-    Toggle,
     draggable,
   },
   props: ['settings'],
   data() {
     return {
       maxWidgetsInColumn: 4,
-      columnData: [],
-      value: false,
       columnsNo: null,
-      drag: false,
-      widgetConfig: Object.values(WidgetConfig),
-      columnWidths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
-      widgetHeights: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+      availableWidgets: [],
+      selectOptions: {
+        columnWidths: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12],
+        widgetHeights: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+      },
     }
   },
+
+  /**
+   *
+   */
   mounted() {
-    this.initData();
+    this.columnsNo = this.layout.columns.length
+    this.setAvailableWidgets();
   },
   computed: {
     layout() {
@@ -151,7 +152,7 @@ export default {
           if (index >= this.columnsNo) {
             column.widgets.forEach(widget => {
               // return widget from removed column back to the pool
-              this.widgetConfig.push(widget);
+              this.availableWidgets.push(widget);
             })
           }
           return index < this.columnsNo;
@@ -198,19 +199,21 @@ export default {
     columnWidthOptions() {
       const columnCount = this.layout.columns.length
       const maxAllowedWidth = 12 - (columnCount - 1);
-      return this.columnWidths.filter(width => width <= maxAllowedWidth)
+      return this.selectOptions.columnWidths.filter(width => width <= maxAllowedWidth)
     },
     /**
+     * Shrink the columns if width exeeds the grid size
+     *
      * @param columnNo
      * @param widthValue
      */
     columnWidthAdjust(columnNo, widthValue) {
-      let maxSum = 12;
+      const maxGridSize = 12;
       const columns = this.layout.columns;
       let currentSum = columns.reduce((sum, column) => Math.max(1, sum) + parseInt(column.width), 0);
       let columnsCount = columns.length;
 
-      if (currentSum > maxSum) {
+      if (currentSum > maxGridSize) {
         columns.forEach((column, index) => {
           let isCurrentElement = index === columnNo;
           let isLastElement = (index + 1) === columnsCount;
@@ -218,10 +221,10 @@ export default {
           if (isCurrentElement) {
             columns[index].width = widthValue;
           } else {
-            let maxWidth = (maxSum - widthValue) / (columnsCount - 1);
-            columns[index].width = this.columnWidths.slice().reverse().find(width => width <= maxWidth);
+            let maxWidth = (maxGridSize - widthValue) / (columnsCount - 1);
+            columns[index].width = this.selectOptions.columnWidths.slice().reverse().find(width => width <= maxWidth);
             if (isLastElement) {
-              columns[index].width = maxSum - columns.slice(0, -1).reduce((sum, column) => sum + column.width, 0);
+              columns[index].width = maxGridSize - columns.slice(0, -1).reduce((sum, column) => sum + column.width, 0);
             }
           }
         })
@@ -244,7 +247,7 @@ export default {
     widgetHeightOptions(columnNo) {
       const widgetCount = this.layout.columns[columnNo].widgets.length
       const maxAllowedHeight = 100 - ((widgetCount - 1) * 10);
-      return this.widgetHeights.filter(height => height <= maxAllowedHeight)
+      return this.selectOptions.widgetHeights.filter(height => height <= maxAllowedHeight)
     },
     /**
      * @param columnNo
@@ -266,7 +269,7 @@ export default {
             this.layout.columns[columnNo].widgets[index].maxHeight = heightValue;
           } else {
             let maxHeight = (maxSum - heightValue) / (widgetsCount - 1);
-            this.layout.columns[columnNo].widgets[index].maxHeight = this.widgetHeights.slice().reverse().find(height => height <= maxHeight);
+            this.layout.columns[columnNo].widgets[index].maxHeight = this.selectOptions.widgetHeights.slice().reverse().find(height => height <= maxHeight);
             if (isLastElement) {
               this.layout.columns[columnNo].widgets[index].maxHeight = maxSum - widgets.slice(0, -1).reduce((sum, widget) => sum + widget.maxHeight, 0);
             }
@@ -313,21 +316,34 @@ export default {
     remove(column, index, element) {
       element.maxHeight = 50;
       this.layout.columns[column].widgets.splice(index, 1)
-      this.widgetConfig.push(element);
+      this.availableWidgets.push(element);
     },
-    /**
-     *
-     */
-    initData() {
-      this.columnsNo = this.layout.columns.length
 
+    /**
+     * Set available widgets
+     */
+    setAvailableWidgets(){
+      let usedWidgets = [];
+
+      // get all widgets
+      let allWidgets = Object.entries(this.widgetConfig).map(entry => {
+        return {
+          component: entry[0],
+          maxHeight: entry[1].maxHeight,
+        }
+      });
+
+      // get widgets that are already in use
       this.layout.columns.forEach(column => {
         column.widgets.forEach(widget => {
-          this.widgetConfig = this.widgetConfig.filter(widgetConf => {
-            return widgetConf.componentName !== widget.componentName;
-          })
+          usedWidgets.push(JSON.parse(JSON.stringify(widget)));
         })
       })
+
+      // filter only different ones
+      this.availableWidgets = allWidgets.filter(value => {
+        return !usedWidgets.some(object => object.component === value.component)
+      });
     },
 
   },
@@ -338,6 +354,7 @@ export default {
 <style lang="scss">
 .caption {
   line-height: 100%;
+
   small {
     display: inline-block;
     line-height: 100%;

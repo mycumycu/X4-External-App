@@ -10,15 +10,14 @@
         <div class="container-fluid">
 
           <no-connection v-if="dataFetchError"/>
-
           <div class="row gy-4" v-if="!dataFetchError">
             <template v-for="(column, columnIndex) in layout.columns">
               <div :class="`app-column-${columnIndex} col-${column.width} mt-0`" class="d-flex flex-column">
-                <div v-for="(widget, index) in column.widgets">
+                <div v-for="widget in column.widgets">
                   <component
                       ref="widgets"
-                      :is="widget.componentName"
-                      :gameData="this.gameData[widget.gameDataKey]"
+                      :is="widget.component"
+                      :gameData="this.gameData[widget.component]"
                       :maxHeight="widget.maxHeight"
                   />
                 </div>
@@ -33,10 +32,6 @@
 
 <script>
 
-import PlayerProfile from '../widgets/player_profile/PlayerProfile.vue'
-import ActiveMission from "../widgets/active_mission/ActiveMission.vue";
-import MissionOffers from "../widgets/mission_offers/MissionOffers.vue";
-import Logbook from "../widgets/logbook/Logbook.vue";
 import SearchBar from "./SearchBar.vue";
 import NoConnection from "./NoConnection.vue";
 import Breadcrumb from "./Breadcrumb.vue";
@@ -44,38 +39,35 @@ import WidgetHeightWorker from "../widgetHeightWorker";
 import GlobalStore from "../globalStore";
 
 export default {
-  components: { Logbook, Breadcrumb, NoConnection, SearchBar, MissionOffers, ActiveMission, PlayerProfile },
+  components: { Breadcrumb, NoConnection, SearchBar },
+
   emits: [
     'updatePending'
   ],
   props: [
-    'appProfile'
   ],
   data() {
     return {
       gameData: {},
 
-      appViewProfile: [],
       dataFetchError: false,
+      widgets: [],
     }
   },
   /**
    *
    */
   computed: {
+    /**
+     * @returns {*}
+     */
     layout() {
       return GlobalStore.state.layout
-    }
+    },
   },
   /**
    */
   watch: {
-    appProfile: {
-      handler(newValue, oldValue) {
-        localStorage.setItem("appProfile", JSON.stringify(newValue));
-        this.appViewProfile = newValue;
-      },
-    },
     layout: {
       handler(newValue, oldValue) {
         this.layout = newValue;
@@ -86,6 +78,8 @@ export default {
   },
   methods: {
     /**
+     * Fetch game data
+     *
      */
     async getData() {
       try {
@@ -111,7 +105,7 @@ export default {
     },
 
     /**
-     *
+     * Resize widgets to fit viewport
      */
     async resizeWidgets() {
       if (this.layout.limitHeight && this.$refs.widgets) {
@@ -127,11 +121,10 @@ export default {
    *
    */
   mounted() {
-    this.emitter.on('resizeWidgets', this.resizeWidgets )
+    this.emitter.on('resizeWidgets', this.resizeWidgets)
     this.resizeWidgets();
 
     let dataFetchInterval = 2000;
-    this.appViewProfile = JSON.parse(localStorage.getItem("appProfile")) || []
 
     this.getData();
     setInterval(() => {

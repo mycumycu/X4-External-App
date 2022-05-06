@@ -37,7 +37,7 @@ export default {
     Modal
   },
   props: ['isPendingUpdate'],
-  emits: ['setAppViewProfile','resizeWidgets'],
+  emits: ['resizeWidgets'],
   data() {
     return {
       htmlClassArray: [
@@ -49,12 +49,6 @@ export default {
     }
   },
   methods: {
-    /**
-     * @param profile
-     */
-    setAppViewProfile(profile) {
-      this.$emit('setAppViewProfile', profile)
-    },
     /**
      *
      */

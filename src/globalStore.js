@@ -1,11 +1,4 @@
 import {createStore} from "vuex";
-import WidgetConfig from "./widgets"
-
-// default heights (when no localStorage object exists)
-WidgetConfig.playerProfile.maxHeight = 40;
-WidgetConfig.activeMission.maxHeight = 60;
-WidgetConfig.missionOffers.maxHeight = 100;
-WidgetConfig.logbook.maxHeight = 100;
 
 export default createStore({
     state: {
@@ -18,29 +11,41 @@ export default createStore({
                 {
                     width: 3,
                     widgets: [
-                        WidgetConfig.playerProfile,
-                        WidgetConfig.activeMission,
+                        {
+                            component: 'playerProfile',
+                            maxHeight: 40,
+                        },
+                        {
+                            component: 'activeMission',
+                            maxHeight: 40,
+                        },
                     ]
                 },
                 {
                     width: 4,
                     widgets: [
-                        WidgetConfig.missionOffers,
+                        {
+                            component: 'missionOffers',
+                            maxHeight: 100,
+                        },
                     ]
                 },
                 {
                     width: 5,
                     widgets: [
-                        WidgetConfig.logbook,
+                        {
+                            component: 'logbook',
+                            maxHeight: 100,
+                        },
                     ]
                 },
             ]
         },
     },
     mutations: {
-        updateLayout(state, n) {
-            state.layout = n;
-            localStorage.setItem("layout", JSON.stringify(n));
+        updateLayout(state, newValue) {
+            state.layout = newValue;
+            localStorage.setItem("layout", JSON.stringify(newValue));
         }
     },
 })
