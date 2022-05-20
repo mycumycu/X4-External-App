@@ -4,13 +4,13 @@ const dotenvAbsolutePath = path.join(__dirname, '.env');
 require('dotenv').config({ path: dotenvAbsolutePath });
 
 let express = require('express');
-const portfinder = require("portfinder");
 let app = express();
 
 const hostname = process.env.APP_HOST || '127.0.0.1';
 const port = process.env.APP_PORT || 8080;
 
 const chalk = require('chalk');
+const { version } = require("./package.json");
 
 class Server {
     dataObject = {};
@@ -27,7 +27,7 @@ class Server {
     /**
      * Check if new release is out
      */
-    checkVersion() {
+    async checkVersion() {
         const versionCheck = require('github-version-checker');
         const { version } = require('./package.json');
 
@@ -38,10 +38,9 @@ class Server {
             currentVersion: version,
         };
 
-        versionCheck(options, null).then((update) => {
+        await versionCheck(options, null).then((update) => {
             if (update) { // update is null if there is no update available, so check here
-                this.outputMessage("An update is available! " + update.name);
-                this.outputMessage("You are on version " + options.currentVersion + "!");
+                this.outputMessage(chalk.yellow(`An update is available: ${update.name}\nYou are on version ${options.currentVersion}!`));
                 this.updatePending = true;
             } else {
                 this.outputMessage(chalk.green(`You are up to date.`));
@@ -49,28 +48,26 @@ class Server {
         }).catch(function (error) {
             console.error(chalk.red(`Couldn't connect to github server to check updates.`));
         });
-
-        this.outputMessage(chalk.green(`X4 External App Server v${version}`));
     }
 
     /**
      *
      */
-    serve() {
+    async serve() {
 
         let serveStatic = require('serve-static');
         let portfinder = require('portfinder');
         let localIpV4Address = require("local-ipv4-address");
 
-        localIpV4Address().then((ipAddress) => {
+        await localIpV4Address().then((ipAddress) => {
             portfinder.getPort({ port: this.port }, (err, port) => {
                 this.app.use(serveStatic(__dirname + "/dist"));
                 this.app.listen(port, () => {
                     require('child_process').exec(`start http://${this.hostname}:${port}`);
-                    this.outputMessage(`*****************************`);
+                    this.outputMessage(`*********************************************`);
                     this.outputMessage(`** Server running at http://${this.hostname}:${port}/`);
                     this.outputMessage(`** LAN access: http://${ipAddress}:${port}/`);
-                    this.outputMessage(`*****************************`);
+                    this.outputMessage(`*********************************************`);
                 });
             });
         });
@@ -192,10 +189,18 @@ class Server {
         this.invalidDataStreamTimeout = null;
     }
 
+    /**
+     * @returns {Promise<void>}
+     */
+    async start() {
+        this.outputMessage(chalk.green(`X4 External App Server v${version}`));
+        await this.serve()
+        await this.checkVersion();
+        this.setApi();
+        this.outputMessage('');
+        this.dataFeed();
+    }
 }
 
 let server = new Server(app, hostname, port);
-server.checkVersion();
-server.dataFeed();
-server.setApi();
-server.serve();
+server.start()
