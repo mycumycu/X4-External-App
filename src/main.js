@@ -9,6 +9,7 @@ import {faCogs, faCoins, faFont, faSearch, faThLarge, faTimes, faTrashAlt, faUse
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import PerfectScrollbar from 'vue3-perfect-scrollbar'
 import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
+import Helper from "./helper";
 import AppUpgrader from "./appUpgrader";
 import GlobalStore from "./globalStore";
 import mitt from "mitt";
@@ -17,12 +18,13 @@ import WidgetConfig from "./widgetConfig.js";
 
 library.add(faSearch, faTimes, faThLarge, faCoins, faUserFriends, faFont, faCogs, faTrashAlt);
 
-AppUpgrader.upgradeFromV200()
+Helper.disableContextMenu();
+AppUpgrader.upgradeFromV200();
 
-const app = createApp(App)
+const app = createApp(App);
 
 // auto register widgets
-const components = import.meta.globEager('./widgets/*/*Widget.vue')
+const components = import.meta.globEager('./widgets/*/*Widget.vue');
 
 Object.entries(components).forEach(([path, definition]) => {
     /*
@@ -38,4 +40,3 @@ app.config.globalProperties.widgetConfig = WidgetConfig
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(PerfectScrollbar, GlobalStore)
 app.mount('#app')
-

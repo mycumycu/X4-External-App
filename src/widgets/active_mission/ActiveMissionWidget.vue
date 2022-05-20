@@ -22,10 +22,13 @@ import ActiveMissionEntry from "./ActiveMissionEntry.vue";
 
 export default {
   components: { ActiveMissionEntry },
-  props: [
-    'gameData',
-    'maxHeight',
-  ],
+  props: {
+    gameData: [Object, String],
+    maxHeight: {
+      type: Number,
+      default: 40
+    },
+  },
   /**
    * @returns {{activeMission: {rewardtext: null, reward: null, name: null, description: null, subMissions: {}}, activeSubMission: {rewardtext: null, reward: null, name: null, description: null}}}
    */

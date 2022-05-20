@@ -53,10 +53,13 @@ export default {
   components: {
     Modal, LogbookSettings, SearchBar, LogbookEntry
   },
-  props: [
-    'gameData',
-    'maxHeight',
-  ],
+  props: {
+    gameData: Object,
+    maxHeight: {
+      type: Number,
+      default: 100
+    },
+  },
   /**
    */
   watch: {

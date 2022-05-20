@@ -64,10 +64,13 @@ export default {
     MissionOffersSettings,
     SearchBar
   },
-  props: [
-    'gameData',
-    'maxHeight',
-  ],
+  props: {
+    gameData: Object,
+    maxHeight: {
+      type: Number,
+      default: 100
+    },
+  },
   /**
    */
   watch: {

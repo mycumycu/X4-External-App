@@ -52,7 +52,16 @@ App will automatically open in default browser.
 If you want to access it from a local network - change `localhost` to local IP address of a machine running X4, e.g. `http://192.168.1.120:8080`.  
 Application will detect and output the exact network address in console window.
 
-## Usage
+## Useful X4 launch params
+There are two **optional** but quite useful X4 parameters working when game looses focus:
+
+   - **-nosoundthrottle** makes game keep playing music
+   - **-nocputhrottle** game usess full CPU
+
+   Thanks to it interacting with external monitor feels like a part of the game.  
+   You can apply one or all of them: https://help.steampowered.com/en/faqs/view/7D01-D2DD-D75E-2955   
+
+## Layout
 
 ### Application layout
 
@@ -71,6 +80,8 @@ All changes made are stored automatically.
 ### App font size
 
 Clicking ![Font size icon](https://i.imgur.com/neFE6wC.png) icon switches between different font sizes. 
+
+## Widgets
 
 ### Logbook
 
@@ -95,12 +106,21 @@ Important logbook messages (e.g. property under attack or being destroyed) will 
 All changes are stored automatically.  
   
 ### Mission offers
-Mission offers can be filtered similarly to logbook entries.
+Mission offers can be filtered similarly to logbook entries.  
 Also, you can define which mission difficulties should be displayed.
 To do so - just click on clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png)   
 Setting window will open.  
 
-![X4 External App UI elements](https://i.imgur.com/SgwMzcN.png)
+### Player goals
+![Player goals](https://i.imgur.com/xhaJ0LC.png)  
+
+You can define and add your own goals. Just type it and press enter key (or dedicated button).
+Each goal can be moved higher or lower in priority or even moved to another list by dragging.
+
+You can also highlight selected goals with one of few preselected icons. 
+To do that, select "make featured" option from goal (three dot) menu. The exclamation icon will appear. To switch it, just click on the icon until desired one appears.
+
+After completing a goal and making it "checked" - it will fade out and will be removed in a few seconds. Unchecking the goal within that time cancels the removal operation.
 
 ## How it works
 

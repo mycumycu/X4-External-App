@@ -258,7 +258,7 @@ export default {
       if (columnNo) {
         let maxSum = 100;
         const widgets = this.layout.columns[columnNo].widgets;
-        let currentSum = widgets.reduce((sum, widget) => Math.max(1, sum) + parseInt(widget.maxHeight), 0);
+        let currentSum = widgets.reduce((sum, widget) => Math.max(1, sum) + parseInt(widget.maxHeight || '50'), 0);
         let widgetsCount = widgets.length;
 
         if (currentSum > maxSum) {

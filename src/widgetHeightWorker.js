@@ -7,9 +7,12 @@ export default class WidgetHeightWorker {
      * @returns {string}
      */
     run($refs, widget) {
-
         const element = widget.$el;
         const maxHeight = widget.maxHeight;
+
+        if (!widget.maxHeight){
+            console.error(`Widget ${widget.$el.dataset.name} does not have required 'maxHeight' prop.`);
+        }
 
         if ($refs['widgets'].length > 0) {
             let screenBottomMargin = 10;

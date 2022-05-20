@@ -15,7 +15,7 @@ export default class AppUpgrader {
         let newLayout = [];
         let existingLayout = GlobalStore.state.layout;
 
-        if (existingLayout.columns[0].widgets[0].hasOwnProperty('widgetName')) {
+        if (existingLayout.columns[0].widgets[0] && existingLayout.columns[0].widgets[0].hasOwnProperty('widgetName')) {
             // old layput detected - convert it
             newLayout = {
                 limitHeight: existingLayout.limitHeight,
@@ -28,7 +28,6 @@ export default class AppUpgrader {
                     widgets: [],
                 };
                 column.widgets.forEach((widget, widgetIndex) => {
-                    console.log(columnIndex, widgetIndex)
                     newLayout.columns[columnIndex].widgets[widgetIndex] = {
                         component: widget.componentName.replace(/-./g, x => x[1].toUpperCase()), // change from kebab-case to camelCase
                         maxHeight: widget.maxHeight,

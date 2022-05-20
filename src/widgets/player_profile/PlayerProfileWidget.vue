@@ -21,10 +21,13 @@
 <script>
 
 export default {
-  props: [
-    'gameData',
-    'maxHeight',
-  ],
+  props: {
+    gameData: Object,
+    maxHeight: {
+      type: Number,
+      default: 40
+    },
+  },
   data() {
     return {
       player: {

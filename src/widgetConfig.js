@@ -17,4 +17,7 @@ export default {
     logbook: {
         widgetName: 'Logbook',
     },
+    playerGoals: {
+        widgetName: 'Player goals',
+    },
 }

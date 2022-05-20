@@ -9,8 +9,8 @@
       <section class="pt-4 pb-1">
         <div class="container-fluid">
 
-          <no-connection v-if="dataFetchError"/>
-          <div class="row gy-4" v-if="!dataFetchError">
+          <no-connection v-show="dataFetchError"/>
+          <div class="row gy-4" v-show="!dataFetchError">
             <template v-for="(column, columnIndex) in layout.columns">
               <div :class="`app-column-${columnIndex} col-${column.width} mt-0`" class="d-flex flex-column">
                 <div v-for="widget in column.widgets">
@@ -19,6 +19,7 @@
                       :is="widget.component"
                       :gameData="this.gameData[widget.component]"
                       :maxHeight="widget.maxHeight"
+                      :data-name="widget.component"
                   />
                 </div>
               </div>
@@ -44,8 +45,7 @@ export default {
   emits: [
     'updatePending'
   ],
-  props: [
-  ],
+  props: [],
   data() {
     return {
       gameData: {},
@@ -74,6 +74,13 @@ export default {
         this.resizeWidgets();
       },
       deep: true,
+    },
+    dataFetchError: {
+      handler(newValue, oldValue) {
+        setTimeout(() => {
+          this.resizeWidgets();
+        }, 200)
+      },
     },
   },
   methods: {
@@ -122,7 +129,6 @@ export default {
    */
   mounted() {
     this.emitter.on('resizeWidgets', this.resizeWidgets)
-    this.resizeWidgets();
 
     let dataFetchInterval = 2000;
 
