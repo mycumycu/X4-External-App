@@ -2,7 +2,7 @@
   <div class="card mt-4">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <div class="ms-3 active-mission">
+        <div class="active-mission">
           <h4 class="mb-4">Active mission</h4>
           <perfect-scrollbar :class="'ps-active-mission resizable-element'" data-min-resizable-height="40">
             <div v-if="activeMission.name">
