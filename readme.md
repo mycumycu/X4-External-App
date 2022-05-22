@@ -67,7 +67,7 @@ There are two **optional** but quite useful X4 parameters working when game loos
 
 User can freely define app layout. To open configuration screen press layout icon ![layout icon](https://i.imgur.com/DsukxhO.png)   
 
-![layout screen](https://i.imgur.com/kGnNhxP.png)
+![layout screen](https://i.imgur.com/uUMZgEz.png)
 
 It's possible to define number of columns and its width.  
 Also, by dragging widgets into approtiate columns one can set their order.   
