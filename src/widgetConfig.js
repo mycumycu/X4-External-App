@@ -20,4 +20,7 @@ export default {
     playerGoals: {
         widgetName: 'Player goals',
     },
+    currentResearch: {
+        widgetName: 'Current research',
+    },
 }
