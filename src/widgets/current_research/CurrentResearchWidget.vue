@@ -2,9 +2,9 @@
   <div class="card mt-4">
     <div class="card-body">
       <div class="d-flex align-items-center">
-        <div class="active-mission w-100">
+        <div class="w-100">
           <h4 class="mb-4">Current Research</h4>
-          <perfect-scrollbar :class="'ps-active-mission resizable-element'" data-min-resizable-height="40" :options="{ suppressScrollX: true }">
+          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40" :options="{ suppressScrollX: true }">
             <div v-if="currentResearch.name">
               <current-research-entry :research="currentResearch"/>
             </div>

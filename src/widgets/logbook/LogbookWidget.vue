@@ -29,7 +29,7 @@
                       </span>
         </div>
         <div class="logbook">
-          <perfect-scrollbar :class="'ps-logbook resizable-element'" data-min-resizable-height="90">
+          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="90">
             <logbook-entry
                 v-for="(entry, name) in logbook.filtered"
                 :name="name"

@@ -30,7 +30,7 @@
           </div>
           <div>
             <div class="accordion pt-2">
-              <perfect-scrollbar :class="'ps-mission-offers resizable-element'" data-min-resizable-height="90">
+              <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="90">
                 <div v-for="(value, group) in missionOffers.filtered">
                   <div v-if="shouldShowMissionGroup(value)">
                     <mission-offers-group

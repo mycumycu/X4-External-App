@@ -18,7 +18,7 @@
         </button>
       </div>
 
-      <perfect-scrollbar :class="'ps-active-mission resizable-element'" data-min-resizable-height="50">
+      <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="50">
         <player-goals-group
             :label="settings.enableLongTerm?`Short term`:``"
             :goals="goals"

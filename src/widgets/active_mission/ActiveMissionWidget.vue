@@ -4,7 +4,7 @@
       <div class="d-flex align-items-center">
         <div class="active-mission">
           <h4 class="mb-4">Active mission</h4>
-          <perfect-scrollbar :class="'ps-active-mission resizable-element'" data-min-resizable-height="40">
+          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40">
             <div v-if="activeMission.name">
               <active-mission-entry :mission="activeMission"/>
               <active-mission-entry :mission="activeSubMission" v-if="activeSubMission.name" class="mt-4"/>
