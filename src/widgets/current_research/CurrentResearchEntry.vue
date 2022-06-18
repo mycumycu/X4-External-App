@@ -4,8 +4,8 @@
       <h5 class="text-muted mb-0">{{ research.name }}</h5>
     </div>
     <div class="col-5 text-end small mb-4 researchtime">
+      Research time: {{ research.researchtime }}
       (completed {{ research.percentageCompleted }}%)<br/>
-      {{ research.researchtime }}
     </div>
   </div>
 
