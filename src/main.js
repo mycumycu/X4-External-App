@@ -35,6 +35,17 @@ Object.entries(components).forEach(([path, definition]) => {
     app.component(componentName, definition.default)
 })
 
+app.config.globalProperties.$filters = {
+    str_limit(value, size) {
+        let dots = '';
+        if (!value) return '';
+        value = value.toString();
+        if (value.length > size && size !== 0) {
+            dots = '...';
+        }
+        return value.substr(0, size) + dots;
+    }
+}
 app.config.globalProperties.emitter = mitt()
 app.config.globalProperties.widgetConfig = WidgetConfig
 app.component('font-awesome-icon', FontAwesomeIcon)

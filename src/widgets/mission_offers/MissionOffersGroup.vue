@@ -8,7 +8,10 @@
     <div :id="elementId" class="accordion-collapse collapse show" aria-labelledby="headingOne" :data-bs-parent="`#${elementId}`">
       <div class="accordion-body px-2 py-1">
         <mission-offers-mission
-            v-for="(missionValue, index) in value.missions" :key="index" :mission-value="missionValue"/>
+            v-for="(missionValue, index) in value.missions"
+            :key="index"
+            :mission-value="missionValue"
+            :settings="settings"/>
       </div>
     </div>
   </div>
@@ -23,6 +26,7 @@ export default {
     'group',
     'name',
     'value',
+    'settings',
   ],
   data() {
     return {

@@ -16,7 +16,6 @@
       <div class="list-group-item border-0 py-2 px-lg-4">
         <div class="d-flex flex-column">
           <div>
-
             <div class="overflow-hidden" style="height: 50px">
                       <span v-if="missionDifficultiesRules.length <=0">
                         <span class="badge bg-secondary">Adjust mission offers settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
@@ -25,8 +24,11 @@
                         <span class="badge bg-primary me-1">Difficulties</span>
                           <span v-for="value in missionDifficultiesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                       </span>
+              <span class="rules-string d-inline" v-if="missionTypesRules.length > 0 ">
+                        <span class="badge bg-primary me-1">Types</span>
+                          <span v-for="value in missionTypesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                      </span>
             </div>
-
           </div>
           <div>
             <div class="accordion pt-2">
@@ -37,7 +39,8 @@
                         v-for="(value, name) in value"
                         :group="group"
                         :name="name"
-                        :value="value"/>
+                        :value="value"
+                        :settings="missionOffers.settings"/>
                   </div>
                 </div>
               </perfect-scrollbar>
@@ -74,7 +77,7 @@ export default {
   /**
    */
   watch: {
-    'gameData': {
+    gameData: {
       handler(newData, oldData) {
         this.parseMissionOffersData(newData)
       },
@@ -130,12 +133,17 @@ export default {
      */
     unifyMissions(missionOffers) {
       Object.keys(missionOffers).forEach(key => {
+
+        let isEnabled = this.missionOffers.settings.types.some(element => {
+          return element.name === key && element.enabled
+        });
+
         if (missionOffers[key][1] && missionOffers[key][1].missions === undefined) {
           missionOffers[key] = {
             "": {
               id: key,
               name: 'Missions',
-              missions: missionOffers[key],
+              missions: isEnabled ? missionOffers[key] : [],
             }
           }
         }
@@ -176,6 +184,16 @@ export default {
      */
     missionDifficultiesRules() {
       return this.missionOffers.settings.difficulties.filter((item => {
+        return item.enabled;
+      })).map(item => {
+        return item.name.toLowerCase();
+      });
+    },
+    /**
+     * @return {*}
+     */
+    missionTypesRules() {
+      return this.missionOffers.settings.types.filter((item => {
         return item.enabled;
       })).map(item => {
         return item.name.toLowerCase();
@@ -222,7 +240,28 @@ export default {
                   name: 'very hard',
                   enabled: true
                 },
-              ]
+              ],
+
+              types: [
+                {
+                  name: 'plot',
+                  enabled: true,
+                },
+                {
+                  name: 'guild',
+                  enabled: true,
+                },
+                {
+                  name: 'other',
+                  enabled: true,
+                },
+                {
+                  name: 'coalition',
+                  enabled: true,
+                },
+              ],
+
+              descriptions: 0,
             }
         ),
       },
