@@ -126,24 +126,19 @@ export default {
           }
         }
       }
-      this.missionOffers.filtered = this.removeEmptyMissionNodes(this.missionOffers.filtered)
+      this.missionOffers.filtered = this.removeEmptyAndDisabledMissionNodes(this.missionOffers.filtered)
     },
     /**
      * Unify missions object
      */
     unifyMissions(missionOffers) {
       Object.keys(missionOffers).forEach(key => {
-
-        let isEnabled = this.missionOffers.settings.types.some(element => {
-          return element.name === key && element.enabled
-        });
-
         if (missionOffers[key][1] && missionOffers[key][1].missions === undefined) {
           missionOffers[key] = {
             "": {
               id: key,
               name: 'Missions',
-              missions: isEnabled ? missionOffers[key] : [],
+              missions: missionOffers[key],
             }
           }
         }
@@ -152,15 +147,19 @@ export default {
       return missionOffers;
     },
     /**
-     * Remove empty nodes from mission offers object
+     * Remove empty and disabled nodes from mission offers object
      * @param missionOffers
      */
-    removeEmptyMissionNodes(missionOffers) {
+    removeEmptyAndDisabledMissionNodes(missionOffers) {
       for (const key in missionOffers) {
+        let isEnabled = this.missionOffers.settings.types.some(element => {
+          return element.name === key && element.enabled
+        });
+
         let missionType = missionOffers[key];
         for (const missionTypeKey in missionType) {
           let missionGroup = missionType[missionTypeKey];
-          if (Object.keys(missionGroup.missions).length === 0) {
+          if (!isEnabled || Object.keys(missionGroup.missions).length === 0) {
             delete missionOffers[key][missionTypeKey];
           }
         }
