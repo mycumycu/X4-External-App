@@ -7,7 +7,10 @@
           <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40">
             <div v-if="activeMission.name">
               <active-mission-entry :mission="activeMission"/>
-              <active-mission-entry :mission="activeSubMission" v-if="activeSubMission.name" class="mt-4"/>
+              <div v-if="activeSubMission.name">
+                <hr/>
+                <active-mission-entry :mission="activeSubMission" class="mt-4"/>
+              </div>
             </div>
             <div v-else>none</div>
           </perfect-scrollbar>
@@ -46,6 +49,7 @@ export default {
         description: null,
         rewardtext: null,
         reward: null,
+        briefingText: null,
       },
     }
   },
@@ -67,26 +71,42 @@ export default {
       this.activeSubMission = {};
 
       if (gameData !== "") {
-        let activeMission = gameData[1];
+        let missionData = gameData[1];
+        this.activeMission = this.buildMissionObject(missionData)
 
-        this.activeMission = {
-          name: activeMission.name,
-          description: activeMission.description,
-          reward: activeMission.reward,
-          rewardtext: activeMission.rewardtext,
-        }
-
-        let subMission = activeMission.subMissions[1] || null;
-        if (activeMission.subMissions && subMission.active) {
-          this.activeSubMission = {
-            name: subMission.name,
-            description: subMission.description,
-            reward: subMission.reward,
-            rewardtext: subMission.rewardtext,
-          }
+        let subMission = missionData.subMissions[1] || null;
+        if (missionData.subMissions && subMission.active) {
+          this.activeSubMission = this.buildMissionObject(subMission)
         }
       }
     },
+
+    /**
+     * @param mission
+     * @returns {{reward: *, rewardtext: (null|*), briefingText, name, description: *}}
+     */
+    buildMissionObject(mission) {
+      let briefings = [];
+      if (Object.keys(mission.briefingobjectives).length > 0) {
+        briefings = Object.entries(mission.briefingobjectives).map(element => {
+          let index = element[0];
+          let text = element[1].text;
+          return {
+            text: text,
+            active: parseInt(index) === mission.activebriefingstep,
+          }
+        });
+      }
+
+      return {
+        name: mission.name,
+        description: mission.rawdescription,
+        reward: mission.rewardmoney,
+        rewardtext: mission.rewardtext,
+        briefings: briefings,
+      }
+    }
+
   },
 }
 </script>

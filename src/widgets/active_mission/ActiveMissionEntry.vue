@@ -1,7 +1,12 @@
 <template>
   <div>
-    <h5 class="text-muted mb-2">{{ mission.name }}</h5>
-    <p class="text-small mb-0" v-html="mission.description"></p>
+    <h5 class="text-muted">{{ mission.name }}</h5>
+    <ol>
+      <li v-for="briefing in mission.briefings">
+        <h6 :class="{'text-muted': !briefing.active}">{{ briefing.text }}</h6>
+      </li>
+    </ol>
+    <p class="text-small mt-4 mb-0" v-html="mission.description"></p>
     <div class="text-small mb-0" v-if="mission.reward || mission.rewardtext ">
       <div class="mt-2"><strong>Reward</strong></div>
       <div class="text-muted text-xs" v-if="mission.reward > 0">
@@ -30,5 +35,5 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 </style>
