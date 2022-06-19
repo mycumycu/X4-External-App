@@ -5,7 +5,7 @@ import './scss/style.default.premium.scss';
 import './vendor/bootstrap/js/bootstrap.bundle.min.js';
 
 import {library} from '@fortawesome/fontawesome-svg-core'
-import {faCogs, faCoins, faFont, faSearch, faThLarge, faTimes, faTrashAlt, faUserFriends} from '@fortawesome/free-solid-svg-icons'
+import {faCogs, faCoins, faFont, faSearch, faStar, faThLarge, faTimes, faTrashAlt, faUserFriends} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome'
 import PerfectScrollbar from 'vue3-perfect-scrollbar'
 import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
@@ -16,7 +16,7 @@ import mitt from "mitt";
 // import widgets
 import WidgetConfig from "./widgetConfig.js";
 
-library.add(faSearch, faTimes, faThLarge, faCoins, faUserFriends, faFont, faCogs, faTrashAlt);
+library.add(faSearch, faStar, faTimes, faThLarge, faCoins, faUserFriends, faFont, faCogs, faTrashAlt);
 
 Helper.disableContextMenu();
 AppUpgrader.upgradeFromV200();
