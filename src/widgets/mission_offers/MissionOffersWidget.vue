@@ -112,10 +112,11 @@ export default {
           let missionGroup = missionType[missionTypeKey];
           for (const missionGroupKey in missionGroup.missions) {
             let mission = missionGroup.missions[missionGroupKey];
-            let name = mission.name.toLowerCase();
-            let rewardtext = mission.rewardtext.toLowerCase();
+            let name = mission.hasOwnProperty('name') ? mission.name.toLowerCase() : null;
+            let rewardtext = mission.hasOwnProperty('rewardtext') ? mission.rewardtext.toLowerCase() : null;
             if (
                 !mission ||
+                !name ||
                 (!name.includes(this.missionOffers.searchPhrase) && !rewardtext.includes(this.missionOffers.searchPhrase)) ||
                 this.missionOffers.settings.difficulties.some(element => {
                   return !element.enabled && element.index === mission.difficulty
