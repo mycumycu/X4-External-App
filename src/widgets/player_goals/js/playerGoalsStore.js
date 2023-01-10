@@ -1,4 +1,5 @@
 import {createStore} from "vuex";
+import Helper from "./helper";
 
 export default createStore({
     state: {
@@ -37,11 +38,8 @@ export default createStore({
          * @param id
          */
         moveToBottom(state, { key, id }) {
-            Object.values(state.goals[key]).forEach((element, index) => {
-                if (element.id === id) {
-                    state.goals[key].push(state.goals[key].splice(index, 1)[0]);
-                }
-            })
+            let index = Helper.getGoalIndex(state.goals[key], id);
+            state.goals[key].push(state.goals[key].splice(index, 1)[0]);
         },
         /**
          * @param state
@@ -49,11 +47,8 @@ export default createStore({
          * @param id
          */
         remove(state, { key, id }) {
-            Object.values(state.goals[key]).forEach((element, index) => {
-                if (element.id === id) {
-                    state.goals[key].splice(index, 1);
-                }
-            })
+            let index = Helper.getGoalIndex(state.goals[key], id);
+            state.goals[key].splice(index, 1);
         },
         /**
          * Merge short and longterm lists

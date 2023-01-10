@@ -13,17 +13,20 @@
         <input type="checkbox"
                class="form-check-input"
                v-model="this.element.checked"
-               :value="true"/><font-awesome-icon
+               :value="true"/>
+        <font-awesome-icon
             @click.prevent="makeFeatured"
             class="featured"
             :icon="this.featuredElement"
-            v-if="this.element.featuredIndex"/>{{ element.task }}
+            v-if="this.element.featuredIndex"/>
+        {{ element.task }}
       </label>
       <div v-if="hovered" class="me-3">
         <font-awesome-icon :icon="`ellipsis-h`" class="menu" data-bs-toggle="dropdown"/>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
           <li @click="toggleFeatured" v-text="this.element.featuredIndex === 0?`Make featured`:`Disable featured`"></li>
-          <li @click="removeGoal">Remove goal</li>
+          <li @click="edit">Edit goal</li>
+          <li @click="remove">Remove</li>
         </ul>
       </div>
     </div>
@@ -99,7 +102,17 @@ export default {
     },
     /**
      */
-    removeGoal() {
+    edit() {
+      const id = this.element.id;
+      const key = this.listKey;
+      this.emitter.emit('editTask', {
+        element: this.element,
+        listKey: this.listKey,
+      });
+    },
+    /**
+     */
+    remove() {
       const id = this.element.id;
       const key = this.listKey;
       GoalsStore.commit('remove', { key, id })

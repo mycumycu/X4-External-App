@@ -12,7 +12,7 @@
       v-bind="dragOptions"
       @start="onStart"
       @end="onEnd">
-    <template #item="{ element }">
+    <template #item="{ element }" :key="element.id">
       <player-goals-row
           :listKey="listKey"
           :element="element"

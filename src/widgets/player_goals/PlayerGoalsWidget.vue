@@ -12,9 +12,9 @@
       </div>
 
       <div class="input-group mb-4">
-        <input class="form-control" type="text" placeholder="Add new goal..." v-model="newTask" @keypress.enter="addNew"/>
-        <button class="btn btn-outline-secondary rounded-0 search-btn" type="button" @click="addNew">
-          <font-awesome-icon :icon="`plus`"/>
+        <input class="form-control" ref="search" :class="{'edit-mode': this.editIndex !== null}" type="text" placeholder="Add new goal..." v-model="taskName" @keypress.enter="store"/>
+        <button class="btn btn-outline-secondary rounded-0 search-btn" type="button" @click="store">
+          <font-awesome-icon :icon="this.editIndex!== null ? `check`:`plus`"/>
         </button>
       </div>
 
@@ -40,12 +40,15 @@ import draggable from 'vuedraggable'
 import Modal from "../../components/Modal.vue";
 import PlayerGoalsGroup from "./PlayerGoalsGroup.vue";
 import PlayerGoalsSettings from "./PlayerGoalsSettings.vue";
-import {faEllipsisH, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {faCheck, faEllipsisH, faPlus} from '@fortawesome/free-solid-svg-icons'
 import {library} from "@fortawesome/fontawesome-svg-core";
 import GoalsStore from "./js/playerGoalsStore.js";
 import {reactive} from "vue";
+import Helper from "./js/helper";
 
-library.add(faPlus, faEllipsisH);
+library.add(faPlus, faEllipsisH, faCheck);
+
+const LIST_SHORT = 'short';
 
 export default {
   components: {
@@ -63,7 +66,9 @@ export default {
   computed: {},
   data() {
     return {
-      newTask: '',
+      taskName: '',
+      list: LIST_SHORT,
+      editIndex: null,
       goals: GoalsStore.state.goals,
       settings: reactive(
           JSON.parse(localStorage.getItem("playerGoalsSettings")) ||
@@ -84,23 +89,38 @@ export default {
     },
   },
   methods: {
-    addNew() {
-      if (this.newTask !== '') {
-        this.goals.short.push(
-            {
-              id: Math.random().toString(36).slice(2),
-              task: this.newTask,
-              checked: false,
-              featuredIndex: 0,
-            }
-        );
-        this.newTask = '';
+    store() {
+      if (this.taskName !== '') {
+        if (this.editIndex === null) {
+          this.goals[this.list].push(
+              {
+                id: Math.random().toString(36).slice(2),
+                task: this.taskName,
+                checked: false,
+                featuredIndex: 0,
+              }
+          );
+        } else {
+          this.goals[this.list][this.editIndex].task = this.taskName;
+        }
+        this.taskName = '';
+        this.editIndex = null;
+        this.list = LIST_SHORT;
 
         // default add to short term tasks
         GoalsStore.commit('save');
       }
     },
+    edit(object) {
+      this.list = object.listKey;
+      this.editIndex = Helper.getGoalIndex(this.goals[object.listKey], object.element.id);
+      this.taskName = object.element.task;
+      this.$refs["search"].focus(); // set focus to search input
+    },
   },
+  mounted() {
+    this.emitter.on('editTask', object => this.edit(object));
+  }
 }
 </script>
 
@@ -117,5 +137,11 @@ label {
 input[type='checkbox'] {
   margin-right: 6px;
   margin-left: -20px;
+}
+
+input {
+  &.edit-mode {
+    border-color: #DB6574;
+  }
 }
 </style>
