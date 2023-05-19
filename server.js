@@ -85,9 +85,10 @@ class Server {
      */
     readFromPipe() {
         try {
-            const fd = fs.openSync(process.env.PIPE_NAME, 'r+')
-
-            const stream = fs.createReadStream(null, { fd })
+            const stream = fs.createReadStream(null, {
+                fd: fs.openSync(process.env.PIPE_NAME, 'r+'),
+                highWaterMark: parseInt(process.env.BUFFER_SIZE),
+            })
             //stream.setEncoding('utf8');
             stream.on('data', (d) => {
                 try {
