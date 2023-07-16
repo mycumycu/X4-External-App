@@ -14,7 +14,7 @@
           </div>
           <div class="text-muted text-sm" v-if="entry.money >0">
             <font-awesome-icon :icon="'coins'" :class="`fa-icon`"/>
-            {{ entry.money.toLocaleString() }} Cr
+            {{ creditsWithBonus }}
           </div>
         </div>
       </div>
@@ -87,6 +87,13 @@ export default {
     parsedText() {
       return this.entry.text.replace(/\#\w{8}\#/g, this.replaced(this.color(this.entry.text)))
     },
+    creditsWithBonus(){
+      if (!this.entry.bonus){
+        return this.entry.money.toLocaleString() + ' Cr';
+      }
+      const withBonus = this.entry.money + this.entry.bonus;
+      return withBonus.toLocaleString() + ' Cr (base ' + this.entry.money.toLocaleString() + ' Cr + bonus ' + this.entry.bonus.toLocaleString() + ' Cr)';
+    }
   },
   data() {
     return {}

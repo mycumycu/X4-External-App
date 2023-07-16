@@ -1,7 +1,7 @@
 {
   "author": "Mycu",
   "name": "x4_external_app",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "bin": "server.js",
   "pkg": {
     "assets": [
