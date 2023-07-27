@@ -9,6 +9,10 @@
       <font-awesome-icon :icon="'star'" class="fa-icon text-xs star-icon" v-if="hasDescriptions"/>
       <div class="text-muted text-xs" :class="{'ms-1': hasDescriptions}" v-html="missionValue.rewardtext"></div>
     </div>
+    <div class="text-muted text-sm" v-if="missionValue.factionname">
+      <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
+      {{ missionValue.factionname }}
+    </div>
     <div class="text-muted text-xs" v-if="missionValue.reward">
       <font-awesome-icon :icon="'coins'" class="fa-icon"/>
       {{ `${missionValue.reward.toLocaleString()} Cr` }}

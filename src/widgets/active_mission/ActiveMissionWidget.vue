@@ -42,6 +42,7 @@ export default {
         description: null,
         rewardtext: null,
         reward: null,
+        factionname: null,
         subMissions: {}
       },
       activeSubMission: {
@@ -49,6 +50,7 @@ export default {
         description: null,
         rewardtext: null,
         reward: null,
+        factionname: null,
         briefingText: null,
       },
     }
