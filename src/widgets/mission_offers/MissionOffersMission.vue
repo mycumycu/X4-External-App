@@ -1,10 +1,10 @@
 <template>
   <div class="ps-2 py-2">
     <div class="d-flex justify-content-between align-items-start">
-      <h6 class="title my-0">{{ missionValue.name }}</h6>
+      <h6 class="title my-0">{{ missionNameCleaned }}</h6>
       <div class="badge bg-dark">{{ ['trival', 'very easy', 'easy', 'medium', 'hard', 'very hard'][missionValue.difficulty - 1] }}</div>
     </div>
-    <div class="small" v-html="$filters.str_limit(missionValue.description, settings.descriptions)" :title="title(missionValue.description)"></div>
+    <div class="small" v-html="$filters.str_limit(missionDescriptionCleaned, settings.descriptions)" :title="missionDescriptionCleaned"></div>
     <div class="d-flex" v-if="missionValue.rewardtext">
       <font-awesome-icon :icon="'star'" class="fa-icon text-xs star-icon" v-if="hasDescriptions"/>
       <div class="text-muted text-xs" :class="{'ms-1': hasDescriptions}" v-html="missionValue.rewardtext"></div>
@@ -33,17 +33,42 @@ export default {
      */
     hasDescriptions() {
       return this.settings.descriptions !== 0;
+    },
+    missionNameCleaned() {
+      return this.stripFactory(this.missionValue.name);
+    },
+    missionDescriptionCleaned() {
+      return this.stripFactory(this.missionValue.description);
     }
   },
   methods: {
+    /**
+     * @param text
+     * @returns {*}
+     */
+    stripFactory(text) {
+      return this.stripColorCodes(
+          this.stripHtml(text)
+      );
+    },
     /**
      * Removes HTML tags from text
      *
      * @param text
      * @returns {*}
      */
-    title(text) {
+    stripHtml(text) {
       return text.replace(/<[^>]*>?/gm, '')
+    },
+    /**
+     * Removes color codes added by Colourized Faction Texts mod
+     * https://github.com/mycumycu/X4-External-App/issues/7
+     *
+     * @param text
+     * @returns {*}
+     */
+    stripColorCodes(text) {
+      return text.replace(/(#[^#]*#?)/gm, '');
     }
   },
   data() {
