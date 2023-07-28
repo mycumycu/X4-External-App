@@ -66,6 +66,11 @@ export default {
     toggleFullscreen() {
       !this.isFullscreen ? document.documentElement.requestFullscreen() : document.exitFullscreen();
       this.isFullscreen = !this.isFullscreen;
+
+      setTimeout(() => {
+        this.emitter.emit('resizeWidgets')
+      }, 500);
+
     },
 
     /**
