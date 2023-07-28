@@ -372,7 +372,7 @@ export default {
     display: flex;
     align-items: center;
     min-height: 80px;
-    width: 100px;
+    width: 140px;
     text-align: center;
     line-height: 110%;
     color: #fff;

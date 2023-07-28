@@ -23,4 +23,7 @@ export default {
     currentResearch: {
         widgetName: 'Current research',
     },
+    transactionLog: {
+        widgetName: 'Transaction log',
+    },
 }

@@ -1,5 +1,5 @@
 <template>
-  <perfect-scrollbar class="logbook-settings-scroll">
+  <perfect-scrollbar class="transaction-log-settings-scroll">
     <div class="me-3">
       <form>
         <div v-if="!settings.rules.length">
@@ -89,7 +89,7 @@ export default {
   watch: {
     settings: {
       handler(newList, oldList) {
-        localStorage.setItem("logbookSettings", JSON.stringify(newList));
+        localStorage.setItem("transactionLogSettings", JSON.stringify(newList));
       },
       deep: true
     },
