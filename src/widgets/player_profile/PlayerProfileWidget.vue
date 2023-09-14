@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-profile mt-4">
+  <div class="card card-profile" :class="[ compact ? 'mt-1' : 'mt-4' ]">
     <div class="card-header x4-backgound"></div>
     <div class="card-body text-center resizable-element" data-min-resizable-height="190">
       <img class="card-profile-img" src="../../assets/x4-logo.png" title="..."/>
@@ -28,6 +28,7 @@ export default {
       default: 40
     },
   },
+  inject: ['compact'],
   data() {
     return {
       player: {

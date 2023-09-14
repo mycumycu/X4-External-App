@@ -1,8 +1,8 @@
 <template>
-  <div class="card mt-4">
-    <div class="card-header">
+  <widget>
+    <template #header>
       <div class="d-flex justify-content-between">
-        <div><h4 class="card-title pb-3">Transaction Log</h4></div>
+        <h4 class="card-title pb-3">Transaction Log</h4>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#transaction-log-setings"/>
           <Modal id="transaction-log-setings" title="Transaction log settings" size="modal-lg">
@@ -12,34 +12,31 @@
       </div>
 
       <search-bar @search="filterTransactionLog"/>
+    </template>
+
+    <div class="overflow-hidden" style="height: 50px">
+      <span class="rules-string d-inline" v-if="transactionLogExcludedRules.length>0">
+                    <span class="badge bg-primary me-1">Excluded</span>
+                    <span v-for="value in transactionLogExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                  </span>
+      <span class="rules-string d-inline" v-if="transactionLogFeaturedRules.length>0">
+                    <span class="badge bg-primary me-1">Featured</span>
+                    <span v-for="value in transactionLogFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                  </span>
     </div>
-    <div class="list-group-item border-start-0 border-end-0 border-bottom-0 py-2 px-lg-4">
-      <div class="d-flex flex-column">
-        <div class="overflow-hidden" style="height: 50px">
-          <span class="rules-string d-inline" v-if="transactionLogExcludedRules.length>0">
-                        <span class="badge bg-primary me-1">Excluded</span>
-                        <span v-for="value in transactionLogExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
-                      </span>
-          <span class="rules-string d-inline" v-if="transactionLogFeaturedRules.length>0">
-                        <span class="badge bg-primary me-1">Featured</span>
-                        <span v-for="value in transactionLogFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
-                      </span>
-        </div>
-        <div class="transaction-log">
-          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="90">
-            <transaction-log-entry
-                v-for="(entry, name) in transactionLog.filtered"
-                :name="name"
-                :entry="entry"/>
-          </perfect-scrollbar>
-        </div>
-      </div>
-    </div>
-  </div>
+
+    <perfect-scrollbar class="transaction-log resizable-element" data-min-resizable-height="90">
+      <transaction-log-entry
+          v-for="(entry, name) in transactionLog.filtered"
+          :name="name"
+          :entry="entry"/>
+    </perfect-scrollbar>
+  </widget>
 </template>
 
 <script>
 
+import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import TransactionLogSettings from "./TransactionLogSettings.vue";
 import TransactionLogEntry from "./TransactionLogEntry.vue";
@@ -48,7 +45,7 @@ import {reactive} from "vue";
 
 export default {
   components: {
-    Modal, TransactionLogSettings, SearchBar, TransactionLogEntry
+    Modal, TransactionLogSettings, SearchBar, TransactionLogEntry, Widget
   },
   props: {
     gameData: Object,

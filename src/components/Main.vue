@@ -10,7 +10,7 @@
         <div :class="{ 'container-fluid': !compact }">
 
           <no-connection v-show="dataFetchError"/>
-          <div class="row gy-4" :class="{ 'gx-1 mx-0': compact }" v-show="!dataFetchError">
+          <div class="row" :class="{ 'gx-1 mx-0': compact, 'gy-4': !compact }" v-show="!dataFetchError">
             <template v-for="(column, columnIndex) in layout.columns">
               <div :class="[`app-column-${columnIndex}`, `col-${column.width}`, { 'gy-1': compact }]" class="d-flex flex-column mt-0">
                 <div v-for="widget in column.widgets">

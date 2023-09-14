@@ -1,8 +1,8 @@
 <template>
-  <div class="card mt-4">
-    <div class="card-header">
+  <widget>
+    <template #header>
       <div class="d-flex justify-content-between">
-        <div><h4 class="card-title pb-3">Logbook</h4></div>
+        <h4 class="card-title pb-3">Logbook</h4>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#logbook-setings"/>
           <Modal id="logbook-setings" title="Logbook settings" size="modal-lg">
@@ -12,37 +12,34 @@
       </div>
 
       <search-bar @search="filterLogbook"/>
+    </template>
+
+    <div class="overflow-hidden" style="height: 50px">
+                  <span v-if="logbookExcludedRules.length<=0 && logbookFeaturedRules.length<=0">
+                    <span class="badge bg-secondary">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                  </span>
+      <span class="rules-string d-inline" v-if="logbookExcludedRules.length>0">
+                    <span class="badge bg-primary me-1">Excluded</span>
+                    <span v-for="value in logbookExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                  </span>
+      <span class="rules-string d-inline" v-if="logbookFeaturedRules.length>0">
+                    <span class="badge bg-primary me-1">Featured</span>
+                    <span v-for="value in logbookFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
+                  </span>
     </div>
-    <div class="list-group-item border-start-0 border-end-0 border-bottom-0 py-2 px-lg-4">
-      <div class="d-flex flex-column">
-        <div class="overflow-hidden" style="height: 50px">
-                      <span v-if="logbookExcludedRules.length<=0 && logbookFeaturedRules.length<=0">
-                        <span class="badge bg-secondary">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
-                      </span>
-          <span class="rules-string d-inline" v-if="logbookExcludedRules.length>0">
-                        <span class="badge bg-primary me-1">Excluded</span>
-                        <span v-for="value in logbookExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
-                      </span>
-          <span class="rules-string d-inline" v-if="logbookFeaturedRules.length>0">
-                        <span class="badge bg-primary me-1">Featured</span>
-                        <span v-for="value in logbookFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
-                      </span>
-        </div>
-        <div class="logbook">
-          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="90">
-            <logbook-entry
-                v-for="(entry, name) in logbook.filtered"
-                :name="name"
-                :entry="entry"/>
-          </perfect-scrollbar>
-        </div>
-      </div>
-    </div>
-  </div>
+
+    <perfect-scrollbar class="logbook resizable-element" data-min-resizable-height="90">
+      <logbook-entry
+          v-for="(entry, name) in logbook.filtered"
+          :name="name"
+          :entry="entry"/>
+    </perfect-scrollbar>
+  </widget>
 </template>
 
 <script>
 
+import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import LogbookSettings from "./LogbookSettings.vue";
 import LogbookEntry from "./LogbookEntry.vue";
@@ -51,7 +48,7 @@ import {reactive} from "vue";
 
 export default {
   components: {
-    Modal, LogbookSettings, SearchBar, LogbookEntry
+    Modal, LogbookSettings, SearchBar, LogbookEntry, Widget
   },
   props: {
     gameData: Object,
