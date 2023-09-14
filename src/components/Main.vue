@@ -72,6 +72,11 @@ export default {
       handler(newValue, oldValue) {
         GlobalStore.commit('updateLayout', newValue)
         this.resizeWidgets();
+        if (newValue.limitHeight) {
+            document.body.style.touchAction = 'none'
+        } else {
+            document.body.style.touchAction = null
+        }
       },
       deep: true,
     },
