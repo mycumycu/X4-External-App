@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid pt-2 pb-0">
+  <div class="container-fluid" :class="[ compact ? 'pt-1 pb-1 px-2' : 'container-fluid pt-2 pb-0' ]">
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0 pt-3 px-0">
+      <ol class="breadcrumb mb-0 px-0" :class="[ compact ? 'pt-1' : 'pt-3' ]">
         <li class="breadcrumb-item"><a href="index.html">X4</a></li>
         <li class="breadcrumb-item active" aria-current="page">home</li>
       </ol>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  props: [],
+  inject: ['compact'],
   /**
    * @returns {{}}
    */
