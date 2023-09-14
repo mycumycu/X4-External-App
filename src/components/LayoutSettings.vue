@@ -27,6 +27,17 @@
         show breadcrumb</label>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10 pt-2">
+      <label><input type="checkbox"
+                    class="form-check-input"
+                    v-model="this.layout.compact"
+                    :value="false"/>
+        compact mode (reduces whitespace and rearranges elements for higher
+        information density)</label>
+    </div>
+  </div>
 
   <div class="row mt-3">
     <div class="col-sm-2 p-1 caption">Available widgets<br/><small>drag to the desired column</small></div>
