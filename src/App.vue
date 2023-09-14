@@ -1,6 +1,9 @@
 <script setup>
 import Main from './components/Main.vue'
-import X4Header from './components/X4Header.vue'</script>
+import X4Header from './components/X4Header.vue'
+import GlobalStore from './globalStore';
+import { computed } from 'vue';
+</script>
 <script>
 export default {
   data() {
@@ -14,6 +17,11 @@ export default {
      */
     updatePending(isPending) {
       this.isPendingUpdate = isPending;
+    }
+  },
+  provide() {
+    return {
+      compact: computed(() => GlobalStore.state.layout.compact),
     }
   },
 }
