@@ -72,6 +72,7 @@ export default {
       handler(newValue, oldValue) {
         GlobalStore.commit('updateLayout', newValue)
         this.resizeWidgets();
+        this.setDocumentTouchAction(newValue.limitHeight);
       },
       deep: true,
     },
@@ -121,6 +122,14 @@ export default {
           heightWorker.run(this.$refs, widget);
         }
       }
+    },
+
+    /**
+     * Set document touch action
+     * @param isHeightLimited
+     */
+    setDocumentTouchAction(isHeightLimited){
+      document.body.style.touchAction = isHeightLimited ? 'none' : null;
     }
   },
 
