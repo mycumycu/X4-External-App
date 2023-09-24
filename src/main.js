@@ -48,6 +48,7 @@ app.config.globalProperties.$filters = {
 }
 app.config.globalProperties.emitter = mitt()
 app.config.globalProperties.widgetConfig = WidgetConfig
+app.config.unwrapInjectedRef = true
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(PerfectScrollbar, GlobalStore)
 app.mount('#app')

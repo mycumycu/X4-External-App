@@ -1,30 +1,32 @@
 <template>
-  <div class="card mt-4">
-    <div class="card-body">
-      <div class="d-flex align-items-center">
-        <div class="active-mission">
-          <h4 class="mb-4">Active mission</h4>
-          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40">
-            <div v-if="activeMission.name">
-              <active-mission-entry :mission="activeMission"/>
-              <div v-if="activeSubMission.name">
-                <hr/>
-                <active-mission-entry :mission="activeSubMission" class="mt-4"/>
-              </div>
+  <widget>
+    <template #header>
+      <h4>Active mission</h4>
+    </template>
+
+    <div class="d-flex align-items-center">
+      <div class="active-mission">
+        <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40">
+          <div v-if="activeMission.name">
+            <active-mission-entry :mission="activeMission"/>
+            <div v-if="activeSubMission.name">
+              <hr/>
+              <active-mission-entry :mission="activeSubMission" class="mt-4"/>
             </div>
-            <div v-else>none</div>
-          </perfect-scrollbar>
-        </div>
+          </div>
+          <div v-else>none</div>
+        </perfect-scrollbar>
       </div>
     </div>
-  </div>
+  </widget>
 </template>
 
 <script>
+import Widget from "../Widget.vue";
 import ActiveMissionEntry from "./ActiveMissionEntry.vue";
 
 export default {
-  components: { ActiveMissionEntry },
+  components: { Widget, ActiveMissionEntry },
   props: {
     gameData: [Object, String],
     maxHeight: {

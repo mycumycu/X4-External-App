@@ -6,13 +6,13 @@
       <!-- Breadcrumb-->
       <breadcrumb v-if="!dataFetchError && this.layout.showBreadcrumb"/>
 
-      <section class="pt-4 pb-1">
-        <div class="container-fluid">
+      <section :class="[ compact ? 'pt-1 pb-1' : 'pt-4 pb-1' ]">
+        <div :class="{ 'container-fluid': !compact }">
 
           <no-connection v-show="dataFetchError"/>
-          <div class="row gy-4" v-show="!dataFetchError">
+          <div class="row" :class="{ 'gx-1 mx-0': compact, 'gy-4': !compact }" v-show="!dataFetchError">
             <template v-for="(column, columnIndex) in layout.columns">
-              <div :class="`app-column-${columnIndex} col-${column.width} mt-0`" class="d-flex flex-column">
+              <div :class="[`app-column-${columnIndex}`, `col-${column.width}`, { 'gy-1': compact }]" class="d-flex flex-column mt-0">
                 <div v-for="widget in column.widgets">
                   <component
                       ref="widgets"
@@ -46,6 +46,7 @@ export default {
     'updatePending'
   ],
   props: [],
+  inject: ['compact'],
   data() {
     return {
       gameData: {},

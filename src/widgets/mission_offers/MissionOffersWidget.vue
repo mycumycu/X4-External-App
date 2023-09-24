@@ -1,6 +1,6 @@
 <template>
-  <div class="card mt-4">
-    <div class="card-header">
+  <widget>
+    <template #header>
       <div class="d-flex justify-content-between">
         <div><h4 class="card-title pb-3">Mission Offers</h4></div>
         <div>
@@ -11,9 +11,10 @@
         </div>
       </div>
       <search-bar @search="filterMissionOffers"/>
-    </div>
+    </template>
+
     <div class="list-group">
-      <div class="list-group-item border-0 py-2 px-lg-4">
+      <div class="list-group-item border-0 py-2 px-0">
         <div class="d-flex flex-column">
           <div>
             <div class="overflow-hidden" style="height: 50px">
@@ -49,11 +50,12 @@
         </div>
       </div>
     </div>
-  </div>
+  </widget>
 </template>
 
 <script>
 
+import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import MissionOffersGroup from "./MissionOffersGroup.vue";
 import MissionOffersSettings from "./MissionOffersSettings.vue";
@@ -65,7 +67,8 @@ export default {
     Modal,
     MissionOffersGroup,
     MissionOffersSettings,
-    SearchBar
+    SearchBar,
+    Widget,
   },
   props: {
     gameData: Object,

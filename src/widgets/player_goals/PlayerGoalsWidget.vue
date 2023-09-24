@@ -1,6 +1,6 @@
 <template>
-  <div class="card mt-4">
-    <div class="card-header">
+  <widget>
+    <template #header>
       <div class="d-flex justify-content-between">
         <div><h4 class="card-title pb-3">Goals</h4></div>
         <div>
@@ -17,26 +17,27 @@
           <font-awesome-icon :icon="this.editIndex!== null ? `check`:`plus`"/>
         </button>
       </div>
+    </template>
 
-      <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="50">
+    <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="50">
+      <player-goals-group
+          :label="settings.enableLongTerm?`Short term`:``"
+          :goals="goals"
+          list-key="short"/>
+      <div class="mt-4" v-if="settings.enableLongTerm">
         <player-goals-group
-            :label="settings.enableLongTerm?`Short term`:``"
+            label="Long term"
             :goals="goals"
-            list-key="short"/>
-        <div class="mt-4" v-if="settings.enableLongTerm">
-          <player-goals-group
-              label="Long term"
-              :goals="goals"
-              list-key="long"/>
-        </div>
-      </perfect-scrollbar>
-    </div>
-  </div>
+            list-key="long"/>
+      </div>
+    </perfect-scrollbar>
+  </widget>
 </template>
 
 
 <script>
 import draggable from 'vuedraggable'
+import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import PlayerGoalsGroup from "./PlayerGoalsGroup.vue";
 import PlayerGoalsSettings from "./PlayerGoalsSettings.vue";
@@ -56,6 +57,7 @@ export default {
     PlayerGoalsSettings,
     PlayerGoalsGroup,
     draggable,
+    Widget,
   },
   props: {
     maxHeight: {
