@@ -221,7 +221,7 @@ export default {
     columnWidthAdjust(columnNo, widthValue) {
       const maxGridSize = 12;
       const columns = this.layout.columns;
-      let currentSum = columns.reduce((sum, column) => Math.max(1, sum) + parseInt(column.width), 0);
+      let currentSum = columns.reduce((sum, column) => Math.max(0, sum) + parseInt(column.width), 0);
       let columnsCount = columns.length;
 
       if (currentSum > maxGridSize) {
@@ -302,7 +302,7 @@ export default {
       GlobalStore.commit('updateLayout', this.layout)
     },
     /**
-     * Block drag if widget count in coulmn exceeds max, unless it's drag si within the same column
+     * Block drag if widget count in coulmn exceeds max, unless it's drag is within the same column
      *
      * @param evt
      * @returns {boolean}

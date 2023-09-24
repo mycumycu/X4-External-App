@@ -16,7 +16,7 @@
 
     <div class="overflow-hidden" style="height: 50px">
                   <span v-if="logbookExcludedRules.length<=0 && logbookFeaturedRules.length<=0">
-                    <span class="badge bg-secondary">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                        <span class="badge bg-dark text-muted">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
                   </span>
       <span class="rules-string d-inline" v-if="logbookExcludedRules.length>0">
                     <span class="badge bg-primary me-1">Excluded</span>
