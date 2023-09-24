@@ -29,6 +29,7 @@
           <div class="col-sm-9 col-lg-3" :class="{'disabled': !element.enabled}">
             <ColorPalette
                 v-if="element.type==='featured'"
+                parent-name="transaction-log"
                 :listIndex="listIndex"
                 :current="element.params.color"
                 @colorChange="colorChange"/>

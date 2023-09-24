@@ -1,17 +1,17 @@
 <template>
   <div class="color-buttons">
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div class="btn-group" role="group" aria-label="Radio toggle button group">
       <template v-for="(colorValue, colorIndex) in colorClass">
         <input type="radio"
                autocomplete="off"
                class="btn-check"
-               :id="`color_${listIndex}_${colorIndex}`"
+               :id="`${parentName}_color_${listIndex}_${colorIndex}`"
                :name="`color_${listIndex}`"
                :value="colorValue"
                :checked="current === colorValue"
                v-model="selectedColor">
         <label class="btn btn-color btn-outline-primary"
-               :for="`color_${listIndex}_${colorIndex}`"
+               :for="`${parentName}_color_${listIndex}_${colorIndex}`"
                :class="[{'selected': current === colorValue}, colorValue]">&nbsp;</label>
       </template>
     </div>
@@ -22,7 +22,11 @@
 
 export default {
   emits: ['colorChange'],
-  props: ['listIndex', 'current'],
+  props: [
+    'parentName',
+    'listIndex',
+    'current'
+  ],
   data() {
     return {
       selectedColor: '',
