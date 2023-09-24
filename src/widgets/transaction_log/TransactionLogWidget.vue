@@ -16,6 +16,9 @@
     <div class="list-group-item border-start-0 border-end-0 border-bottom-0 py-2 px-lg-4">
       <div class="d-flex flex-column">
         <div class="overflow-hidden" style="height: 50px">
+          <span v-if="transactionLogExcludedRules.length<=0 && transactionLogFeaturedRules.length<=0">
+                        <span class="badge bg-dark text-muted">Adjust transaction log settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                      </span>
           <span class="rules-string d-inline" v-if="transactionLogExcludedRules.length>0">
                         <span class="badge bg-primary me-1">Excluded</span>
                         <span v-for="value in transactionLogExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
