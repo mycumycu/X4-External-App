@@ -90,11 +90,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  .red{
-    color: #c55b68;
-  }
-  .green{
-    color: #619f3b;
-  }
+<style lang="scss" scoped>
+@import "./scss/widget.scss";
 </style>

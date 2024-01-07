@@ -1,0 +1,18 @@
+@import "variables";
+
+h6 {
+  &.empty {
+    opacity: 0.5;
+  }
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+
+.no-move {
+  transition: transform 0s;
+}
+.nav-link {
+  display: inline-block;
+}

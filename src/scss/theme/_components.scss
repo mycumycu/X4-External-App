@@ -18,16 +18,16 @@
 
 .fc .fc-list-event-dot,
 .fc-daygrid-event-dot {
-    border-color: $primary;
+    border-color: $colorPrimary;
 }
 
 .fc-h-event {
-    border-color: $primary;
-    background-color: $primary;
+    border-color: $colorPrimary;
+    background-color: $colorPrimary;
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-    background-color: rgba($primary, 0.15) !important;
+    background-color: rgba($colorPrimary, 0.15) !important;
 }
 
 /*
@@ -106,7 +106,7 @@
             color: $gray-700;
             &:hover,
             &:focus {
-                color: $primary;
+                color: $colorPrimary;
             }
         }
     }

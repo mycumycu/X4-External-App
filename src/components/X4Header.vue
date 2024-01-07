@@ -91,5 +91,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.brand-text {
+  span {
+    color: #999;
+  }
+}
+.set-profile {
+  font-size: 20px;
+}
 </style>

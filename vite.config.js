@@ -40,8 +40,11 @@ export default defineConfig({
     css: {
         preprocessorOptions: {
             scss: {
-                charset: false
+                charset: false,
+                additionalData: `
+                    @import "./src/scss/user/_user-variables.scss";           
+                `,
             }
         }
-    }
+    },
 })

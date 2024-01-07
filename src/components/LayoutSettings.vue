@@ -363,8 +363,8 @@ export default {
 }
 </script>
 
-<style src="../../node_modules/@vueform/toggle/themes/default.css"></style>
 <style lang="scss">
+@import "../../node_modules/@vueform/toggle/themes/default.css";
 .caption {
   line-height: 100%;
 

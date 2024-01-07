@@ -331,18 +331,18 @@ nav#sidebar {
     &.active {
         > .sidebar-link {
             background: lighten($dark-shade-2, 2%);
-            border-left: 2px solid $primary;
+            border-left: 2px solid $colorPrimary;
             color: $gray-500;
             &:hover {
                 background: lighten($dark-shade-2, 2%);
             }
             .svg-icon {
-                color: $primary;
+                color: $colorPrimary;
             }
         }
         ul {
             .sidebar-link {
-                border-left: 2px solid $primary;
+                border-left: 2px solid $colorPrimary;
             }
         }
     }
@@ -400,7 +400,7 @@ nav#sidebar {
         background: lighten($dark-shade-2, 2%);
         color: inherit;
         .svg-icon {
-            color: $primary;
+            color: $colorPrimary;
         }
     }
 

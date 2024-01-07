@@ -39,22 +39,8 @@ export default {
    */
   data() {
     return {
-      activeMission: {
-        name: null,
-        description: null,
-        rewardtext: null,
-        reward: null,
-        factionname: null,
-        subMissions: {}
-      },
-      activeSubMission: {
-        name: null,
-        description: null,
-        rewardtext: null,
-        reward: null,
-        factionname: null,
-        briefingText: null,
-      },
+      activeMission: this.resetMission(),
+      activeSubMission: this.resetMission(),
     }
   },
   /**
@@ -71,10 +57,10 @@ export default {
      * @param gameData
      */
     parseActiveMissionData(gameData) {
-      this.activeMission = {};
-      this.activeSubMission = {};
+      this.activeMission = this.resetMission();
+      this.activeSubMission = this.resetMission();
 
-      if (gameData !== "") {
+      if (Object.keys(gameData).length !== 0) {
         let missionData = gameData[1];
         this.activeMission = this.buildMissionObject(missionData)
 
@@ -109,11 +95,27 @@ export default {
         rewardtext: mission.rewardtext,
         briefings: briefings,
       }
+    },
+
+    /**
+     *
+     * @returns {{rewardtext: null, reward: null, name: null, description: null, factionname: null, subMissions: {}}}
+     */
+    resetMission() {
+      return {
+        name: null,
+        description: null,
+        rewardtext: null,
+        reward: null,
+        factionname: null,
+        subMissions: {}
+      };
     }
 
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "./scss/widget.scss";
 </style>

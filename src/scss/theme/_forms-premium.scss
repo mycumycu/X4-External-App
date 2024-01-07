@@ -40,7 +40,7 @@
 }
 
 .noUi-connect {
-    background: $primary;
+    background: $colorPrimary;
 }
 
 /*
@@ -77,13 +77,13 @@
 
 .datepicker-cell.selected,
 .datepicker-cell.selected:hover {
-    background: $primary !important;
+    background: $colorPrimary !important;
     font-weight: $font-weight-normal;
 }
 
 .datepicker-cell.selected,
 .datepicker-cell.selected:hover {
-    background: $primary !important;
+    background: $colorPrimary !important;
     font-weight: $font-weight-normal;
 }
 
@@ -115,7 +115,7 @@
     font-size: 0.9rem;
     text-decoration: none;
     &:hover {
-        background: $primary;
+        background: $colorPrimary;
         color: $white;
     }
 }
@@ -144,13 +144,13 @@
 
 .choices__list--multiple .choices__item {
     margin: 2px;
-    background: $primary;
-    border-color: $primary;
+    background: $colorPrimary;
+    border-color: $colorPrimary;
 }
 
 .choices[data-type*="select-multiple"] .choices__button,
 .choices[data-type*="text"] .choices__button {
-    border-left: 1px solid lighten($primary, 10%);
+    border-left: 1px solid lighten($colorPrimary, 10%);
 }
 
 /*
@@ -249,7 +249,7 @@
 
     &:hover,
     &:focus {
-        stroke: $primary;
+        stroke: $colorPrimary;
     }
 }
 
@@ -259,7 +259,7 @@
     stroke: none;
     &:hover,
     &:focus {
-        fill: $primary;
+        fill: $colorPrimary;
     }
 }
 
@@ -268,7 +268,7 @@
     &:hover,
     &.ql-active,
     &:focus {
-        color: $primary;
+        color: $colorPrimary;
     }
 }
 

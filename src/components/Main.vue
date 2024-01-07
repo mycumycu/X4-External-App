@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../scss/user/_user.scss">
 <template>
   <div class="d-flex align-items-stretch">
     <!-- Sidebar Navigation-->
@@ -152,5 +151,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style lang="scss"></style>

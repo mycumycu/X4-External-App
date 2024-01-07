@@ -26,7 +26,7 @@
     }
 
     .info {
-        background: rgba($primary, 0.9);
+        background: rgba($colorPrimary, 0.9);
         color: #fff;
         @include media-breakpoint-up(lg) {
             min-height: 70vh;

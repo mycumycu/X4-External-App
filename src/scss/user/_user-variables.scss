@@ -1,5 +1,9 @@
-// this is the place for your variable overrides, paste variables from theme/_variables.scss here and set your values
+$color1: #af515d;
+$color2: #6933B9;
+$color3: #9528B9;
+$color4: #FFC107;
+$color5: #28A745;
+$color6: #17A2B8;
+$color7: #bec0cb;
 
-// primary colour is set to false by default to enable multiple colour variants stylesheet creation,
-// change to your brand colour if needed
-$primary: #af515d;
+$colorPrimary: $color1;

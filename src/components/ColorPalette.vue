@@ -52,5 +52,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+ @import "../scss/user/_color-palette.scss";
 </style>

@@ -1,5 +1,4 @@
-@import "modal";
-@import "logbook-settings";
+@import "animation";
 
 *:focus,
 *:active{
@@ -46,92 +45,6 @@ p {
   min-height: auto;
 }
 
-.accordion {
-  .accordion-button {
-    padding: 0.4rem 0.4rem 0.4rem 0 ;
-
-    &:not(.collapsed) {
-      background: none;
-      box-shadow: none;
-    }
-
-    &:focus {
-      box-shadow: none;
-    }
-  }
-}
-
-.logbook,
-.transaction-log {
-  .featured {
-    border-left: transparent 8px solid;
-    padding-left: 10px;
-
-    &.color-1 {
-      border-left-color: $logbookColor1;
-    }
-
-    &.color-2 {
-      border-left-color: $logbookColor2;
-    }
-
-    &.color-3 {
-      border-left-color: $logbookColor3;
-    }
-
-    &.color-4 {
-      border-left-color: $logbookColor4;
-    }
-
-    &.color-5 {
-      border-left-color: $logbookColor5;
-    }
-
-    &.color-6 {
-      border-left-color: $logbookColor6;
-    }
-
-    &.color-7 {
-      border-left-color: $logbookColor7;
-    }
-
-  }
-}
-
-.highlighted {
-  color: $primary;
-  -webkit-animation: blink 2s infinite both;
-  animation: blink 2s infinite both;
-
-  &.color-1 {
-    color: $logbookColor1;
-  }
-
-  &.color-2 {
-    color: $logbookColor2;
-  }
-
-  &.color-3 {
-    color: $logbookColor3;
-  }
-
-  &.color-4 {
-    color: $logbookColor4;
-  }
-
-  &.color-5 {
-    color: $logbookColor5;
-  }
-
-  &.color-6 {
-    color: $logbookColor6;
-  }
-
-  &.color-7 {
-    color: $logbookColor7;
-  }
-}
-
 .btn:focus,
 .btn-check:focus + .btn-primary,
 .btn-primary:focus,
@@ -139,130 +52,24 @@ p {
   box-shadow: none;
 }
 
-.btn-filter {
-  color: #e5e5e5;
-  opacity: 0.6;
-  padding: 0.4rem 0.3rem;
-  border: $primary 1px solid;
-  font-weight: 100;
-  font-size: 0.8rem;
-
-  &:hover {
-    color: #fff;
-  }
-
-  &.active {
-    color: #fff;
-    opacity: 1;
-    background: $primary;
-  }
-}
-
 h1, h2, h3, h4, h5, h6, strong {
   color: #cbcbcb;
-}
-
-.x4-backgound {
-  background-image: url(../assets/x4-background.jpg)
-}
-
-.btn-outline-info {
-  color: $pink;
-  border-color: $pink;
-
-  &:hover {
-    background: $pink;
-    border-color: $pink;
-  }
-}
-
-.btn-info {
-  background: $pink;
-  border-color: $pink;
-
-  &:hover {
-    background: darken($pink, 10);
-    border-color: darken($pink, 10);
-  }
-}
-
-.brand-text {
-  span {
-    color: #999;
-  }
-}
-
-.search-btn {
-  min-width: 45px;
-}
-
-.set-profile {
-  font-size: 20px;
-}
-
-@-webkit-keyframes blink {
-  0%,
-  50%,
-  100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0.3;
-  }
-}
-
-@keyframes blink {
-  0%,
-  50%,
-  100% {
-    opacity: 1;
-  }
-  25%,
-  75% {
-    opacity: 0.3;
-  }
-}
-
-.nav-link {
-  display: inline-block;
-}
-
-.no-connection {
-  .info {
-    display: block;
-    color: #fff;
-  }
 }
 
 .fa-icon {
   width: 1.4em !important;
 }
 
-.toggle-on {
-  color: #000;
-  border-color: #666;
-  background: #ccc;
+.nav-link {
+  display: inline-block;
 }
-
 .toggle-off {
   color: #ccc;
   border-color: #666;
   background: #666;
 }
-
-.bg-primary-outline{
-  background: none;
-  border: $primary 1px solid;
-  color: $primary;
-  font-weight: 100;
-}
-
-.svg-inline--fa{
-  &.cursor-pointer{
-    transition: opacity 0.3s;
-    &:hover{
-      opacity: 0.5;
-    }
-  }
+.toggle-on {
+  color: #000;
+  border-color: #666;
+  background: #ccc;
 }

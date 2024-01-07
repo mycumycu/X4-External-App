@@ -9,7 +9,7 @@
          @mouseover="hovered = true"
          @mouseleave="hovered = false"
     >
-      <label :class="{ 'finished':this.element.checked }">
+      <label class="text-sm" :class="{ 'finished':this.element.checked }">
         <input type="checkbox"
                class="form-check-input"
                v-model="this.element.checked"
@@ -21,7 +21,7 @@
             v-if="this.element.featuredIndex"/>
         {{ element.task }}
       </label>
-      <div v-if="hovered" class="me-3">
+      <div v-if="hovered" class="me-3 text-sm">
         <font-awesome-icon :icon="`ellipsis-h`" class="menu" data-bs-toggle="dropdown"/>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
           <li @click="toggleFeatured" v-text="this.element.featuredIndex === 0?`Make featured`:`Disable featured`"></li>
