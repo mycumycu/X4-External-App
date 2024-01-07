@@ -2,7 +2,7 @@
   <div class="input-group">
     <input class="form-control" type="text" placeholder="Start typing..." @keyup='search' v-model="phrase"/>
     <button class="btn btn-outline-secondary rounded-0 search-btn" type="button" @click="clear">
-      <font-awesome-icon :icon="icon" />
+      <font-awesome-icon :icon="icon"/>
     </button>
   </div>
 </template>
@@ -22,7 +22,7 @@ export default {
     /**
      * Reset search
      */
-    clear(){
+    clear() {
       this.phrase = '';
       this.search();
     },
@@ -37,5 +37,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.search-btn {
+  min-width: 45px;
+}
 </style>

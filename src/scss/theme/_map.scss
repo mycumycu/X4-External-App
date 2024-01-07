@@ -75,11 +75,11 @@
 
     &.active {
         color: #fff;
-        border-color: $primary;
-        background-color: $primary;
+        border-color: $colorPrimary;
+        background-color: $colorPrimary;
 
         &:before {
-            border-top-color: $primary;
+            border-top-color: $colorPrimary;
         }
     }
 }

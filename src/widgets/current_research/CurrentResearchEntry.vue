@@ -55,17 +55,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-$font-color: #aaa;
-
-.progress-label {
-  position: absolute;
-  left: 0;
-  z-index: 1;
-  color: $font-color;
-}
-
-.researchtime {
-  color: $font-color;
-}
+<style lang="scss" scoped>
+  @import "scss/widget.scss";
 </style>

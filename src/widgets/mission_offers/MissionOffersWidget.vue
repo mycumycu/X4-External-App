@@ -163,7 +163,7 @@ export default {
         let missionType = missionOffers[key];
         for (const missionTypeKey in missionType) {
           let missionGroup = missionType[missionTypeKey];
-          if (!isEnabled || Object.keys(missionGroup.missions).length === 0) {
+          if (!isEnabled || !missionGroup.missions) {
             delete missionOffers[key][missionTypeKey];
           }
         }
@@ -273,5 +273,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+  @import "./scss/widget.scss";
 </style>

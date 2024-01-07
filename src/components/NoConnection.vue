@@ -32,5 +32,11 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.no-connection {
+  .info {
+    display: block;
+    color: #fff;
+  }
+}
 </style>

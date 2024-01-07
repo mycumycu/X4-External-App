@@ -1,0 +1,76 @@
+@import "variables";
+
+.transaction-log {
+  .red{
+    color: #c55b68;
+  }
+  .green{
+    color: #619f3b;
+  }
+
+  .featured {
+    border-left: transparent 8px solid;
+    padding-left: 10px;
+
+    &.color-1 {
+      border-left-color: $color1;
+    }
+
+    &.color-2 {
+      border-left-color: $color2;
+    }
+
+    &.color-3 {
+      border-left-color: $color3;
+    }
+
+    &.color-4 {
+      border-left-color: $color4;
+    }
+
+    &.color-5 {
+      border-left-color: $color5;
+    }
+
+    &.color-6 {
+      border-left-color: $color6;
+    }
+
+    &.color-7 {
+      border-left-color: $color7;
+    }
+  }
+}
+
+.highlighted {
+  -webkit-animation: blink 2s infinite both;
+  animation: blink 2s infinite both;
+
+  &.color-1 {
+    color: $color1;
+  }
+
+  &.color-2 {
+    color: $color2;
+  }
+
+  &.color-3 {
+    color: $color3;
+  }
+
+  &.color-4 {
+    color: $color4;
+  }
+
+  &.color-5 {
+    color: $color5;
+  }
+
+  &.color-6 {
+    color: $color6;
+  }
+
+  &.color-7 {
+    color: $color7;
+  }
+}

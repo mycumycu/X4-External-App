@@ -3,7 +3,7 @@
   <draggable
       item-key="id"
       class="list-group"
-      tag="transition-group"
+      :animation="150"
       :component-data="{
           tag: 'ul',
           name: !drag ? 'flip-lists' : null
@@ -65,19 +65,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-h6 {
-  &.empty {
-    opacity: 0.5;
-  }
-}
-
-.flip-list-move {
-  transition: transform 0.5s;
-}
-
-.no-move {
-  transition: transform 0s;
-}
-
+<style lang="scss" scoped>
+@import "./scss/widget.scss";
 </style>

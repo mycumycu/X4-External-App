@@ -44,7 +44,7 @@
 }
 
 .text-shadow-primary {
-    text-shadow: 2px 2px 2px rgba($primary, 0.1);
+    text-shadow: 2px 2px 2px rgba($colorPrimary, 0.1);
 }
 
 .text-decoration-underline {
@@ -351,7 +351,7 @@ $spacing: 0.1em 0.2em 0.3em 0.4em 0.5em;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: $primary;
+    background: $colorPrimary;
     position: absolute;
     bottom: 0.5rem;
     right: 0;
@@ -363,7 +363,7 @@ $spacing: 0.1em 0.2em 0.3em 0.4em 0.5em;
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: $primary;
+    background: $colorPrimary;
     position: absolute;
     top: 4px;
     right: 0;
@@ -374,7 +374,7 @@ $spacing: 0.1em 0.2em 0.3em 0.4em 0.5em;
     color: inherit;
     &:hover,
     &:focus {
-        color: $primary;
+        color: $colorPrimary;
         text-decoration: none;
     }
 }

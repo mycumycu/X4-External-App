@@ -77,7 +77,9 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+ @import "./scss/widget.scss";
+
 .star-icon {
   margin-top: 3px;
 }

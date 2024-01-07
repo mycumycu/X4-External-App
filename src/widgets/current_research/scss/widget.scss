@@ -1,0 +1,12 @@
+@import "variables";
+
+.progress-label {
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  color: $fontColor;
+}
+
+.researchtime {
+  color: $fontColor;
+}

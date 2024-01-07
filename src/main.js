@@ -2,6 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 
 import './scss/style.default.premium.scss';
+import './scss/user/_modal.scss';
 import './vendor/bootstrap/js/bootstrap.bundle.min.js';
 
 import {library} from '@fortawesome/fontawesome-svg-core'

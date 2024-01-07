@@ -83,5 +83,6 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "scss/widget.scss";
 </style>

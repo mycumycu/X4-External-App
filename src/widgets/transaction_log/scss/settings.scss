@@ -1,0 +1,25 @@
+@import "variables";
+
+#transaction-log-setings {
+  .disabled {
+    opacity: 0.4;
+  }
+
+  .row {
+    min-height: 64px;
+  }
+
+  select {
+    padding-right: 0.25rem;
+  }
+
+  .trash {
+    font-size: 1.4rem;
+  }
+
+  .logbook-settings-scroll {
+    max-height: 500px;
+  }
+}
+
+

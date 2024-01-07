@@ -1,0 +1,45 @@
+.color-buttons {
+  .selected {
+    border-color: #fff !important;
+  }
+
+  .btn-group {
+    .btn-color {
+      padding: 7px 6px;
+      margin: 1px;
+      border-radius: 2px !important;
+      border: transparent 2px solid;
+      box-shadow: 1px 1px 10px #000000;
+
+
+      &.color-1 {
+        background: $color1;
+      }
+
+      &.color-2 {
+        background: $color2;
+      }
+
+      &.color-3 {
+        background: $color3;
+      }
+
+      &.color-4 {
+        background: $color4;
+      }
+
+      &.color-5 {
+        background: $color5;
+      }
+
+      &.color-6 {
+        background: $color6;
+      }
+
+      &.color-7 {
+        background: $color7;
+      }
+
+    }
+  }
+}

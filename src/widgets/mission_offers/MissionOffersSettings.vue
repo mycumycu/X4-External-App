@@ -105,9 +105,6 @@ export default {
 }
 </script>
 
-<style src="../../../node_modules/@vueform/toggle/themes/default.css"></style>
-<style lang="scss">
-.disabled {
-  opacity: 0.5;
-}
+<style lang="scss" scoped>
+@import "./scss/settings.scss";
 </style>
