@@ -1,7 +1,7 @@
 <template>
   <widget>
     <template #header>
-      <h4>Active mission</h4>
+      <h4>Active Mission</h4>
     </template>
 
     <div class="d-flex align-items-center">
