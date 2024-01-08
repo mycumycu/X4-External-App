@@ -61,16 +61,15 @@ export default {
       this.activeSubMission = this.resetMission();
 
       if (Object.keys(gameData).length !== 0) {
-        let missionData = gameData[1];
+        let missionData = gameData[0];
         this.activeMission = this.buildMissionObject(missionData)
 
-        let subMission = missionData.subMissions[1] || null;
-        if (missionData.subMissions && subMission.active) {
+        let subMission = missionData.subMissions[0];
+        if (missionData.subMissions && subMission && subMission.active) {
           this.activeSubMission = this.buildMissionObject(subMission)
         }
       }
     },
-
     /**
      * @param mission
      * @returns {{reward: *, rewardtext: (null|*), briefingText, name, description: *}}
