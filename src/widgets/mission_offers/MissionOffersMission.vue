@@ -1,5 +1,5 @@
 <template>
-  <div class="ps-2 py-2">
+  <div v-if="missionValue!==undefined" class="ps-2 py-2">
     <div class="d-flex justify-content-between align-items-start">
       <h6 class="title my-0">{{ missionNameCleaned }}</h6>
       <div class="badge bg-dark">{{ ['trival', 'very easy', 'easy', 'medium', 'hard', 'very hard'][missionValue.difficulty - 1] }}</div>
@@ -74,11 +74,14 @@ export default {
   data() {
     return {}
   },
+  mounted() {
+    //
+  }
 }
 </script>
 
 <style lang="scss" scoped>
- @import "./scss/widget.scss";
+@import "./scss/widget.scss";
 
 .star-icon {
   margin-top: 3px;
