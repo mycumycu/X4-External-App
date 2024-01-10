@@ -133,18 +133,18 @@ export default {
       this.missionOffers.filtered = this.removeEmptyAndDisabledMissionNodes(this.missionOffers.filtered)
     },
     /**
-     * Unify missions object
+     * Unify missions object, so all objects have the same structure
      */
     unifyMissions(missionOffers) {
       Object.keys(missionOffers).forEach(key => {
-        if (missionOffers[key][1] && missionOffers[key][1].missions === undefined) {
-          missionOffers[key] = {
-            "": {
+        if (!missionOffers[key][0] || missionOffers[key][0].missions === undefined) {
+          missionOffers[key] = [
+            {
               id: key,
-              name: 'Missions',
+              name: null,
               missions: missionOffers[key],
             }
-          }
+          ]
         }
       });
 
@@ -168,6 +168,7 @@ export default {
           }
         }
       }
+
       return missionOffers;
     },
     /**

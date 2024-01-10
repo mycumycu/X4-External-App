@@ -1,8 +1,13 @@
 <template>
   <div class="accordion-item border-top-0 border-start-0 border-end-0">
     <h2 class="accordion-header">
-      <button class="accordion-button align-items-start" type="button" data-bs-toggle="collapse" :data-bs-target="`#${elementId}`" aria-expanded="true" aria-controls="collapseOne">
-        <span class="badge bg-primary-outline me-2 text-capitalize">{{ group }}</span> [{{ this.missionsCount() }}] {{ value.name }}
+      <button class="accordion-button align-items-start" :class="{collapsed: !this.hasUnfilteredMissions()}" :disabled="!this.hasUnfilteredMissions()" type="button" data-bs-toggle="collapse"
+              :data-bs-target="`#${elementId}`"
+              aria-expanded="true">
+        <div class="d-flex">
+          <span class="group-type flex-grow-0 flex-shrink-0 badge bg-primary-outline me-2 text-capitalize">{{ group }}</span>
+          <span class="group-name flex-grow-1 flex-shrink-1 flex-wrap">[{{ this.unfilteredMissionCount() }}] {{ this.buttonCaption(value) }}</span>
+        </div>
       </button>
     </h2>
     <div :id="elementId" class="accordion-collapse collapse show" aria-labelledby="headingOne" :data-bs-parent="`#${elementId}`">
@@ -37,11 +42,26 @@ export default {
   },
   methods: {
     /**
-     * Get number of missions
+     * Get number of active missions
      * @return {number}
      */
-    missionsCount() {
-      return Object.keys(this.value.missions).length;
+    unfilteredMissionCount() {
+      return this.value.missions.reduce((acc, cv) => (cv) ? acc + 1 : acc, 0);
+    },
+    /**
+     * @return {boolean}
+     */
+    hasUnfilteredMissions() {
+      return this.unfilteredMissionCount() > 0
+    },
+    /**
+     * @returns {*}
+     */
+    buttonCaption(value) {
+      if (value.name) {
+        return value.name;
+      }
+      return this.unfilteredMissionCount() === 1 ? 'Mission' : 'Missions'
     },
 
   },
@@ -52,5 +72,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "./scss/widget.scss";
+@import "./scss/widget.scss";
 </style>

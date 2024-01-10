@@ -12,6 +12,19 @@
     &:focus {
       box-shadow: none;
     }
+
+    .mission-group {
+      flex-basis: 70px;
+    }
+
+    .group-type {
+      flex-basis: 70px;
+      height: 22px;
+    }
+
+    .group-name {
+      min-width: 85%;
+    }
   }
 }
 
