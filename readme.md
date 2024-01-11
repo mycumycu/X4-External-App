@@ -122,6 +122,20 @@ To do that, select "make featured" option from goal (three dot) menu. The exclam
 
 After completing a goal and making it "checked" - it will fade out and will be removed in a few seconds. Unchecking the goal within that time cancels the removal operation.
 
+### Factions
+![Factions](https://i.imgur.com/GcuOrQj.png)  
+
+Shows all factions and their relations with the player.
+
+If player has a military or capital ship licence with a faction - it will be displayed as a green bar above faction name.  
+When faction relation changes, its name will blink and recent relation change value will be displayed in a top right of a faction name.
+
+Widget settings alow to:
+* exlude factions from the grid
+* exclude certain relation levels
+* hide recent relation changes
+* hide licence indicators
+ 
 ## How it works
 
 External App mod *(MD + LUA)* collects and sends data to SirNukes Pipe Server *(Python)* custom module.  

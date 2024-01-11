@@ -26,4 +26,7 @@ export default {
     transactionLog: {
         widgetName: 'Transaction log',
     },
+    factions: {
+        widgetName: 'Factions',
+    },
 }

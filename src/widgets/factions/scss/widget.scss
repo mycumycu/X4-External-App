@@ -1,0 +1,49 @@
+@import "variables";
+
+.faction-block {
+  border-radius: 5px;
+  min-width: 60px;
+
+  &.expose {
+    position: relative;
+    transition: all 0.7s ease-out;
+    animation: expose-anim infinite 1s ease-in-out;
+    animation-iteration-count: 2;
+  }
+
+  .licences {
+    width: 15px;
+    height: 3px;
+    margin-right: 1px;
+
+    &.military {
+      &.filled {
+        background-color: $color5;
+      }
+    }
+
+    &.capital {
+      &.filled {
+        background-color: lighten($color5, 25%);
+      }
+    }
+  }
+
+  .relation {
+    font-size: 0.7rem;
+  }
+
+  .relation-change {
+    top: -2px;
+    left: 49px;
+    font-size: 0.65rem;
+  }
+
+
+}
+
+@keyframes expose-anim {
+  50% {
+    color: transparent;
+  }
+}
