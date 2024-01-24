@@ -3,13 +3,15 @@
     <div class="d-flex" :class="[{ featured: isFeatured }, colorClass]">
       <div class="ms-12 w-100">
         <div class="d-flex justify-content-between">
-          <div :class="entryTitleClass" class="text-sm text-white" v-html="parsedTitle"></div>
-          <small class="text-nowrap">{{ entry.passedtime }}</small>
-        </div>
-        <div class="d-flex justify-content-between mt-1">
-          <div class="text-sm">{{ entry.eventtypename}}</div>
-          <div class="text-muted text-sm" v-if="entry.money">
-            <span :class="[{'red': entry.money < 0}, {'green': entry.money > 0}]">{{ money }}</span>
+          <div>
+            <h5 :class="entryTitleClass" class="text-sm" v-html="parsedTitle"></h5>
+            <div class="text-sm">{{ entry.eventtypename }}</div>
+          </div>
+          <div class="flex-shrink-0 text-end" style="flex-basis: 100px;">
+            <small class="text-nowrap">{{ entry.passedtime }}</small>
+            <div class="text-muted text-sm" v-if="entry.money">
+              <span :class="[{'red': entry.money < 0}, {'green': entry.money > 0}]">{{ money }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -36,7 +38,7 @@ export default {
     color(source) {
       const color = source.match(/\#\w{8}\#/g)
       if (Array.isArray(color)) {
-          return `#${color[0].slice(3, -1)}`
+        return `#${color[0].slice(3, -1)}`
       }
       return ''
     },
@@ -60,11 +62,11 @@ export default {
      */
     entryTitleClass() {
       let classes = [];
-      if (this.entry.highlighted){
+      if (this.entry.highlighted) {
         classes.push('highlighted')
       }
 
-      if (this.entry.rules && this.entry.rules.params.blink){
+      if (this.entry.rules && this.entry.rules.params.blink) {
         classes.push('highlighted')
         classes.push(this.entry.rules.params.color)
       }
@@ -80,8 +82,8 @@ export default {
     /**
      * @return {string}
      */
-    money(){
-        return this.entry.money.toLocaleString() + ' Cr';
+    money() {
+      return this.entry.money.toLocaleString() + ' Cr';
     }
   },
   data() {
