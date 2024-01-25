@@ -7,7 +7,7 @@
             <h5 :class="entryTitleClass" class="text-sm" v-html="parsedTitle"></h5>
             <div class="text-sm">{{ entry.eventtypename }}</div>
           </div>
-          <div class="flex-shrink-0 text-end" style="flex-basis: 100px;">
+          <div class="flex-shrink-0 text-end right-block">
             <small class="text-nowrap">{{ entry.passedtime }}</small>
             <div class="text-muted text-sm" v-if="entry.money">
               <span :class="[{'red': entry.money < 0}, {'green': entry.money > 0}]">{{ money }}</span>

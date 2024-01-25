@@ -1,11 +1,16 @@
 @import "variables";
 
 .transaction-log {
-  .red{
+  .red {
     color: #c55b68;
   }
-  .green{
+
+  .green {
     color: #619f3b;
+  }
+
+  .right-block {
+    flex-basis: 108px;
   }
 
   .featured {
