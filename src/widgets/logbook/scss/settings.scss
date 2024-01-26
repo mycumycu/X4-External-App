@@ -5,7 +5,9 @@
 }
 
 .row {
-  min-height: 64px;
+  div[class*="col-"] {
+    min-height: 43px;
+  }
 }
 
 select {

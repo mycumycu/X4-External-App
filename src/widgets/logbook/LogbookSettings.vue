@@ -5,58 +5,74 @@
         <div v-if="!settings.rules.length">
           Press "add new" button to add some rules.
         </div>
-        <div class="row g-3 align-items-center mb-sm-5 mb-lg-0" v-for="(element, listIndex) in settings.rules" :key="listIndex">
-          <div class="col-sm-2 col-lg-1 flex-grow-0">
+        <div class="row g-3 align-items-start mb-sm-5 mb-lg-3" v-for="(element, listIndex) in settings.rules" :key="listIndex">
+          <div class="col-2 col-lg-1" style="flex-basis: 70px;">
             <Toggle
                 v-model="element.enabled"
                 onLabel="on"
                 offLabel="off"/>
           </div>
-          <div class="col-7 col-lg-3" :class="{'disabled': !element.enabled}">
-            <input
-                class="form-control"
-                type="text"
-                v-model="element.phrase"
-                placeholder="enter phrase">
-          </div>
-          <div class="col-sm-3 col-lg-2" :class="{'disabled': !element.enabled}">
-            <select class="form-select" v-model="element.type">
-              <option value="" disabled selected>Type...</option>
-              <option value="excluded">Excluded</option>
-              <option value="featured">Featured</option>
-            </select>
-          </div>
-          <div class="col-sm-9 col-lg-3" :class="{'disabled': !element.enabled}">
-            <ColorPalette
-                v-if="element.type==='featured'"
-                parent-name="logbook"
-                :listIndex="listIndex"
-                :current="element.params.color"
-                @colorChange="colorChange"/>
-          </div>
-          <div class="col-sm-3 col-lg-2" :class="{'disabled': !element.enabled}">
-            <div class="form-check m-0" v-if="element.type==='featured'" title="make the title blink">
-              <input class="form-check-input"
-                     type="checkbox"
-                     v-model="element.params.blink"
-                     :id="`blink_${listIndex}`"
-                     :value="true"
-                     :checked="element.params.blink">
-              <label class="form-check-label text-xs" :for="`blink_${listIndex}`">title blink</label>
+
+          <div class="col-lg-10">
+            <div class="row">
+              <!-- First row-->
+              <div class="d-none d-xl-block col-1 pt-1 text-end">
+                When
+              </div>
+              <div class="col-12 col-xl-11" :class="{'disabled': !element.enabled}">
+                <input
+                    class="form-control"
+                    type="text"
+                    v-model="element.phrase"
+                    placeholder="enter phrase">
+              </div>
             </div>
-            <div class="form-check m-0" title="filter by title only">
-              <input class="form-check-input"
-                     type="checkbox"
-                     v-model="element.params.titleonly"
-                     :id="`titleonly_${listIndex}`"
-                     :value="true"
-                     :checked="element.params.titleonly"
-              >
-              <label class="form-check-label text-xs" :for="`titleonly_${listIndex}`">in title only</label>
+            <div class="row">
+              <!-- Second row-->
+              <div class="d-none d-xl-block col-1 pt-1 text-end">
+                Then
+              </div>
+              <div class="col-6 col-lg-3" :class="{'disabled': !element.enabled}">
+                <select class="form-select" v-model="element.type">
+                  <option value="" disabled selected>Type...</option>
+                  <option value="excluded">Make excluded</option>
+                  <option value="featured">Make featured</option>
+                </select>
+              </div>
+              <div class="col-6 col-lg-3" :class="{'disabled': !element.enabled}">
+                <ColorPalette
+                    v-if="element.type==='featured'"
+                    parent-name="logbook"
+                    :listIndex="listIndex"
+                    :current="element.params.color"
+                    @colorChange="colorChange"/>
+              </div>
+              <div class="col-12 col-lg-4" :class="{'disabled': !element.enabled}">
+                <div class="form-check m-0" title="filter by title only">
+                  <input class="form-check-input"
+                         type="checkbox"
+                         v-model="element.params.titleonly"
+                         :id="`titleonly_${listIndex}`"
+                         :value="true"
+                         :checked="element.params.titleonly"
+                  >
+                  <label class="form-check-label text-xs" :for="`titleonly_${listIndex}`">consider phrase in title only</label>
+                </div>
+                <div class="form-check m-0" v-if="element.type==='featured'" title="make the title blink">
+                  <input class="form-check-input"
+                         type="checkbox"
+                         v-model="element.params.blink"
+                         :id="`blink_${listIndex}`"
+                         :value="true"
+                         :checked="element.params.blink">
+                  <label class="form-check-label text-xs" :for="`blink_${listIndex}`">make title blink</label>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="col-lg-1 d-flex justify-content-end trash" @click="remove(listIndex)">
-            <button class="btn btn-outline-secondary rounded-0" type="button" title="remove row">
+
+          <div class="col-12 col-xl-1 d-flex justify-content-end trash" @click="remove(listIndex)">
+            <button class="btn btn-outline-secondary rounded-0 px-3" type="button" title="remove row">
               <font-awesome-icon :icon="'trash-alt'"/>
             </button>
           </div>
