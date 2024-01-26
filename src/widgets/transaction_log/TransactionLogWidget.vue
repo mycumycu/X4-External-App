@@ -5,7 +5,7 @@
         <h4 class="card-title pb-3">Transaction Log</h4>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#transaction-log-setings"/>
-          <Modal id="transaction-log-setings" title="Transaction log settings" size="modal-lg">
+          <Modal id="transaction-log-setings" title="Transaction log settings" size="modal-xl">
             <TransactionLogSettings :settings="transactionLog.settings"/>
           </Modal>
         </div>
@@ -92,6 +92,7 @@ export default {
         let value = this.transactionLog.filtered[key];
         let partnername = value.partnername.toLowerCase();
         let eventtypename = value.eventtypename.toLowerCase();
+        let money = value.money;
 
         value.rules = null;
         // apply rules
@@ -99,6 +100,8 @@ export default {
           let elementPhrase = element.phrase.toLowerCase();
           if (
               element.enabled &&
+              (element.lessThan === '' || money < element.lessThan) &&
+              (element.moreThan === '' || money > element.moreThan) &&
               elementPhrase !== '' && (
                   partnername.includes(elementPhrase) ||
                   !element.params.titleonly &&
@@ -173,5 +176,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "./scss/widget.scss";
+@import "./scss/widget.scss";
 </style>
