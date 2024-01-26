@@ -1,0 +1,13 @@
+.toggle {
+  --toggle-handle-enabled: #999;
+  --toggle-height: 1.40rem;
+  --toggle-width: 4.00rem;
+
+  border-radius: 0;
+  border-width: 1px;
+  border-color: #40444b;
+
+  .toggle-handle {
+    border-radius: 0;
+  }
+}
