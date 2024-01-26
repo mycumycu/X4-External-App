@@ -5,7 +5,7 @@
         <div v-if="!settings.rules.length">
           Press "add new" button to add some rules.
         </div>
-        <div class="row g-3 align-items-start mb-sm-5 mb-lg-4" v-for="(element, listIndex) in settings.rules" :key="listIndex">
+        <div class="row g-3 align-items-start mb-sm-5 mb-lg-3" v-for="(element, listIndex) in settings.rules" :key="listIndex">
           <div class="col-2 col-lg-1" style="flex-basis: 70px;">
             <Toggle
                 v-model="element.enabled"
@@ -16,7 +16,7 @@
           <div class="col-lg-10">
             <div class="row">
               <!-- First row-->
-              <div class="d-none d-xl-block col-1 pt-2">
+              <div class="d-none d-xl-block col-1 pt-1 text-end">
                 When
               </div>
               <div class="col-12 col-xl-7" :class="{'disabled': !element.enabled}">
@@ -43,7 +43,7 @@
             </div>
             <div class="row">
               <!-- Second row-->
-              <div class="d-none d-xl-block col-1 pt-2">
+              <div class="d-none d-xl-block col-1 pt-1 text-end">
                 Then
               </div>
               <div class="col-6 col-lg-3" :class="{'disabled': !element.enabled}">
