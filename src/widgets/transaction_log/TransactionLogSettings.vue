@@ -31,6 +31,7 @@
                     class="form-control"
                     type="text"
                     v-model="element.lessThan"
+                    v-on:keydown="element.moreThan = null"
                     placeholder="is less than">
               </div>
               <div class="col-6 col-xl-2" :class="{'disabled': !element.enabled}">
@@ -38,7 +39,8 @@
                     class="form-control"
                     type="text"
                     v-model="element.moreThan"
-                    placeholder="or more than">
+                    v-on:keydown="element.lessThan = null"
+                    placeholder="is more than">
               </div>
             </div>
             <div class="row">
@@ -140,8 +142,8 @@ export default {
             'params': {
               'color': 'color-1',
               'blink': false,
-              'titleonly': true,
-              'lessThan': null,
+              'titleonly': false,
+              'lessThan': 'null',
               'moreThan': null,
             },
           }

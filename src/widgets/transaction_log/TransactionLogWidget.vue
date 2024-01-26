@@ -100,8 +100,8 @@ export default {
           let elementPhrase = element.phrase.toLowerCase();
           if (
               element.enabled &&
-              (element.lessThan === '' || money < element.lessThan) &&
-              (element.moreThan === '' || money > element.moreThan) &&
+              (!element.lessThan || money < element.lessThan) &&
+              (!element.moreThan || money > element.moreThan) &&
               elementPhrase !== '' && (
                   partnername.includes(elementPhrase) ||
                   !element.params.titleonly &&
