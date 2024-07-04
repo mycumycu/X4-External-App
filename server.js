@@ -78,14 +78,18 @@ class Server {
      * Read from a named pipe or file
      */
     dataFeed() {
-        process.env.DATA_SOURCE === 'pipe' ? this.readFromPipe() : this.readFromFile();
+        if(process.env.DATA_SOURCE === 'pipe') {
+            this.outputMessage(`Connecting to pipe ${process.env.PIPE_NAME}...`);
+            this.readFromPipe();
+        } else {
+            this.readFromFile();  
+        }
     }
 
     /**
      *
      */
     readFromPipe() {
-        this.outputMessage(`Connecting to pipe ${process.env.PIPE_NAME}...`);
         const stream = net
           .createConnection(process.env.PIPE_NAME)
           .on("error", () => {
