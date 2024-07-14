@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const dotenvAbsolutePath = path.join(__dirname, '.env');
 require('dotenv').config({ path: dotenvAbsolutePath });
+const net = require("node:net");
 
 let express = require('express');
 let app = express();
@@ -77,49 +78,63 @@ class Server {
      * Read from a named pipe or file
      */
     dataFeed() {
-        process.env.DATA_SOURCE === 'pipe' ? this.readFromPipe() : this.readFromFile();
+        if(process.env.DATA_SOURCE === 'pipe') {
+            this.outputMessage(`Connecting to pipe ${process.env.PIPE_NAME}...`);
+            this.readFromPipe();
+        } else {
+            this.readFromFile();  
+        }
     }
 
     /**
      *
      */
     readFromPipe() {
-        try {
-            const stream = fs.createReadStream(null, {
-                fd: fs.openSync(process.env.PIPE_NAME, 'r+'),
-                highWaterMark: parseInt(process.env.BUFFER_SIZE),
-            })
-            //stream.setEncoding('utf8');
-            stream.on('data', (d) => {
-                try {
-                    let buffer = Buffer.from(d);
-                    this.dataObject = JSON.parse(buffer.toString());
-                    this.outputMessage('Correct data stream received.');
-                    this.endInvalidStreamTimer();
-                } catch (e) {
-                    this.outputMessage('Invalid data stream format.');
-                    this.startInvalidStreamTimer()
-                }
-
-                if (d.toString().trim() === '[stdin end]') {
-                    return process.nextTick(() => {
-                        console.log(process.argv.slice(2))
-                    })
-                }
-                process.argv.push(d.toString())
-            }).on('error', () => {
-                this.dataObject = null;
-                this.outputMessage('Disconnected from pipe. Retrying...')
-                this.readFromPipe();
-
-            })
-        } catch (e) {
+        const stream = net
+          .createConnection(process.env.PIPE_NAME)
+          .on("error", () => {
             this.dataObject = null;
-            this.outputMessage('Pipe data stream not yet ready. Retrying... ');
+            this.outputMessage("Disconnected from pipe. Retrying...");
             setTimeout(() => {
-                this.readFromPipe();
-            }, 2000)
-        }
+              return this.readFromPipe();
+            }, 2000);
+          });
+    
+        stream.on("connect", function () {
+          console.log("Connected");
+        });
+    
+        //stream.setEncoding('utf8');
+        stream
+          .on("data", (d) => {
+            try {
+              let buffer = Buffer.from(d);
+              this.dataObject = JSON.parse(buffer.toString());
+              this.outputMessage("Correct data stream received.");
+              this.endInvalidStreamTimer();
+            } catch (e) {
+              this.outputMessage("Invalid data stream format.");
+              this.startInvalidStreamTimer();
+            }
+    
+            if (d.toString().trim() === "[stdin end]") {
+              return process.nextTick(() => {
+                console.log(process.argv.slice(2));
+              });
+            }
+            process.argv.push(d.toString());
+          })
+          .on("end", () => {
+            this.dataObject = null;
+            this.outputMessage("Disconnected from pipe. Retrying...");
+            this.readFromPipe();
+          });
+    
+        setInterval(() => {
+          if (stream) {
+            stream.write("\n");
+          }
+        }, 20);
     }
 
     /**
