@@ -9,18 +9,22 @@
          @mouseover="hovered = true"
          @mouseleave="hovered = false"
     >
-      <label class="text-sm" :class="{ 'finished':this.element.checked }">
-        <input type="checkbox"
-               class="form-check-input"
-               v-model="this.element.checked"
-               :value="true"/>
+      <div class="d-flex text-sm goal-row" :class="{ 'finished':this.element.checked }">
+        <label>
+          <input type="checkbox"
+                 class="form-check-input"
+                 v-model="this.element.checked"
+                 :value="true"/>
+        </label>
+        <span class="goal-data">
         <font-awesome-icon
             @click.prevent="makeFeatured"
             class="featured"
             :icon="this.featuredElement"
             v-if="this.element.featuredIndex"/>
         {{ element.task }}
-      </label>
+          </span>
+      </div>
       <div v-if="hovered" class="me-3 text-sm">
         <font-awesome-icon :icon="`ellipsis-h`" class="menu" data-bs-toggle="dropdown"/>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
@@ -128,7 +132,6 @@ export default {
 label {
   display: block;
   padding-left: 20px;
-  width: 85%;
 }
 
 input[type='checkbox'] {
@@ -170,6 +173,14 @@ input[type='checkbox'] {
 .featured {
   color: #DB6574;
   width: 24px;
+}
+
+.goal-row {
+  width: 85%;
+
+  .goal-data {
+    cursor: default;
+  }
 }
 
 .dropdown-menu {
