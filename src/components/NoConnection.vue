@@ -38,5 +38,9 @@ export default {
     display: block;
     color: #fff;
   }
+  .highlighted {
+    -webkit-animation: blink 3s infinite both;
+    animation: blink 3s infinite both;
+  }
 }
 </style>
