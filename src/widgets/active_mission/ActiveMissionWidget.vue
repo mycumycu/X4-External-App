@@ -64,9 +64,10 @@ export default {
         let missionData = gameData[0];
         this.activeMission = this.buildMissionObject(missionData)
 
-        let subMission = missionData.subMissions[0];
-        if (missionData.subMissions && subMission && subMission.active) {
-          this.activeSubMission = this.buildMissionObject(subMission)
+        for (let subMission of missionData.subMissions) {
+          if (subMission.active) {
+            this.activeSubMission = this.buildMissionObject(subMission);
+          }
         }
       }
     },
@@ -77,12 +78,10 @@ export default {
     buildMissionObject(mission) {
       let briefings = [];
       if (Object.keys(mission.briefingobjectives).length > 0) {
-        briefings = Object.entries(mission.briefingobjectives).map(element => {
-          let index = element[0];
-          let text = element[1].text;
+        briefings = Object.values(mission.briefingobjectives).map(element => {
           return {
-            text: text,
-            active: parseInt(index) === mission.activebriefingstep,
+            text: element.text,
+            active: element.step === mission.activebriefingstep,
           }
         });
       }
