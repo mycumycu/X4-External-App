@@ -11,13 +11,13 @@
 
   <p class="mb-0">{{ research.description }}</p>
   <div class="text-small mb-0">
-    <div v-if="research.precursors">
+    <div v-if="research.precursors && research.precursors.length > 0">
       <div class="mt-2"><strong>Tasks required</strong></div>
       <div class="text-muted text-xs" v-for="precursor in research.precursors">
         {{ precursor.name }}
       </div>
     </div>
-    <div v-if="research.resources">
+    <div v-if="research.resources && research.resources.length > 0">
       <div class="mt-2"><strong>Required resources</strong></div>
       <div class="row text-muted text-xs" v-for="resource in research.resources">
         <div class="col-8 offset-sm-0 ps-4">{{ resource.name }}</div>
