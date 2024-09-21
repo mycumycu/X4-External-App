@@ -81,6 +81,7 @@ export default {
         briefings = Object.values(mission.briefingobjectives).map(element => {
           return {
             text: element.text,
+            completed: element.step < mission.activebriefingstep,
             active: element.step === mission.activebriefingstep,
           }
         });

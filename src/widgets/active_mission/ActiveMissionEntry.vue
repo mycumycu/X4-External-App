@@ -3,7 +3,9 @@
     <h5 class="text-muted">{{ mission.name }}</h5>
     <ol>
       <li v-for="briefing in mission.briefings">
-        <h6 :class="{'text-muted': !briefing.active}">{{ briefing.text }}</h6>
+        <h6 :class="{'text-muted': !briefing.active, 'fw-normal completed': briefing.completed}">{{ briefing.text }}
+          <span v-if="briefing.completed"> - completed</span>
+        </h6>
       </li>
     </ol>
     <p class="text-small mt-4 mb-0" v-html="mission.description"></p>
@@ -36,4 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.completed{
+  color: #666 !important;
+}
 </style>
