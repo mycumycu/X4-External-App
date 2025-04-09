@@ -8,45 +8,41 @@ Shows real time logbook entries, mission offers, currently active mission detail
 Application is served on a local port, so it can be run locally or on multiple network devices at once.  
 Created to be displayed on external device (monitor, tablet or smartphone).
 
-Note: lua module supports only Windows named pipes, so currently it will run exclusevly on this platform.
+Note: lua module supports only Windows, so currently it will run exclusevly on this platform.
 
 ## One time setup
 
-1. Install SirNukes Mod Support APIs  
-   https://www.nexusmods.com/x4foundations/mods/503
+1. Install *Http client library for X4 Foundation* mod by *djfhe*  
+   https://github.com/djfhe/x4_http  
+  _Since this mod is still in beta, you need to navigate to the main page of the repository. Above the list of files, click Code and Download ZIP.  
+   Then extract contents of the zip file to `\extensions` directory - and rename `x4_http-main` folder to `djfhe_http`_.
 
-2. Download SirNukes Python Pipe Server  
-   https://github.com/bvbohnen/x4-projects/releases  
-   
+   The folder structure should be:
+
+   ```
+   \extensions
+       \djfhe_http
+           \content.xml
+           \...
+   ```
+  
+
 3. Install *X4 External App* mod  
    https://www.nexusmods.com/x4foundations/mods/818
 
 4. Download *X4 External App server*   
    https://github.com/mycumycu/X4-External-App/releases
 
-5. Run SirNukes Python Pipe Server, it will create `permissions.json` file.   
-   Add X4 External App ID (`ExternalApp`) to the permissions file:
-
-```
-{
-  "instructions": "Set which extensions are allowed to load modules, based on extension id (in content.xml).",
-  "ws_2042901274": true,
-  "ExternalApp": true
-}
-```
-
 That's it, you should be good to go.
 
 ## Running the X4 External App
 
-1. Start *SirNukes Python Pipe Server* (via the `X4_Python_Pipe_Server.exe` file) 
-2. Start the *X4 External App* server (`x4_external_app.exe`).
-3. Start the game and load your save file.
+1. Start the *X4 External App* server (`x4_external_app.exe`). Don't close it during playing.
+2. Start the game and load your save file.
 
-So there should be two console windows open - one from *SirNukes Python Pipe Server* and second from *X4 External App*. 
-Don't close it during playing.    
-  
-*X4 External App* will serve application on a local port. If default port (8080) is busy - a new, free one will be found.  
+*X4 External App* will serve application on a local port. If default port (8080) is busy - a new, free one will be found.
+> In case of used port different from 8080 - also update the port setting the mod config file located in `\extensions\mycu_external_app\ui\config.lua`
+
 App will automatically open in default browser.
 
 If you want to access it from a local network - change `localhost` to local IP address of a machine running X4, e.g. `http://192.168.1.120:8080`.  
@@ -138,9 +134,8 @@ Widget settings alow to:
  
 ## How it works
 
-External App mod *(MD + LUA)* collects and sends data to SirNukes Pipe Server *(Python)* custom module.  
-Then this module creates another named pipe, allowing the *(Node.js)* server to read data from this pipe and serve it to a (Vue.js) SPA application.  
-A **big word of praise for SirNukes** - without his work this data communication wouldn't be possible.
+External App mod *(MD + LUA)* collects and sends data to *(Node.js)* server that serves it to a (Vue.js) SPA application.  
+A **big thanks to djfhe** for creating _Http client library_ mod that allows communication between game and REST server.
 
 SPA application was created with *Vue.js (v3)* using *Bootstrap (v5)* and all data is provided dynamically.
 

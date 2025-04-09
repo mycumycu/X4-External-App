@@ -13,7 +13,7 @@
               <div class="mb-2">
                 There's no water in the pipe...
               </div>
-              <small class="pt-2 info">Check if SirNuke's Python Pipe Server and X4 External App are both running.<br/>Game save should also be loaded and unpaused.</small>
+              <small class="pt-2 info">Server couldn't get data from the game. <br/>Game save should be loaded. Also check if server port matches mod config setting.</small>
             </div>
           </div>
         </div>

@@ -1,10 +1,12 @@
 <script setup>
 import Main from './components/Main.vue'
 import X4Header from './components/X4Header.vue'
-import GlobalStore from './globalStore';
-import { computed } from 'vue';
+import {computed} from 'vue';
 </script>
 <script>
+import GlobalStore from './globalStore'
+import {computed} from 'vue'
+
 export default {
   data() {
     return {
