@@ -92,6 +92,7 @@ export default {
         description: mission.rawdescription,
         reward: mission.rewardmoney,
         rewardtext: mission.rewardtext,
+        timeout: mission.timeout,
         briefings: briefings,
       }
     },

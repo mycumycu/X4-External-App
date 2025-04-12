@@ -9,18 +9,28 @@
       <font-awesome-icon :icon="'star'" class="fa-icon text-xs star-icon" v-if="hasDescriptions"/>
       <div class="text-muted text-xs" :class="{'ms-1': hasDescriptions}" v-html="missionValue.rewardtext"></div>
     </div>
-    <div class="text-muted text-sm" v-if="missionValue.factionname">
-      <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
-      {{ missionValue.factionname }}
-    </div>
-    <div class="text-muted text-xs" v-if="missionValue.reward">
-      <font-awesome-icon :icon="'coins'" class="fa-icon"/>
-      {{ `${missionValue.reward.toLocaleString()} Cr` }}
+    <div class="d-flex justify-content-between text-muted text-xs">
+      <div>
+        <div v-if="missionValue.reward">
+          <font-awesome-icon :icon="'coins'" class="fa-icon"/>
+          {{ `${missionValue.reward.toLocaleString()} Cr` }}
+        </div>
+        <div v-if="hasDuration">
+          <font-awesome-icon :icon="'clock'" class="fa-icon"/>
+          {{ duration }}
+        </div>
+      </div>
+      <div v-if="missionValue.factionname">
+        <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
+        {{ missionValue.factionname }}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Helper from '../../helper'
+
 export default {
   props: [
     'settings',
@@ -31,14 +41,20 @@ export default {
     /**
      * @returns {boolean}
      */
-    hasDescriptions() {
+    hasDescriptions () {
       return this.settings.descriptions !== 0;
     },
-    missionNameCleaned() {
+    missionNameCleaned () {
       return this.stripFactory(this.missionValue.name);
     },
-    missionDescriptionCleaned() {
+    missionDescriptionCleaned () {
       return this.stripFactory(this.missionValue.description);
+    },
+    hasDuration () {
+      return this.missionValue.duration !== 0;
+    },
+    duration () {
+      return Helper.formatTime(this.missionValue.duration);
     }
   },
   methods: {
@@ -46,7 +62,7 @@ export default {
      * @param text
      * @returns {*}
      */
-    stripFactory(text) {
+    stripFactory (text) {
       return this.stripColorCodes(
           this.stripHtml(text)
       );
@@ -57,7 +73,7 @@ export default {
      * @param text
      * @returns {*}
      */
-    stripHtml(text) {
+    stripHtml (text) {
       return text.replace(/<[^>]*>?/gm, '')
     },
     /**
@@ -67,16 +83,13 @@ export default {
      * @param text
      * @returns {*}
      */
-    stripColorCodes(text) {
+    stripColorCodes (text) {
       return text.replace(/(#[^#]*#?)/gm, '');
     }
   },
-  data() {
+  data () {
     return {}
   },
-  mounted() {
-    //
-  }
 }
 </script>
 
