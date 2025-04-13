@@ -68,7 +68,6 @@ export default {
       this.currentResearch = {};
 
       if (gameData !== "") {
-
         this.currentResearch = {
           name: gameData.name,
           description: gameData.description,
