@@ -266,6 +266,7 @@ export default {
               ],
 
               descriptions: 0,
+              objectives: false,
             }
         ),
       },

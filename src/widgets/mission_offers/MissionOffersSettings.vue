@@ -33,12 +33,21 @@
         </div>
         <hr/>
         <h6 class="mb-4">Other settings</h6>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col-sm-5 p-1 caption">Mission descriptions</div>
           <div class="col-sm-7">
             <select class="form-select" v-model="settings.descriptions">
               <option :value="option.key" v-for="option in descriptionOptions" :key="option.key">{{ option.value }}</option>
             </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-5 p-1 caption">Mission objectives</div>
+          <div class="col-sm-7">
+            <Toggle
+                v-model="settings.objectives"
+                onLabel="on"
+                offLabel="off"/>
           </div>
         </div>
       </form>

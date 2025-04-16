@@ -4,11 +4,14 @@
       <h6 class="title my-0">{{ missionNameCleaned }}</h6>
       <div class="badge bg-dark">{{ ['trival', 'very easy', 'easy', 'medium', 'hard', 'very hard'][missionValue.difficulty - 1] }}</div>
     </div>
-    <div class="small" v-html="$filters.str_limit(missionDescriptionCleaned, settings.descriptions)" :title="missionDescriptionCleaned"></div>
+    <div class="small" v-html="$filters.str_limit(missionDescriptionCleaned, settings.descriptions)" :title="missionDescriptionCleaned" />
     <div class="d-flex" v-if="missionValue.rewardtext">
       <font-awesome-icon :icon="'star'" class="fa-icon text-xs star-icon" v-if="hasDescriptions"/>
-      <div class="text-muted text-xs" :class="{'ms-1': hasDescriptions}" v-html="missionValue.rewardtext"></div>
+      <div class="text-muted text-xs" :class="{'ms-1': hasDescriptions}" v-html="missionValue.rewardtext" />
     </div>
+    <ol v-if="settings.objectives">
+      <li v-for="objective in missionValue.briefingobjectives" class="text-muted text-xs">{{ objective.text }}</li>
+    </ol>
     <div class="d-flex justify-content-between text-muted text-xs">
       <div>
         <div v-if="missionValue.reward">
