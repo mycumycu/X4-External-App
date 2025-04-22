@@ -12,8 +12,11 @@
       </div>
 
       <div class="input-group mb-4">
-        <input class="form-control" ref="search" :class="{'edit-mode': this.editIndex !== null}" type="text" placeholder="Add new goal..." v-model="taskName" @keypress.enter="store"/>
-        <button class="btn btn-outline-secondary rounded-0 search-btn" type="button" @click="store">
+        <input class="form-control" ref="task" :class="{'focus-mode': hasFocus, 'task': hasSpeechRecognition}" type="text" placeholder="Add new goal..." v-model="taskName" @keypress.enter="store" @focus="focusIn" @blur="focusOut"/>
+        <button v-if="hasSpeechRecognition" class="btn rounded-0 mic-btn" :class="{'focus-mode': hasFocus}" type="button" @click="speachToText">
+          <font-awesome-icon :icon="'microphone'" :class="{'fa-icon': true, 'recognizing': isRecognizing}"/>
+        </button>
+        <button class="btn btn-outline-secondary rounded-0" :class="{'border-start-0' : hasSpeechRecognition}" type="button" @click="store">
           <font-awesome-icon :icon="this.editIndex!== null ? `check`:`plus`"/>
         </button>
       </div>
@@ -65,8 +68,15 @@ export default {
       default: 40
     },
   },
-  computed: {},
-  data() {
+  computed: {
+    hasSpeechRecognition () {
+      return !!(window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition);
+    },
+    isRecognizing () {
+      return this.recognition !== null;
+    },
+  },
+  data () {
     return {
       taskName: '',
       list: LIST_SHORT,
@@ -78,20 +88,22 @@ export default {
             enableLongTerm: true
           }
       ),
+      hasFocus: false,
+      recognition: null,
     }
   },
   /**
    */
   watch: {
     goals: {
-      handler(newValue, oldValue) {
+      handler (newValue, oldValue) {
         GoalsStore.commit('save')
       },
       deep: true,
     },
   },
   methods: {
-    store() {
+    store () {
       if (this.taskName !== '') {
         if (this.editIndex === null) {
           this.goals[this.list].push(
@@ -113,14 +125,43 @@ export default {
         GoalsStore.commit('save');
       }
     },
-    edit(object) {
+    edit (object) {
       this.list = object.listKey;
       this.editIndex = Helper.getGoalIndex(this.goals[object.listKey], object.element.id);
       this.taskName = object.element.task;
-      this.$refs["search"].focus(); // set focus to search input
+      this.focusIn()
+    },
+    speachToText () {
+      if (this.recognition) {
+        this.recognition.abort();
+        this.recognition = null;
+        return;
+      }
+
+      this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+      this.recognition.lang = 'en-US';
+
+      this.recognition.onstart = () => {
+        this.focusIn()
+      };
+      this.recognition.onend = () => {
+        this.recognition = null;
+      };
+      this.recognition.onresult = (event) => {
+        this.taskName = event.results[0][0].transcript;
+      };
+
+      this.recognition.start();
+    },
+    focusIn () {
+      this.$refs["task"].focus(); // set focus to task input
+      this.hasFocus = true;
+    },
+    focusOut () {
+      this.hasFocus = false;
     },
   },
-  mounted() {
+  mounted () {
     this.emitter.on('editTask', object => this.edit(object));
   }
 }
@@ -141,9 +182,22 @@ input[type='checkbox'] {
   margin-left: -20px;
 }
 
-input {
-  &.edit-mode {
-    border-color: #DB6574;
+.focus-mode {
+  border-color: #DB6574 !important;
+}
+
+.mic-btn {
+  border: 1px solid #40444b;
+  border-left: none;
+  border-right: 1px solid #8a8d93;
+
+  .recognizing {
+    color: #DB6574;
   }
 }
+
+.task {
+  border-right: none;
+}
+
 </style>
