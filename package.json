@@ -9,7 +9,8 @@
       "dist/**/*"
     ],
     "targets": [
-      "node16-win-x64"
+      "node16-win-x64",
+      "node16-linux-x64"
     ],
     "outputPath": "dist"
   },
@@ -17,7 +18,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "package": "npm run build && pkg . --targets latest-win --output dist/x4_external_app.exe"
+    "package:linux": "npm run build && pkg . --targets node16-linux-x64 --output dist/x4_external_app_linux",
+    "package:win": "npm run build && pkg . --targets node16-win-x64 --output dist/x4_external_app_win.exe"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",

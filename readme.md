@@ -36,7 +36,7 @@ Note: lua module supports only Windows, so currently it will run exclusevly on t
 That's it, you should be good to go.
 
 ## Running the X4 External App
-
+### Windows
 1. Start the *X4 External App* server (`x4_external_app.exe`). Don't close it during playing.
 2. Start the game and load your save file.
 
@@ -47,6 +47,16 @@ App will automatically open in default browser.
 
 If you want to access it from a local network - change `localhost` to local IP address of a machine running X4, e.g. `http://192.168.1.120:8080`.  
 Application will detect and output the exact network address in console window.
+
+### Linux (using Steam Proton version)
+1. Configure your X4 to run using proton (Steam Compatibility mode)
+> **WARNING** For some reason X4 won't sync saves between windows and linux using Steam cloud.
+> 
+> I reccommend temporarely disabling Steam Cloud for X4, copying the save files over from your linux folder: `~/config/EgoSoft/X4/` to windows folder `~/.steam/steam/steamapps/compatdata/392160/pfx/drive_c/users/steamuser/Documents/Egosoft/X4/`.  Latter folder might not exists berfore you first launch X4 in compatibility mode. Once you've done this and launched the game once, you can enable Steam Cloud sync again.
+2. Start the *X4 External App* server (`x4_external_app_linux`). Don't close it during playing.
+3. Start the game and load your save file.
+4. Open http://localhost:8080/ in your browser (it won't do it automatically on linux for some reason)
+
 
 ## Useful X4 launch params
 There are two **optional** but quite useful X4 parameters working when game looses focus:
@@ -152,7 +162,7 @@ In order to build executable of X4 External App server yourself:
 4. Create *.env.* file from existing *.env.example* file  
    `copy .env.example .env`
 5. Build exe with:  
-   `npm run package`
+   `npm run package:win` (if windows) or  `npm run package:linux` (if linux)
 
 Output executable will be created in `\dist` folder
 
