@@ -14,8 +14,8 @@ const port = process.env.APP_PORT || 8080;
 const chalk = require('chalk');
 const { version } = require("./package.json");
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 class Server {
     dataObject = null;
