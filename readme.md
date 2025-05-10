@@ -55,7 +55,7 @@ Application will detect and output the exact network address in console window.
 > I reccommend temporarely disabling Steam Cloud for X4, copying the save files over from your linux folder: `~/config/EgoSoft/X4/` to windows folder `~/.steam/steam/steamapps/compatdata/392160/pfx/drive_c/users/steamuser/Documents/Egosoft/X4/`.  Latter folder might not exists berfore you first launch X4 in compatibility mode. Once you've done this and launched the game once, you can enable Steam Cloud sync again.
 2. Start the *X4 External App* server (`x4_external_app_linux`). Don't close it during playing.
 3. Start the game and load your save file.
-4. Open http://localhost:8080/ in your browser (it won't do it automatically on linux for some reason)
+4. Open http://localhost:8080/ in your browser.
 
 
 ## Useful X4 launch params
