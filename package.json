@@ -19,7 +19,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "package:linux": "npm run build && pkg . --targets node16-linux-x64 --output dist/x4_external_app_linux",
-    "package:win": "npm run build && pkg . --targets node16-win-x64 --output dist/x4_external_app_win.exe"
+    "package:win": "npm run build && pkg . --targets node16-win-x64 --output dist/x4_external_app.exe"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
