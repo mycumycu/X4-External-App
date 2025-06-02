@@ -4,9 +4,9 @@ External app for X4 Foundations game.
 
 ![X4 External App main screen](https://i.imgur.com/d2tnx9s.png)
 
-Shows real time logbook entries, mission offers, currently active mission details and player information.  
+Shows real-time logbook entries, mission offers, currently active mission details and player information.  
 Application is served on a local port, so it can be run locally or on multiple network devices at once.  
-Created to be displayed on external device (monitor, tablet or smartphone).
+Created to be displayed on an external device (monitor, tablet or smartphone).
 
 Note: lua module supports only Windows, so currently it will run exclusevly on this platform.
 
@@ -27,11 +27,14 @@ Note: lua module supports only Windows, so currently it will run exclusevly on t
    ```
   
 
-3. Install *X4 External App* mod  
+2. Install *X4 External App* mod  
    https://www.nexusmods.com/x4foundations/mods/818
 
-4. Download *X4 External App server*   
+3. Download *X4 External App server*   
    https://github.com/mycumycu/X4-External-App/releases
+
+4. Disable `Protected UI Mode` in game's Settings > Extensions menu.
+
 
 That's it, you should be good to go.
 
@@ -43,10 +46,10 @@ That's it, you should be good to go.
 *X4 External App* will serve application on a local port. If default port (8080) is busy - a new, free one will be found.
 > In case of used port different from 8080 - also update the port setting the mod config file located in `\extensions\mycu_external_app\ui\config.lua`
 
-App will automatically open in default browser.
+App will automatically open in the default browser.
 
 If you want to access it from a local network - change `localhost` to local IP address of a machine running X4, e.g. `http://192.168.1.120:8080`.  
-Application will detect and output the exact network address in console window.
+Application will detect and output the exact network address in a console window.
 
 ### Linux (using Steam Proton version)
 1. Configure your X4 to run using proton (Steam Compatibility mode)
@@ -71,12 +74,12 @@ There are two **optional** but quite useful X4 parameters working when game loos
 
 ### Application layout
 
-User can freely define app layout. To open configuration screen press layout icon ![layout icon](https://i.imgur.com/DsukxhO.png)   
+User can freely define app layout. To open the configuration screen, press the layout icon ![layout icon](https://i.imgur.com/DsukxhO.png)   
 
 ![layout screen](https://i.imgur.com/uUMZgEz.png)
 
 It's possible to define number of columns and its width.  
-Also, by dragging widgets into approtiate columns one can set their order.   
+Also, by dragging widgets into appropriate columns, one can set their order.   
 
 If the "limit widget heights" option is checked - each widget can have "max height" property defined - application will then automatically adjust the height of the widget within the viewport height.  
 
@@ -102,7 +105,7 @@ To define such phrases, click on clog icon: ![X4 External App clog icon](https:/
 
 Possible settings for each rule include:
 
-* on/off toggle - defines if certain rule is enabled
+* on/off toggle - defines if a certain rule is enabled
 * phrase - phrase to look for. All phrases are case-insensitive.
 * type - excluded means that an entry containing such a phrase will not be displayed, while highlighted means that it will be marked with a color.
 * blink - makes entry's title blinking
@@ -114,17 +117,17 @@ All changes are stored automatically.
 ### Mission offers
 Mission offers can be filtered similarly to logbook entries.  
 Also, you can define which mission difficulties should be displayed.
-To do so - just click on clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png)   
+To do so - just click on the clog icon: ![X4 External App clog icon](https://i.imgur.com/KQGSIIO.png)   
 Setting window will open.  
 
 ### Player goals
 ![Player goals](https://i.imgur.com/xhaJ0LC.png)  
 
-You can define and add your own goals. Just type it and press enter key (or dedicated button).
+You can define and add your own goals. Just type it and press the enter key (or dedicated button).
 Each goal can be moved higher or lower in priority or even moved to another list by dragging.
 
-You can also highlight selected goals with one of few preselected icons. 
-To do that, select "make featured" option from goal (three dot) menu. The exclamation icon will appear. To switch it, just click on the icon until desired one appears.
+You can also highlight selected goals with one of a few preselected icons. 
+To do that, select the "make featured" option from a goal (three dot) menu. The exclamation icon will appear. To switch it, just click on the icon until desired one appears.
 
 After completing a goal and making it "checked" - it will fade out and will be removed in a few seconds. Unchecking the goal within that time cancels the removal operation.
 
@@ -133,8 +136,8 @@ After completing a goal and making it "checked" - it will fade out and will be r
 
 Shows all factions and their relations with the player.
 
-If player has a military or capital ship licence with a faction - it will be displayed as a green bar above faction name.  
-When faction relation changes, its name will blink and recent relation change value will be displayed in a top right of a faction name.
+If a player has a military or capital ship licence with a faction - it will be displayed as a green bar above the faction name.  
+When a faction relation changes, its name will blink and the recent relation change value will be displayed in the top right of a faction name.
 
 Widget settings alow to:
 * exlude factions from the grid
@@ -151,7 +154,7 @@ SPA application was created with *Vue.js (v3)* using *Bootstrap (v5)* and all da
 
 ## Making sever executable from source
 
-In order to build executable of X4 External App server yourself:
+In order to build the executable of X4 External App server yourself:
 
 1. Clone this repo with the command:  
    `git clone https://github.com/mycumycu/X4-External-App.git`
