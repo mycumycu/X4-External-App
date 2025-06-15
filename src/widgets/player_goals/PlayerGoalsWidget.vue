@@ -2,17 +2,17 @@
   <widget>
     <template #header>
       <div class="d-flex justify-content-between">
-        <div><h4 class="card-title pb-3">Goals</h4></div>
+        <div><h4 class="card-title pb-3">{{ $t('app.widgets.player_goals.title') }}</h4></div>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#player-goals-setings"/>
-          <Modal id="player-goals-setings" title="Player goals settings" size="modal-md">
+          <Modal id="player-goals-setings" :title="$t('app.widgets.player_goals.settings_title')" size="modal-md">
             <PlayerGoalsSettings :settings="settings"/>
           </Modal>
         </div>
       </div>
 
       <div class="input-group mb-4">
-        <input class="form-control" ref="task" :class="{'focus-mode': hasFocus, 'task': hasSpeechRecognition}" type="text" placeholder="Add new goal..." v-model="taskName" @keypress.enter="store" @focus="focusIn" @blur="focusOut"/>
+        <input class="form-control" ref="task" :class="{'focus-mode': hasFocus, 'task': hasSpeechRecognition}" type="text" :placeholder="$t('app.widgets.player_goals.add_new_goal')" v-model="taskName" @keypress.enter="store" @focus="focusIn" @blur="focusOut"/>
         <button v-if="hasSpeechRecognition" class="btn rounded-0 mic-btn" :class="{'focus-mode': hasFocus}" type="button" @click="speachToText">
           <font-awesome-icon :icon="'microphone'" :class="{'fa-icon': true, 'recognizing': isRecognizing}"/>
         </button>
@@ -24,12 +24,12 @@
 
     <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="50">
       <player-goals-group
-          :label="settings.enableLongTerm?`Short term`:``"
+          :label="settings.enableLongTerm?$t('app.widgets.player_goals.short_term'):''"
           :goals="goals"
           list-key="short"/>
       <div class="mt-4" v-if="settings.enableLongTerm">
         <player-goals-group
-            label="Long term"
+            :label="$t('app.widgets.player_goals.long_term')"
             :goals="goals"
             list-key="long"/>
       </div>
@@ -44,10 +44,10 @@ import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import PlayerGoalsGroup from "./PlayerGoalsGroup.vue";
 import PlayerGoalsSettings from "./PlayerGoalsSettings.vue";
-import {faCheck, faEllipsisH, faPlus} from '@fortawesome/free-solid-svg-icons'
-import {library} from "@fortawesome/fontawesome-svg-core";
+import { faCheck, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
 import GoalsStore from "./js/playerGoalsStore.js";
-import {reactive} from "vue";
+import { reactive } from "vue";
 import Helper from "./js/helper";
 
 library.add(faPlus, faEllipsisH, faCheck);

@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title p-2" v-html="this.title"></h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" :aria-label="$t('app.common.close')">
             <font-awesome-icon class="cursor-pointer" :icon="'times'"/>
           </button>
         </div>

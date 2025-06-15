@@ -2,7 +2,7 @@
   <div v-if="missionValue!==undefined" class="ps-2 py-2">
     <div class="d-flex justify-content-between align-items-start">
       <h6 class="title my-0">{{ missionNameCleaned }}</h6>
-      <div class="badge bg-dark">{{ ['trival', 'very easy', 'easy', 'medium', 'hard', 'very hard'][missionValue.difficulty - 1] }}</div>
+      <div class="badge bg-dark">{{ $t('app.widgets.mission_offers.difficulty_levels.' + difficultyName) }}</div>
     </div>
     <div class="small" v-html="$filters.str_limit(missionDescriptionCleaned, settings.descriptions)" :title="missionDescriptionCleaned" />
     <div class="d-flex" v-if="missionValue.rewardtext">
@@ -33,6 +33,8 @@
 
 <script>
 import Helper from '../../helper'
+import missionOffersStore from './js/missionOffersStore'
+import { snakeCase } from 'lodash'
 
 export default {
   props: [
@@ -58,6 +60,10 @@ export default {
     },
     duration () {
       return Helper.formatTime(this.missionValue.duration);
+    },
+    difficultyName() {
+      const difficulty = this.missionOffersStore.state.settings.difficulties.find(d => d.index === this.missionValue.difficulty);
+      return difficulty ? snakeCase(difficulty.name) : '';
     }
   },
   methods: {
@@ -91,7 +97,9 @@ export default {
     }
   },
   data () {
-    return {}
+    return {
+      missionOffersStore
+    }
   },
 }
 </script>

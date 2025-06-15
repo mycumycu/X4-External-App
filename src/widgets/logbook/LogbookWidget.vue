@@ -2,10 +2,10 @@
   <widget>
     <template #header>
       <div class="d-flex justify-content-between">
-        <h4 class="card-title pb-3">Logbook</h4>
+        <h4 class="card-title pb-3">{{ $t('app.widgets.logbook.title') }}</h4>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#logbook-setings"/>
-          <Modal id="logbook-setings" title="Logbook settings" size="modal-xl">
+          <Modal id="logbook-setings" :title="$t('app.widgets.logbook.settings_title')" size="modal-xl">
             <LogbookSettings :settings="logbook.settings"/>
           </Modal>
         </div>
@@ -16,14 +16,18 @@
 
     <div class="overflow-hidden" style="height: 50px">
                   <span v-if="logbookExcludedRules.length<=0 && logbookFeaturedRules.length<=0">
-                        <span class="badge bg-dark text-muted">Adjust logbook settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                        <span class="badge bg-dark text-muted">
+                          <I18nT keypath="app.widgets.logbook.adjust_settings">
+                            <template #icon><font-awesome-icon :icon="`cogs`" /></template>
+                          </I18nT>
+                        </span>
                   </span>
       <span class="rules-string d-inline" v-if="logbookExcludedRules.length>0">
-                    <span class="badge bg-primary me-1">Excluded</span>
+                    <span class="badge bg-primary me-1">{{ $t('app.widgets.logbook.excluded') }}</span>
                     <span v-for="value in logbookExcludedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                   </span>
       <span class="rules-string d-inline" v-if="logbookFeaturedRules.length>0">
-                    <span class="badge bg-primary me-1">Featured</span>
+                    <span class="badge bg-primary me-1">{{ $t('app.widgets.logbook.featured') }}</span>
                     <span v-for="value in logbookFeaturedRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                   </span>
     </div>
@@ -44,11 +48,12 @@ import Modal from "../../components/Modal.vue";
 import LogbookSettings from "./LogbookSettings.vue";
 import LogbookEntry from "./LogbookEntry.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import {reactive} from "vue";
+import { reactive } from "vue";
+import { I18nT } from 'vue-i18n'
 
 export default {
   components: {
-    Modal, LogbookSettings, SearchBar, LogbookEntry, Widget
+    Modal, LogbookSettings, SearchBar, LogbookEntry, Widget, I18nT
   },
   props: {
     gameData: Object,

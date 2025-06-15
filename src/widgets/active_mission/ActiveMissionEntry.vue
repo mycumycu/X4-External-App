@@ -4,7 +4,7 @@
     <ol>
       <li v-for="briefing in mission.briefings">
         <h6 :class="{'text-muted': !briefing.active, 'fw-normal completed': briefing.completed}">{{ briefing.text }}
-          <span v-if="briefing.completed"> - completed</span>
+          <span v-if="briefing.completed"> - {{ $t('app.widgets.active_mission.completed') }}</span>
         </h6>
       </li>
     </ol>
@@ -12,16 +12,16 @@
     <div class="d-flex justify-content-between">
       <div class="text-small mb-0" style="flex-basis: 70%">
         <div v-if="mission.reward || mission.rewardtext">
-          <div class="mt-2"><strong>Reward</strong></div>
+          <div class="mt-2"><strong>{{ $t('app.widgets.active_mission.reward') }}</strong></div>
           <div class="text-muted text-xs" v-if="mission.reward > 0">
             <font-awesome-icon :icon="'coins'" :class="`fa-icon`"/>
-            {{ mission.reward.toLocaleString() }} Cr
+            {{ mission.reward.toLocaleString() }} {{ $t('app.common.credits') }}
           </div>
         </div>
         <div class="text-muted text-xs" v-if="mission.rewardtext" v-html="mission.rewardtext"/>
       </div>
       <div v-if="hasTimeout">
-        <div class="mt-2"><strong>Time Left</strong></div>
+        <div class="mt-2"><strong>{{ $t('app.widgets.active_mission.time_left') }}</strong></div>
         <font-awesome-icon :icon="'clock'" :class="`fa-icon`"/>
         <span class="text-muted text-xs ms-1">{{ timeout }}</span>
       </div>

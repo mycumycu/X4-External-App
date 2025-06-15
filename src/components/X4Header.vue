@@ -7,24 +7,25 @@
           <div class="brand-text brand-sm"><strong class="text-primary">X4</strong><strong>APP</strong></div>
         </a>
         </div>
-        <div v-if="this.isPendingUpdate">New version is out. <a href="https://github.com/mycumycu/X4-External-App/releases" target="_blank">Download it from github.</a></div>
+        <div v-if="this.isPendingUpdate">{{ $t('app.header.new_version') }} <a href="https://github.com/mycumycu/X4-External-App/releases" target="_blank">{{ $t('app.header.download_from_github') }}</a></div>
         <ul class="list-inline mb-0">
-          <li class="list-inline-item dropdown px-lg-2">
-            <a class="nav-link text-reset px-1 pe-3 font-size" href="#" title="Change font size" @click="changeFontSize">
+          <li class="list-inline-item dropdown px-lg-2 d-flex align-items-center">
+            <a class="nav-link text-reset px-1 pe-3 font-size" href="#" :title="$t('app.header.change_font_size')" @click="changeFontSize">
               <font-awesome-icon class="cursor-pointer" :icon="'font'"/>
             </a>
-            <a class="nav-link text-reset px-1 pe-4 set-profile" href="#" data-bs-toggle="modal" data-bs-target="#layout-setings" aria-haspopup="true" aria-expanded="false" title="Change layout">
+            <a class="nav-link text-reset px-1 pe-4 set-profile" href="#" data-bs-toggle="modal" data-bs-target="#layout-setings" aria-haspopup="true" aria-expanded="false" :title="$t('app.header.change_layout')">
               <font-awesome-icon class="cursor-pointer" :icon="'th-large'"/>
             </a>
-            <a class="nav-link text-reset px-1 px-lg-0 font-size" href="#" title="Toggle fullscreen" @click="toggleFullscreen">
+            <a class="nav-link text-reset px-1 pe-4 font-size" href="#" :title="$t('app.header.toggle_fullscreen')" @click="toggleFullscreen">
               <font-awesome-icon class="cursor-pointer" :icon="'expand'"/>
             </a>
+            <LanguageSelector />
           </li>
         </ul>
       </div>
     </nav>
   </header>
-  <Modal id="layout-setings" title="Layout settings" size="modal-xl">
+  <Modal id="layout-setings" :title="$t('app.header.layout_settings')" size="modal-xl">
     <LayoutSettings/>
   </Modal>
 </template>
@@ -32,9 +33,11 @@
 <script>
 import Modal from "../components/Modal.vue";
 import LayoutSettings from "./LayoutSettings.vue";
+import LanguageSelector from "@/components/LanguageSelector.vue";
 
 export default {
   components: {
+    LanguageSelector,
     LayoutSettings,
     Modal
   },

@@ -1,9 +1,9 @@
 <template>
   <div class="row">
-    <div class="col-sm-2 p-1 caption">No. of columns</div>
+    <div class="col-sm-2 p-1 caption">{{ $t('app.layout_settings.number_of_columns') }}</div>
     <div class="col-sm-10">
       <select class="form-select" v-model="columnsNo">
-        <option :value="index" v-for="index in 4" :key="index">{{ index }} column(s)</option>
+        <option :value="index" v-for="index in 4" :key="index">{{ index }} {{ $t('app.layout_settings.columns') }}</option>
       </select>
     </div>
   </div>
@@ -14,7 +14,7 @@
                     class="form-check-input"
                     v-model="this.layout.limitHeight"
                     :value="true"/>
-        limit widgets height to available viewport height (hides scrollbar)</label>
+        {{ $t('app.layout_settings.limit_widgets_height') }}</label>
     </div>
   </div>
   <div class="row">
@@ -24,7 +24,7 @@
                     class="form-check-input"
                     v-model="this.layout.showBreadcrumb"
                     :value="true"/>
-        show breadcrumb</label>
+        {{ $t('app.layout_settings.show_breadcrumb') }}</label>
     </div>
   </div>
   <div class="row">
@@ -34,13 +34,12 @@
                     class="form-check-input"
                     v-model="this.layout.compact"
                     :value="false"/>
-        compact mode (reduces whitespace and rearranges elements for higher
-        information density)</label>
+        {{ $t('app.layout_settings.compact_mode') }}</label>
     </div>
   </div>
 
   <div class="row mt-3">
-    <div class="col-sm-2 p-1 caption">Available widgets<br/><small>drag to the desired column</small></div>
+    <div class="col-sm-2 p-1 caption">{{ $t('app.layout_settings.available_widgets') }}<br/><small>{{ $t('app.layout_settings.drag_to_column') }}</small></div>
     <div class="col-sm-10">
       <div class="row">
         <div class="col-12">
@@ -53,7 +52,7 @@
               :move="onMove"
               @add="onAdd">
             <template #item="{ element, index }">
-              <div class="widget-element p-3">{{ this.widgetConfig[element.component].widgetName }}</div>
+              <div class="widget-element p-3">{{ $t(this.widgetConfig[element.component].widgetName) }}</div>
             </template>
           </draggable>
         </div>
@@ -61,17 +60,17 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-2 p-1 pt-2 caption">Columns<br/><small>set width of each column <span v-if="this.layout.limitHeight">and max height of each widget</span></small></div>
+    <div class="col-sm-2 p-1 pt-2 caption">{{ $t('app.layout_settings.columns_title') }}<br/><small>{{ $t('app.layout_settings.set_width') }} <span v-if="this.layout.limitHeight">{{ $t('app.layout_settings.and_max_height') }}</span></small></div>
     <div class="col-sm-10 d-flex">
       <div :class="`col-${(12 / columnsNo)}`"
            class="drop-area column p-2"
            v-for="(column, columnNo) in columnsNo" :key="columnNo">
-        <h6 class="d-flex justify-content-between">Column {{ (columnNo + 1) }}
+        <h6 class="d-flex justify-content-between">{{ $t('app.layout_settings.column') }} {{ (columnNo + 1) }}
           <select class="select-column-width"
                   v-model="layout.columns[columnNo].width"
                   :data-column-no="columnNo"
                   @change="onColumnWidthChange"
-                  title="set column width">
+                  :title="$t('app.layout_settings.set_column_width')">
             <option v-for="columnWidth in columnWidthOptions()" :value="columnWidth">{{ parseInt(100 / (12 / columnWidth)) }}%</option>
           </select>
         </h6>
@@ -88,21 +87,21 @@
           <template #item="{ element, index }">
             <div class="widget-element pb-3">
               <div class="name d-flex p-2 pe-0 justify-content-between">
-                {{ this.widgetConfig[element.component].widgetName }}
+                {{ $t(this.widgetConfig[element.component].widgetName) }}
                 <span class="close"
                       @click="remove(columnNo, index, element)"
-                      title="remove widget from the column">
+                      :title="$t('app.layout_settings.remove_widget')">
                   <font-awesome-icon :icon="'times'" :class="`fa-icon`"/>
                 </span>
               </div>
               <div class="max-height d-flex justify-content-between px-2" v-if="this.layout.limitHeight">
-                <div class="d-none d-lg-block">Max height:</div>
+                <div class="d-none d-lg-block">{{ $t('app.layout_settings.max_height') }}:</div>
                 <select class="select-widget-height d-block"
                         v-model="layout.columns[columnNo].widgets[index].maxHeight"
                         :data-column-no="columnNo"
                         :data-widget-no="index"
                         @change="onWidgetHeightChange"
-                        title="set max widget height within the viewport">
+                        :title="$t('app.layout_settings.set_max_widget_height')">
                   <option v-for="widgetWidth in widgetHeightOptions(columnNo)" :value="parseInt(widgetWidth)">{{ widgetWidth }}%</option>
                 </select>
               </div>
@@ -162,7 +161,7 @@ export default {
         this.layout.columns = this.layout.columns.filter((column, index) => {
           if (index >= this.columnsNo) {
             column.widgets.forEach(widget => {
-              // return widget from removed column back to the pool
+              // return widget from the removed column to the pool
               this.availableWidgets.push(widget);
             })
           }

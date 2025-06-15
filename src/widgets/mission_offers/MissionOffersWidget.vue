@@ -2,11 +2,11 @@
   <widget>
     <template #header>
       <div class="d-flex justify-content-between">
-        <div><h4 class="card-title pb-3">Mission Offers</h4></div>
+        <div><h4 class="card-title pb-3">{{ $t('app.widgets.mission_offers.title') }}</h4></div>
         <div>
           <font-awesome-icon :icon="`cogs`" class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#mission-offers-setings"/>
-          <Modal id="mission-offers-setings" title="Mission offers settings" size="modal-md">
-            <MissionOffersSettings :settings="missionOffers.settings"/>
+          <Modal id="mission-offers-setings" :title="$t('app.widgets.mission_offers.settings_title')" size="modal-md">
+            <MissionOffersSettings />
           </Modal>
         </div>
       </div>
@@ -18,15 +18,19 @@
         <div class="d-flex flex-column">
           <div>
             <div class="overflow-hidden" style="height: 50px">
-                      <span v-if="missionDifficultiesRules.length <=0">
-                        <span class="badge bg-secondary">Adjust mission offers settings using <font-awesome-icon :icon="`cogs`"/> icon above.</span>
+                      <span v-if="!missionDifficultiesRules.length && !missionTypesRules.length">
+                        <span class="badge bg-dark text-muted">
+                          <I18nT keypath="app.widgets.mission_offers.adjust_settings">
+                            <template #icon><font-awesome-icon :icon="`cogs`" /></template>
+                          </I18nT>
+                        </span>
                       </span>
               <span class="rules-string d-inline" v-if="missionDifficultiesRules.length > 0 ">
-                        <span class="badge bg-primary me-1">Difficulties</span>
+                        <span class="badge bg-primary me-1">{{ $t('app.widgets.mission_offers.difficulties') }}</span>
                           <span v-for="value in missionDifficultiesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                       </span>
               <span class="rules-string d-inline" v-if="missionTypesRules.length > 0 ">
-                        <span class="badge bg-primary me-1">Types</span>
+                        <span class="badge bg-primary me-1">{{ $t('app.widgets.mission_offers.types') }}</span>
                           <span v-for="value in missionTypesRules" class="badge bg-dark me-1 fw-light">{{ value }}</span>
                       </span>
             </div>
@@ -41,7 +45,7 @@
                         :group="group"
                         :name="name"
                         :value="value"
-                        :settings="missionOffers.settings"/>
+                        :settings="missionOffersStore.state.settings"/>
                   </div>
                 </div>
               </perfect-scrollbar>
@@ -60,10 +64,13 @@ import Modal from "../../components/Modal.vue";
 import MissionOffersGroup from "./MissionOffersGroup.vue";
 import MissionOffersSettings from "./MissionOffersSettings.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import {reactive} from "vue";
+import missionOffersStore from "./js/missionOffersStore";
+import { snakeCase } from 'lodash';
+import { I18nT } from "vue-i18n";
 
 export default {
   components: {
+    I18nT,
     Modal,
     MissionOffersGroup,
     MissionOffersSettings,
@@ -85,7 +92,7 @@ export default {
         this.parseMissionOffersData(newData)
       },
     },
-    'missionOffers.settings': {
+    'missionOffersStore.state.settings': {
       handler(newList, oldList) {
         this.filterMissionOffers(this.missionOffers.searchPhrase)
       },
@@ -121,7 +128,7 @@ export default {
                 !mission ||
                 !name ||
                 (!name.includes(this.missionOffers.searchPhrase) && !rewardtext.includes(this.missionOffers.searchPhrase)) ||
-                this.missionOffers.settings.difficulties.some(element => {
+                this.missionOffersStore.state.settings.difficulties.some(element => {
                   return !element.enabled && element.index === mission.difficulty
                 })
             ) {
@@ -156,7 +163,7 @@ export default {
      */
     removeEmptyAndDisabledMissionNodes(missionOffers) {
       for (const key in missionOffers) {
-        let isEnabled = this.missionOffers.settings.types.some(element => {
+        let isEnabled = this.missionOffersStore.state.settings.types.some(element => {
           return element.name === key && element.enabled
         });
 
@@ -187,88 +194,30 @@ export default {
      * @return {*}
      */
     missionDifficultiesRules() {
-      return this.missionOffers.settings.difficulties.filter((item => {
+      return this.missionOffersStore.state.settings.difficulties.filter((item => {
         return item.enabled;
       })).map(item => {
-        return item.name.toLowerCase();
+        return this.$t('app.widgets.mission_offers.difficulty_levels.' + snakeCase(item.name));
       });
     },
     /**
      * @return {*}
      */
     missionTypesRules() {
-      return this.missionOffers.settings.types.filter((item => {
+      return this.missionOffersStore.state.settings.types.filter((item => {
         return item.enabled;
       })).map(item => {
-        return item.name.toLowerCase();
+        return this.$t('app.widgets.mission_offers.mission_types.' + snakeCase(item.name));
       });
     },
   },
   data() {
     return {
+      missionOffersStore,
       missionOffers: {
         list: [],
         filtered: [],
         searchPhrase: '',
-        settings: reactive(
-            JSON.parse(localStorage.getItem("missionOffersSettings")) ||
-            {
-              difficulties: [
-                {
-                  index: 1,
-                  name: 'trivial',
-                  enabled: true
-                },
-                {
-                  index: 2,
-                  name: 'very easy',
-                  enabled: true
-                },
-                {
-                  index: 3,
-                  name: 'easy',
-                  enabled: true
-                },
-                {
-                  index: 4,
-                  name: 'medium',
-                  enabled: true
-                },
-                {
-                  index: 5,
-                  name: 'hard',
-                  enabled: true
-                },
-                {
-                  index: 6,
-                  name: 'very hard',
-                  enabled: true
-                },
-              ],
-
-              types: [
-                {
-                  name: 'plot',
-                  enabled: true,
-                },
-                {
-                  name: 'guild',
-                  enabled: true,
-                },
-                {
-                  name: 'other',
-                  enabled: true,
-                },
-                {
-                  name: 'coalition',
-                  enabled: true,
-                },
-              ],
-
-              descriptions: 0,
-              objectives: false,
-            }
-        ),
       },
     }
   },
