@@ -106,7 +106,7 @@
         "remove_row": "убрать",
         "is_less_than": "меньше чем",
         "is_more_than": "больше чем",
-		"base": "базовый",
+	"base": "базовый",
         "bonus": "бонус"
       },
       "mission_offers": {
