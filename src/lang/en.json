@@ -50,7 +50,12 @@
         "title": "Player profile"
       },
       "current_research": {
-        "title": "Current research"
+        "title": "Current research",
+        "research_time": "Research time",
+        "completed": "Completed",
+        "tasks_required": "Tasks required",
+        "required_resources": "Required resources",
+        "none": "none"
       },
       "player_goals": {
         "title": "Player goals",
@@ -112,6 +117,8 @@
         "show_first_chars": "show first {count} chars",
         "mission_descriptions": "Mission descriptions",
         "mission_objectives": "Mission objectives",
+        "mission": "Mission",
+        "missions": "Missions",
         "difficulty_levels": {
           "trivial": "trivial",
           "very_easy": "very easy",

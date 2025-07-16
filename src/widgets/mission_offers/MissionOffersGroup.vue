@@ -61,7 +61,7 @@ export default {
       if (value.name) {
         return value.name;
       }
-      return this.unfilteredMissionCount() === 1 ? 'Mission' : 'Missions'
+      return this.unfilteredMissionCount() === 1 ? this.$t('app.widgets.mission_offers.mission') : this.$t('app.widgets.mission_offers.missions')
     },
 
   },

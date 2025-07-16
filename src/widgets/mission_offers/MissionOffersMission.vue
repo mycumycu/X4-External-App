@@ -16,7 +16,7 @@
       <div>
         <div v-if="missionValue.reward">
           <font-awesome-icon :icon="'coins'" class="fa-icon"/>
-          {{ `${missionValue.reward.toLocaleString()} Cr` }}
+          {{ `${missionValue.reward.toLocaleString()} ${$t('app.common.credits')}` }}
         </div>
         <div v-if="hasDuration">
           <font-awesome-icon :icon="'clock'" class="fa-icon"/>
