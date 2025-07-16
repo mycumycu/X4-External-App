@@ -83,7 +83,7 @@ export default {
      * @return {string}
      */
     money() {
-      return this.entry.money.toLocaleString() + ' Cr';
+      return this.entry.money.toLocaleString() + ' ' + this.$t('app.common.credits');
     }
   },
   data() {

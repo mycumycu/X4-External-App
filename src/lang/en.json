@@ -105,7 +105,9 @@
         "make_blink": "make title blink",
         "remove_row": "remove row",
         "is_less_than": "is less than",
-        "is_more_than": "is more than"
+        "is_more_than": "is more than",
+        "base": "base",
+        "bonus": "bonus"
       },
       "mission_offers": {
         "title": "Mission Offers",

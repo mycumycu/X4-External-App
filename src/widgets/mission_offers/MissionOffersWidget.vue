@@ -42,7 +42,7 @@
                   <div v-if="shouldShowMissionGroup(value)">
                     <mission-offers-group
                         v-for="(value, name) in value"
-                        :group="group"
+                        :group-name="getMissionTypeName(group)"
                         :name="name"
                         :value="value"
                         :settings="missionOffersStore.state.settings"/>
@@ -186,8 +186,12 @@ export default {
     shouldShowMissionGroup(value) {
       return value !== '' && Object.keys(value).length > 0;
     },
-
-
+    /**
+     * Get mission type name
+     */
+    getMissionTypeName(missionType) {
+      return this.$t('app.widgets.mission_offers.difficulty_levels.' + snakeCase(missionType));
+    },
   },
   computed: {
     /**
@@ -197,7 +201,7 @@ export default {
       return this.missionOffersStore.state.settings.difficulties.filter((item => {
         return item.enabled;
       })).map(item => {
-        return this.$t('app.widgets.mission_offers.difficulty_levels.' + snakeCase(item.name));
+        return this.getMissionTypeName(item.name);
       });
     },
     /**

@@ -5,7 +5,7 @@
               :data-bs-target="`#${elementId}`"
               aria-expanded="true">
         <div class="d-flex">
-          <span class="group-type flex-grow-0 flex-shrink-0 badge bg-primary-outline me-2 text-capitalize">{{ group }}</span>
+          <span class="group-type flex-grow-0 flex-shrink-0 badge bg-primary-outline me-2 text-capitalize">{{ groupName }}</span>
           <span class="group-name flex-grow-1 flex-shrink-1 flex-wrap">[{{ this.unfilteredMissionCount() }}] {{ this.buttonCaption(value) }}</span>
         </div>
       </button>
@@ -28,15 +28,13 @@ import MissionOffersMission from "./MissionOffersMission.vue";
 export default {
   components: { MissionOffersMission },
   props: [
-    'group',
+    'groupName',
     'name',
     'value',
     'settings',
   ],
   data() {
     return {
-      groupName: null,
-      groupMissions: {},
       elementId: "id" + Math.random().toString(36).slice(2)
     }
   },
