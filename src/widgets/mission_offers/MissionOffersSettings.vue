@@ -67,8 +67,12 @@ export default {
   data() {
     return {
       value: false,
-      settings: missionOffersStore.state.settings,
-      descriptionOptions: [
+      settings: missionOffersStore.state.settings
+    }
+  },
+  computed: {
+    descriptionOptions() {
+      return [
         {
           key: 0,
           value: this.$t('app.common.disabled'),
@@ -97,7 +101,7 @@ export default {
           key: 999999,
           value: this.$t('app.common.enabled'),
         },
-      ]
+      ];
     }
   },
   /**
