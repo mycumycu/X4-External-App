@@ -1,4 +1,4 @@
-import {createStore} from "vuex";
+import { createStore } from "vuex";
 import Helper from "./helper";
 
 export default createStore({
@@ -9,7 +9,7 @@ export default createStore({
             short: [
                 {
                     id: '23qassa3',
-                    task: 'Add your first short-term goal',
+                    task: 'app.widgets.player_goals.default_short_goal',
                     checked: false,
                     featuredIndex: 0,
                 },
@@ -17,7 +17,7 @@ export default createStore({
             long: [
                 {
                     id: '55df5fd5df',
-                    task: 'You can also add your long-term goals',
+                    task: 'app.widgets.player_goals.default_long_goal',
                     checked: false,
                     featuredIndex: 0,
                 },

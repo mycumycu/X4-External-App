@@ -22,7 +22,7 @@
             class="featured"
             :icon="this.featuredElement"
             v-if="this.element.featuredIndex"/>
-        {{ element.task }}
+        {{ $t(element.task) }}
           </span>
       </div>
       <div v-if="hovered" class="me-3 text-sm">
