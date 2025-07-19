@@ -190,7 +190,7 @@ export default {
      * Get mission type name
      */
     getMissionTypeName(missionType) {
-      return this.$t('app.widgets.mission_offers.difficulty_levels.' + snakeCase(missionType));
+      return this.$t('app.widgets.mission_offers.mission_types.' + snakeCase(missionType));
     },
   },
   computed: {
