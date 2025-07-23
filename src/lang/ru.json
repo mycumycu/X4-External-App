@@ -6,8 +6,8 @@
       "off": "Выкл",
       "close": "Закрыть",
       "add_new": "Добавить новое",
-      "disabled": "Выключено",
-      "enabled": "Включено",
+      "disabled": "выключено",
+      "enabled": "включено",
       "start_typing": "Начните вводить...",
       "credits": "Кр"
     },
@@ -67,7 +67,9 @@
         "make_featured": "Выделение",
         "disable_featured": "Выключить выделение",
         "edit_goal": "Редактировать",
-        "remove": "Удалить"
+        "remove": "Удалить",
+		"default_short_goal": "Добавьте свою первую краткосрочную задачу",
+        "default_long_goal": "Вы также можете добавить долгосрочную задачу"
       },
       "transaction_log": {
         "title": "Финансовый журнал",
@@ -84,7 +86,7 @@
         "make_featured": "Выделить",
         "title_only": "искать только по заголовкам",
         "make_blink": "мигающий заголовок",
-        "remove_row": "убрать",
+        "remove_row": "удалить",
         "is_less_than": "меньше чем",
         "is_more_than": "больше чем"
       },
@@ -103,10 +105,10 @@
         "make_featured": "Выделить",
         "title_only": "искать только по заголовкам",
         "make_blink": "мигающий заголовок",
-        "remove_row": "убрать",
+        "remove_row": "удалить",
         "is_less_than": "меньше чем",
         "is_more_than": "больше чем",
-	"base": "базовый",
+		"base": "базовый",
         "bonus": "бонус"
       },
       "mission_offers": {
@@ -116,7 +118,7 @@
         "difficulties": "Сложность",
         "types": "Тип",
         "other_settings": "Прочие настройки",
-        "show_first_chars": "показать только {count} символов",
+        "show_first_chars": "первые {count} символов",
         "mission_descriptions": "Описание миссии",
         "mission_objectives": "Цели миссии",
         "mission": "Миссия",
