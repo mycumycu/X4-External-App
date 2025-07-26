@@ -12,7 +12,7 @@
     <ol v-if="settings.objectives">
       <li v-for="objective in missionValue.briefingobjectives" class="text-muted text-xs">{{ objective.text }}</li>
     </ol>
-    <div class="d-flex justify-content-between text-muted text-xs">
+    <div class="d-flex justify-content-between text-muted text-xs ms-3">
       <div>
         <div v-if="missionValue.reward">
           <font-awesome-icon :icon="'coins'" class="fa-icon"/>
