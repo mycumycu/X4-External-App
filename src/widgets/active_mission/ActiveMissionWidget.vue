@@ -94,6 +94,7 @@ export default {
         rewardtext: mission.rewardtext,
         timeout: mission.timeout,
         briefings: briefings,
+        factionname: mission.factionName,
       }
     },
 

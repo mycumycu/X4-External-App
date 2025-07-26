@@ -1,6 +1,12 @@
 <template>
   <div>
-    <h5 class="text-muted">{{ mission.name }}</h5>
+    <div class="d-flex justify-content-between">
+      <h5 class="text-muted">{{ mission.name }}</h5>
+      <div>
+        <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
+        {{ mission.factionname }}
+      </div>
+    </div>
     <ol>
       <li v-for="briefing in mission.briefings">
         <h6 :class="{'text-muted': !briefing.active, 'fw-normal completed': briefing.completed}">{{ briefing.text }}
