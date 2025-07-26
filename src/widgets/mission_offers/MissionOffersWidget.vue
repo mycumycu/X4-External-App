@@ -65,10 +65,11 @@ import MissionOffersGroup from "./MissionOffersGroup.vue";
 import MissionOffersSettings from "./MissionOffersSettings.vue";
 import SearchBar from "../../components/SearchBar.vue";
 import missionOffersStore from "./js/missionOffersStore";
-import { snakeCase } from 'lodash';
+import widgetMixins from './js/mixins';
 import { I18nT } from "vue-i18n";
 
 export default {
+  mixins: [widgetMixins],
   components: {
     I18nT,
     Modal,
@@ -186,12 +187,6 @@ export default {
     shouldShowMissionGroup(value) {
       return value !== '' && Object.keys(value).length > 0;
     },
-    /**
-     * Get mission type name
-     */
-    getMissionTypeName(missionType) {
-      return this.$t('app.widgets.mission_offers.mission_types.' + snakeCase(missionType));
-    },
   },
   computed: {
     /**
@@ -201,7 +196,7 @@ export default {
       return this.missionOffersStore.state.settings.difficulties.filter((item => {
         return item.enabled;
       })).map(item => {
-        return this.getMissionTypeName(item.name);
+        return this.getMissionDifficultyName(item.name);
       });
     },
     /**
@@ -211,7 +206,7 @@ export default {
       return this.missionOffersStore.state.settings.types.filter((item => {
         return item.enabled;
       })).map(item => {
-        return this.$t('app.widgets.mission_offers.mission_types.' + snakeCase(item.name));
+        return this.getMissionTypeName(item.name);
       });
     },
   },

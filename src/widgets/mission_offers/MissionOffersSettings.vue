@@ -12,7 +12,7 @@
                   :offLabel="$t('app.common.off')"/>
             </div>
             <div class="col-3 mb-2" :class="{'disabled': !element.enabled}">
-              <span class="badge bg-primary">{{ $t('app.widgets.mission_offers.difficulty_levels.' + snakeCase(element.name)) }}</span>
+              <span class="badge bg-primary">{{ getMissionDifficultyName(element.name) }}</span>
             </div>
           </template>
         </div>
@@ -27,7 +27,7 @@
                   :offLabel="$t('app.common.off')"/>
             </div>
             <div class="col-3 mb-2" :class="{'disabled': !element.enabled}">
-              <span class="badge bg-primary">{{ $t('app.widgets.mission_offers.mission_types.' + snakeCase(element.name)) }}</span>
+              <span class="badge bg-primary">{{ getMissionTypeName(element.name) }}</span>
             </div>
           </template>
         </div>
@@ -58,9 +58,10 @@
 <script>
 import Toggle from '@vueform/toggle'
 import missionOffersStore from './js/missionOffersStore'
-import { snakeCase } from 'lodash'
+import widgetMixins from './js/mixins'
 
 export default {
+  mixins: [widgetMixins],
   components: {
     Toggle,
   },
@@ -114,9 +115,6 @@ export default {
       deep: true
     },
   },
-  /**
-   */
-  methods: { snakeCase },
 }
 </script>
 
