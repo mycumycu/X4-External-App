@@ -56,7 +56,7 @@ export default {
         name: gameData.name,
         faction: gameData.factionname,
         sector: gameData.playersector,
-        credits: gameData.credits.toLocaleString() + ' Cr',
+        credits: gameData.credits.toLocaleString() + ' ' + this.$t('app.common.credits'),
       }
     },
   },

@@ -3,10 +3,10 @@
     <div class="col d-flex gap-3">
       <Toggle
           v-model="settings.enableLongTerm"
-          onLabel="on"
-          offLabel="off"/>
+          :onLabel="$t('app.common.on')"
+          :offLabel="$t('app.common.off')"/>
       <div :class="{'disabled': !settings.enableLongTerm}">
-        Split list to a short and long term
+        {{ $t('app.widgets.player_goals.split_list') }}
       </div>
 
     </div>

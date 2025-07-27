@@ -4,21 +4,21 @@
       <h5 class="text-muted mb-0">{{ research.name }}</h5>
     </div>
     <div class="col-5 text-end small mb-4 researchtime">
-      <div>Research time: {{ research.researchtime }}</div>
-      (completed {{ research.percentageCompleted }}%)<br/>
+      <div>{{ $t('app.widgets.current_research.research_time') }}: {{ research.researchtime }}</div>
+      ({{ $t('app.widgets.current_research.completed') }} {{ research.percentageCompleted }}%)<br/>
     </div>
   </div>
 
   <p class="mb-0">{{ research.description }}</p>
   <div class="text-small mb-0">
     <div v-if="research.precursors && research.precursors.length > 0">
-      <div class="mt-2"><strong>Tasks required</strong></div>
+      <div class="mt-2"><strong>{{ $t('app.widgets.current_research.tasks_required') }}</strong></div>
       <div class="text-muted text-xs" v-for="precursor in research.precursors">
         {{ precursor.name }}
       </div>
     </div>
     <div v-if="research.resources && research.resources.length > 0">
-      <div class="mt-2"><strong>Required resources</strong></div>
+      <div class="mt-2"><strong>{{ $t('app.widgets.current_research.required_resources') }}</strong></div>
       <div class="row text-muted text-xs" v-for="resource in research.resources">
         <div class="col-8 offset-sm-0 ps-4">{{ resource.name }}</div>
         <div class="col-4 text-end d-sm-none d-md-block">

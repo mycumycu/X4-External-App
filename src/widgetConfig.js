@@ -1,32 +1,32 @@
 /*
     Define available widgets
     data key from gameData object (returned from LUA): {
-        widgetName: human friendly name
+        widgetName: translation key for widget name
     }
  */
 export default {
     playerProfile: {
-        widgetName: 'Player profile',
+        widgetName: 'app.widgets.player_profile.title',
     },
     activeMission: {
-        widgetName: 'Active mission',
+        widgetName: 'app.widgets.active_mission.title',
     },
     missionOffers: {
-        widgetName: 'Mission offers',
+        widgetName: 'app.widgets.mission_offers.title',
     },
     logbook: {
-        widgetName: 'Logbook',
+        widgetName: 'app.widgets.logbook.title',
     },
     playerGoals: {
-        widgetName: 'Player goals',
+        widgetName: 'app.widgets.player_goals.title',
     },
     currentResearch: {
-        widgetName: 'Current research',
+        widgetName: 'app.widgets.current_research.title',
     },
     transactionLog: {
-        widgetName: 'Transaction log',
+        widgetName: 'app.widgets.transaction_log.title',
     },
     factions: {
-        widgetName: 'Factions',
+        widgetName: 'app.widgets.factions.title',
     },
 }

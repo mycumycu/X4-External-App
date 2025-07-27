@@ -1,7 +1,10 @@
-import {createStore} from "vuex";
+import { createStore } from "vuex";
+import { defaultLocale, languages } from './languages'
 
 export default createStore({
     state: {
+        currentLanguage: defaultLocale,
+        languages,
         layout: JSON.parse(
             localStorage.getItem("layout")
         ) || {
@@ -46,6 +49,13 @@ export default createStore({
         updateLayout(state, newValue) {
             state.layout = newValue;
             localStorage.setItem("layout", JSON.stringify(newValue));
+        },
+        setLanguage(state, lang) {
+            state.currentLanguage = lang
         }
+    },
+    getters: {
+        getLanguages: (state) => state.languages,
+        currentLang: (state) => state.languages[state.currentLanguage],
     },
 })

@@ -22,15 +22,15 @@
             class="featured"
             :icon="this.featuredElement"
             v-if="this.element.featuredIndex"/>
-        {{ element.task }}
+        {{ $t(element.task) }}
           </span>
       </div>
       <div v-if="hovered" class="me-3 text-sm">
         <font-awesome-icon :icon="`ellipsis-h`" class="menu" data-bs-toggle="dropdown"/>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink1">
-          <li @click="toggleFeatured" v-text="this.element.featuredIndex === 0?`Make featured`:`Disable featured`"></li>
-          <li @click="edit">Edit goal</li>
-          <li @click="remove">Remove</li>
+          <li @click="toggleFeatured" v-text="this.element.featuredIndex === 0 ? $t('app.widgets.player_goals.make_featured') : $t('app.widgets.player_goals.disable_featured')"></li>
+          <li @click="edit">{{ $t('app.widgets.player_goals.edit_goal') }}</li>
+          <li @click="remove">{{ $t('app.widgets.player_goals.remove') }}</li>
         </ul>
       </div>
     </div>
@@ -40,8 +40,8 @@
 <script>
 
 import GoalsStore from "./js/playerGoalsStore.js";
-import {faExclamation, faQuestion, faSearch, faShieldAlt, faStar} from '@fortawesome/free-solid-svg-icons'
-import {library} from "@fortawesome/fontawesome-svg-core";
+import { faExclamation, faQuestion, faSearch, faShieldAlt, faStar } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 library.add(faExclamation, faQuestion, faShieldAlt, faSearch, faStar);
 

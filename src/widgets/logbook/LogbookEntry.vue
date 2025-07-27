@@ -88,11 +88,12 @@ export default {
       return this.entry.text.replace(/\#\w{8}\#/g, this.replaced(this.color(this.entry.text)))
     },
     creditsWithBonus(){
+      const cr = this.$t('app.common.credits');
       if (!this.entry.bonus){
-        return this.entry.money.toLocaleString() + ' Cr';
+        return this.entry.money.toLocaleString() + ' ' + cr;
       }
       const withBonus = this.entry.money + this.entry.bonus;
-      return withBonus.toLocaleString() + ' Cr (base ' + this.entry.money.toLocaleString() + ' Cr + bonus ' + this.entry.bonus.toLocaleString() + ' Cr)';
+      return withBonus.toLocaleString() + ' ' + cr + ' (' + this.$t('app.widgets.logbook.base') + ' ' + this.entry.money.toLocaleString() + ' ' + cr + ' + ' + this.$t('app.widgets.logbook.bonus') + ' ' + this.entry.bonus.toLocaleString() + ' ' + cr + ')';
     }
   },
   data() {

@@ -2,10 +2,10 @@
   <widget>
     <template #header>
       <div class="d-flex justify-content-between">
-        <h4 class="card-title pb-0 mb-0">Factions</h4>
+        <h4 class="card-title pb-0 mb-0">{{ $t('app.widgets.factions.title') }}</h4>
         <div>
           <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#factions-settings"/>
-          <Modal id="factions-settings" title="Factions settings" size="modal-lg">
+          <Modal id="factions-settings" :title="$t('app.widgets.factions.settings.title')" size="modal-lg">
             <FactionsSettings :settings="factions.settings"/>
           </Modal>
         </div>
@@ -30,7 +30,7 @@ import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import FactionsSettings from "./FactionsSettings.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import {reactive} from "vue";
+import { reactive } from "vue";
 import LogbookEntry from "../logbook/LogbookEntry.vue";
 import FactionsEntry from "./FactionsEntry.vue";
 

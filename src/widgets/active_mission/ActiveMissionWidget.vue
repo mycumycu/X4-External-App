@@ -1,7 +1,7 @@
 <template>
   <widget>
     <template #header>
-      <h4>Active Mission</h4>
+      <h4>{{ $t('app.widgets.active_mission.title') }}</h4>
     </template>
 
     <div class="d-flex align-items-center">
@@ -14,7 +14,7 @@
               <active-mission-entry :mission="activeSubMission" class="mt-4"/>
             </div>
           </div>
-          <div v-else>none</div>
+          <div v-else>{{ $t('app.widgets.active_mission.none') }}</div>
         </perfect-scrollbar>
       </div>
     </div>

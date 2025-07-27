@@ -5,15 +5,18 @@
         <div class="card card-profile mb-4 no-connection">
           <div class="card-header x4-backgound"></div>
           <div class="card-body text-center">
-            <img class="card-profile-img" src="../assets/x4-logo.png" title="..." alt="X4 logo"/>
+            <img class="card-profile-img" src="../assets/x4-logo.png" :title="$t('app.no_connection.logo_title')" :alt="$t('app.no_connection.logo_alt')"/>
             <div class="mb-2">
               <h3 class="mb-0 text-gray-400 highlighted">
-                Waiting for connection
+                {{ $t('app.no_connection.waiting_for_connection') }}
               </h3>
               <div class="mb-2">
-                There's no water in the pipe...
+                {{ $t('app.no_connection.no_water_in_pipe') }}
               </div>
-              <small class="pt-2 info">Server couldn't get data from the game. <br/>Game save should be loaded. Also check if server port matches mod config setting.</small>
+              <small class="pt-2 info">
+                {{ $t('app.no_connection.game_data_fetch_error') }}<br />
+                {{ $t('app.no_connection.game_save_loaded') }}
+              </small>
             </div>
           </div>
         </div>

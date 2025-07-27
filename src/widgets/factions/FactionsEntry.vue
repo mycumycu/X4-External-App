@@ -1,9 +1,9 @@
 <template>
   <div class="col-auto px-lg-0 ps-0 pe-2 d-flex justify-content-center" :style="{color: rgbToHex(entry.color)}">
     <div class="lh-1 px-0 py-1 text-center faction-block" :class="this.exposeClass">
-      <span class="d-inline-block licences military" :class="{filled: settings.showLicenceIndicators && entry.hasMilitaryLicence}" title="Military licence"></span>
-      <span class="d-inline-block licences capital" :class="{filled: settings.showLicenceIndicators && entry.hasCapitalLicence}" title="Capital ship licence"></span>
-      <div class="position-relative">{{ entry.shortname }}<sup v-if="settings.showRelationChanges" class="text-muted position-absolute relation-change" title="Recent relation change">{{ getRelationChange() }}</sup></div>
+      <span class="d-inline-block licences military" :class="{filled: settings.showLicenceIndicators && entry.hasMilitaryLicence}" :title="$t('app.widgets.factions.licences.military')"></span>
+      <span class="d-inline-block licences capital" :class="{filled: settings.showLicenceIndicators && entry.hasCapitalLicence}" :title="$t('app.widgets.factions.licences.capital')"></span>
+      <div class="position-relative">{{ entry.shortname }}<sup v-if="settings.showRelationChanges" class="text-muted position-absolute relation-change" :title="$t('app.widgets.factions.relation_change')">{{ getRelationChange() }}</sup></div>
       <span class="relation">&nbsp;&nbsp;{{ getDisplayValue(entry.relation) }}</span></div>
   </div>
 </template>

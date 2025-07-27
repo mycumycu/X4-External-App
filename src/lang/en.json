@@ -1,0 +1,176 @@
+{
+  "app": {
+    "title": "X4 External App",
+    "common": {
+      "on": "on",
+      "off": "off",
+      "close": "Close",
+      "add_new": "Add new",
+      "disabled": "disabled",
+      "enabled": "enabled",
+      "start_typing": "Start typing...",
+      "credits": "Cr"
+    },
+    "header": {
+      "layout_settings": "Layout settings",
+      "change_font_size": "Change font size",
+      "change_layout": "Change layout",
+      "toggle_fullscreen": "Toggle fullscreen",
+      "change_language": "Change language",
+      "new_version": "New version is out.",
+      "download_from_github": "Download it from github."
+    },
+    "layout_settings": {
+      "number_of_columns": "No. of columns",
+      "columns": "column(s)",
+      "limit_widgets_height": "limit widgets height to available viewport height (hides scrollbar)",
+      "show_breadcrumb": "show breadcrumb",
+      "compact_mode": "compact mode (reduces whitespace and rearranges elements for higher information density)",
+      "available_widgets": "Available widgets",
+      "drag_to_column": "drag to the desired column",
+      "columns_title": "Columns",
+      "set_width": "set width of each column",
+      "and_max_height": "and max height of each widget",
+      "column": "Column",
+      "set_column_width": "set column width",
+      "remove_widget": "remove widget from the column",
+      "max_height": "Max height",
+      "set_max_widget_height": "set max widget height within the viewport"
+    },
+    "no_connection": {
+      "logo_title": "X4 Foundations",
+      "logo_alt": "X4 logo",
+      "waiting_for_connection": "Waiting for connection",
+      "no_water_in_pipe": "There's no water in the pipe...",
+      "game_data_fetch_error": "Server couldn't get data from the game.",
+      "game_save_loaded": "Game save should be loaded. Also check if server port matches mod config setting."
+    },
+    "widgets": {
+      "player_profile": {
+        "title": "Player profile"
+      },
+      "current_research": {
+        "title": "Current research",
+        "research_time": "Research time",
+        "completed": "Completed",
+        "tasks_required": "Tasks required",
+        "required_resources": "Required resources",
+        "none": "none"
+      },
+      "player_goals": {
+        "title": "Player goals",
+        "settings_title": "Player goals settings",
+        "add_new_goal": "Add new goal...",
+        "short_term": "Short term",
+        "long_term": "Long term",
+        "split_list": "Split list to a short and long term",
+        "make_featured": "Make featured",
+        "disable_featured": "Disable featured",
+        "edit_goal": "Edit goal",
+        "remove": "Remove",
+        "default_short_goal": "Add your first short-term goal",
+        "default_long_goal": "You can also add your long-term goals"
+      },
+      "transaction_log": {
+        "title": "Transaction Log",
+        "settings_title": "Transaction log settings",
+        "adjust_settings": "Adjust transaction log settings using {icon} icon above",
+        "excluded": "Excluded",
+        "featured": "Featured",
+        "press_add_new": "Press 'add new' button to add some rules.",
+        "when": "When",
+        "then": "Then",
+        "enter_phrase": "enter phrase",
+        "type_placeholder": "Type...",
+        "make_excluded": "Make excluded",
+        "make_featured": "Make featured",
+        "title_only": "consider phrase in title only",
+        "make_blink": "make title blink",
+        "remove_row": "remove row",
+        "is_less_than": "is less than",
+        "is_more_than": "is more than"
+      },
+      "logbook": {
+        "title": "Logbook",
+        "settings_title": "Logbook settings",
+        "adjust_settings": "Adjust logbook settings using {icon} icon above",
+        "excluded": "Excluded",
+        "featured": "Featured",
+        "press_add_new": "Press 'add new' button to add some rules.",
+        "when": "When",
+        "then": "Then",
+        "enter_phrase": "enter phrase",
+        "type_placeholder": "Type...",
+        "make_excluded": "Make excluded",
+        "make_featured": "Make featured",
+        "title_only": "consider phrase in title only",
+        "make_blink": "make title blink",
+        "remove_row": "remove row",
+        "is_less_than": "is less than",
+        "is_more_than": "is more than",
+        "base": "base",
+        "bonus": "bonus"
+      },
+      "mission_offers": {
+        "title": "Mission Offers",
+        "settings_title": "Mission offers settings",
+        "adjust_settings": "Adjust mission offers settings using {icon} icon above",
+        "difficulties": "Difficulties",
+        "types": "Types",
+        "other_settings": "Other settings",
+        "show_first_chars": "show first {count} chars",
+        "mission_descriptions": "Mission descriptions",
+        "mission_objectives": "Mission objectives",
+        "mission": "Mission",
+        "missions": "Missions",
+        "difficulty_levels": {
+          "trivial": "trivial",
+          "very_easy": "very easy",
+          "easy": "easy",
+          "medium": "medium",
+          "hard": "hard",
+          "very_hard": "very hard"
+        },
+        "mission_types": {
+          "plot": "plot",
+          "guild": "guild",
+          "other": "other",
+          "coalition": "coalition"
+        }
+      },
+      "active_mission": {
+        "title": "Active Mission",
+        "completed": "completed",
+        "reward": "Reward",
+        "time_left": "Time Left",
+        "none": "none"
+      },
+      "factions": {
+        "title": "Factions",
+        "settings": {
+          "title": "Factions settings",
+          "exclude": "Exclude factions from list",
+          "comma_separated": "(comma separated)",
+          "placeholder": "E.g. ARG, KHK, ZYA",
+          "relation_level": "Show only factions with relation level",
+          "from_to": "from {min} to {max}",
+          "other": "Other",
+          "show_relation_changes": "Show recent relation changes",
+          "show_licence_indicators": "Show military and capital licence indicators"
+        },
+        "relation_levels": {
+          "ally": "ally",
+          "enemy": "enemy",
+          "friend": "friend",
+          "hostile": "hostile",
+          "neutral": "neutral"
+        },
+        "licences": {
+          "military": "Military licence",
+          "capital": "Capital ship licence"
+        },
+        "relation_change": "Recent relation change"
+      }
+    }
+  }
+}
