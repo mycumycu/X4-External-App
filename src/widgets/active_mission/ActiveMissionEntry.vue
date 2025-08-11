@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-between">
       <h5 class="text-muted">{{ mission.name }}</h5>
-      <div>
+      <div v-if="mission.faction !== 'player'">
         <font-awesome-icon :icon="'user-friends'" :class="`fa-icon`"/>
         {{ mission.factionname }}
       </div>

@@ -5,7 +5,7 @@
     </template>
 
     <div class="d-flex align-items-center">
-      <div class="active-mission">
+      <div class="active-mission w-100">
         <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40">
           <div v-if="activeMission.name">
             <active-mission-entry :mission="activeMission"/>
@@ -94,6 +94,7 @@ export default {
         rewardtext: mission.rewardtext,
         timeout: mission.timeout,
         briefings: briefings,
+        faction: mission.faction,
         factionname: mission.factionName,
       }
     },
