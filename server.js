@@ -17,6 +17,8 @@ const { version } = require("./package.json");
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
+const devFilePath = path.join(__dirname, 'dev-data.json');
+
 class Server {
     dataObject = null;
     updatePending = false;
@@ -102,9 +104,14 @@ class Server {
          * Handle data consumed by components
          */
         this.app.get('/api/data', (request, response) => {
+            if (process.env.ENV === 'development' && fs.existsSync(devFilePath)){
+                this.dataObject = require(devFilePath);
+            }
+
             if (this.dataObject) {
                 this.dataObject.updatePending = this.updatePending;
             }
+
             response.json(this.dataObject);
         });
 
@@ -113,6 +120,14 @@ class Server {
          */
         this.app.post('/api/data', (request, response) => {
             this.dataObject = request.body;
+
+            if (process.env.ENV === 'development') {
+                if (!fs.existsSync(devFilePath) && this.dataObject !== null) {
+                    fs.writeFileSync(devFilePath, JSON.stringify(this.dataObject, null, 2));
+                    this.outputMessage(chalk.green(`Development data file created at ${devFilePath}`));
+                }
+            }
+
             response.send('ok');
         });
 

@@ -7,3 +7,4 @@ dist-ssr
 .theme
 .env
 .vscode
+dev-data.json
