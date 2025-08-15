@@ -68,32 +68,43 @@ class Server {
         let portfinder = require('portfinder');
         let localIpV4Address = require("local-ipv4-address");
 
-        localIpV4Address().then((ipAddress) => {
-            portfinder.getPort({ port: this.port }, (err, port) => {
-                this.app.use(serveStatic(path.join(__dirname, 'dist'), {
-                    etag: false,
-                    lastModified: false,
-                    cacheControl: false,
-                    maxAge: 0,
-                    setHeaders: (res) => {
-                        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-                        res.setHeader('Pragma', 'no-cache');
-                        res.setHeader('Expires', '0');
-                        res.setHeader('Surrogate-Control', 'no-store');
-                    }
-                }));
-                this.app.listen(port, () => {
-                    require('child_process').exec(`start http://${this.hostname}:${port}`);
+        localIpV4Address()
+            .catch((err) => {
+                const reason = (err && err.message) ? err.message : String(err);
+                this.outputMessage(chalk.yellow(`Could not determine LAN IPv4 address (${reason}).`));
+                this.outputMessage(chalk.yellow(`Tip: On some Linux systems, installing 'net-tools' (which includes the 'netstat' command) may help.`));
+                return null;
+            })
+            .then((ipAddress) => {
+                portfinder.getPort({ port: this.port }, (err, port) => {
+                    this.app.use(serveStatic(path.join(__dirname, 'dist'), {
+                        etag: false,
+                        lastModified: false,
+                        cacheControl: false,
+                        maxAge: 0,
+                        setHeaders: (res) => {
+                            res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+                            res.setHeader('Pragma', 'no-cache');
+                            res.setHeader('Expires', '0');
+                            res.setHeader('Surrogate-Control', 'no-store');
+                        }
+                    }));
+                    this.app.listen(port, () => {
+                        require('child_process').exec(`start http://${this.hostname}:${port}`);
 
-                    this.outputMessage(`*********************************************`);
-                    this.outputMessage(`** Server running at http://${this.hostname}:${port}/`);
-                    this.outputMessage(`** LAN access: http://${ipAddress}:${port}/`);
-                    this.outputMessage(`*********************************************`);
+                        this.outputMessage(`*********************************************`);
+                        this.outputMessage(`** Server running at http://${this.hostname}:${port}`);
+                        this.outputMessage(
+                            ipAddress ?
+                                `** Local IPv4 address: ${ipAddress}` :
+                                `** Local IPv4 address: unavailable (local IPv4 not detected)`
+                        );
+                        this.outputMessage(`*********************************************`);
 
-                    this.checkPortChange(port)
+                        this.checkPortChange(port)
+                    });
                 });
-            });
-        });
+            })
 
         return this
     }
