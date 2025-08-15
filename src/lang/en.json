@@ -47,7 +47,14 @@
     },
     "widgets": {
       "player_profile": {
-        "title": "Player profile"
+        "title": "Player profile",
+        "settings": {
+          "title": "Player profile settings",
+          "show_player_name": "Show player name",
+          "show_widget_banner": "Show widget banner",
+          "show_sector_name" : "Show sector name",
+          "show_sector_owner" : "Show sector owner"
+        }
       },
       "current_research": {
         "title": "Current research",

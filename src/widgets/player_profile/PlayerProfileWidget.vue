@@ -1,17 +1,22 @@
 <template>
   <div class="card card-profile" :class="[ compact ? 'mt-1' : 'mt-4' ]">
-    <div class="card-header x4-backgound"></div>
-    <div class="card-body text-center resizable-element" data-min-resizable-height="190">
-      <img class="card-profile-img" src="../../assets/x4-logo.png" title="..."/>
+    <div v-if="settings.showBanner" class="card-header x4-backgound"></div>
+    <div class="card-body text-center resizable-element" :data-min-resizable-height="minResizableHeight">
+      <img v-if="settings.showBanner" class="card-profile-img" src="../../assets/x4-logo.png" title="..."/>
       <div class="mb-2">
-        <h3 class="mb-0 text-gray-400">
+        <div class="settings-icon-wrapper">
+          <font-awesome-icon class="cursor-pointer" :icon="`cogs`" data-bs-toggle="modal" data-bs-target="#factions-settings"/>
+          <Modal id="factions-settings" :title="$t('app.widgets.player_profile.settings.title')" size="modal-lg">
+            <PlayerProfileSettings />
+          </Modal>
+        </div>
+        <h3 v-if="settings.showPlayerName" class="mb-0 text-gray-400">
           <span>{{ player.name }}</span>
         </h3>
-        <small v-if="player.faction">{{ player.faction }}</small>
-        <div v-else>&nbsp;</div>
+        <div v-if="player.faction"><small>{{ player.faction }}</small></div>
       </div>
       <div class="mb-4">
-        <div v-if="player.sector">{{ player.sector }}</div>
+        <div v-if="sectorString">{{ sectorString }}</div>
         <div>{{ player.credits }}</div>
       </div>
     </div>
@@ -20,7 +25,12 @@
 
 <script>
 
+import Modal from "@/components/Modal.vue";
+import PlayerProfileSettings from "@/widgets/player_profile/PlayerProfileSettings.vue";
+import store from "./js/store";
+
 export default {
+  components: { PlayerProfileSettings, Modal },
   props: {
     gameData: Object,
     maxHeight: {
@@ -34,7 +44,8 @@ export default {
       player: {
         name: null,
         faction: null,
-        sector: null,
+        sectorname: null,
+        sectorowner: null,
         credit: null,
       },
     }
@@ -48,6 +59,27 @@ export default {
       },
     },
   },
+  computed: {
+    settings() {
+      return store.state.settings;
+    },
+    sectorString() {
+      if (!this.settings.showSectorName) {
+        return null;
+      }
+      if (this.player.sectorowner && this.settings.showSectorOwner) {
+        return this.player.sectorname + ' (' + this.player.sectorowner + ')';
+      }
+      return this.player.sectorname;
+    },
+    minResizableHeight() {
+      if (this.settings.showBanner) {
+        return 190;
+      }
+      return 95;
+    }
+  },
+
   methods: {
     /**
      */
@@ -55,7 +87,8 @@ export default {
       this.player = {
         name: gameData.name,
         faction: gameData.factionname,
-        sector: gameData.playersector,
+        sectorname: gameData.sectorname,
+        sectorowner: gameData.sectorowner,
         credits: gameData.credits.toLocaleString() + ' ' + this.$t('app.common.credits'),
       }
     },
@@ -65,4 +98,10 @@ export default {
 
 <style lang="scss" scoped>
   @import "./scss/widget.scss";
+
+  .settings-icon-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
 </style>
