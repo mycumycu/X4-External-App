@@ -10,6 +10,7 @@ import {
     faClock,
     faCogs,
     faCoins,
+    faEllipsisH,
     faExpand,
     faFont,
     faMicrophone,
@@ -44,7 +45,7 @@ const i18n = createI18n({
     messages,
 })
 
-library.add(faSearch, faStar, faTimes, faThLarge, faExpand, faCoins, faUserFriends, faFont, faCogs, faTrashAlt, faClock, faMicrophone);
+library.add(faSearch, faStar, faTimes, faThLarge, faExpand, faCoins, faUserFriends, faFont, faCogs, faTrashAlt, faClock, faMicrophone, faEllipsisH);
 
 Helper.disableContextMenu();
 AppUpgrader.upgradeFromV200();

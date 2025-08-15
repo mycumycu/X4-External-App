@@ -1,5 +1,6 @@
 <template>
   <div v-if="autoHideHeader" class="x4-header-hover-zone" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave"></div>
+  <font-awesome-icon v-if="autoHideHeader && !isHeaderVisible" icon="ellipsis-h" class="x4-header-indicator" />
   <header class="header" :class="[ autoHideHeader ? 'x4-slide-header' : 'x4-fixed-header', { visible: autoHideHeader ? isHeaderVisible : true } ]" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <nav class="navbar navbar-expand-lg py-2 bg-dash-dark-2 border-bottom border-dash-dark-1 z-index-10">
       <div class="container-fluid d-flex align-items-center justify-content-between py-1">
@@ -128,7 +129,7 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 12px;
+  height: 16px;
   z-index: 1049;
 }
 .x4-slide-header {
@@ -152,6 +153,22 @@ export default {
 }
 .x4-header-spacer {
   height: 60px;
+}
+.x4-header-indicator {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1048;
+  background: transparent;
+  color: #ccc;
+  border: none;
+  padding: 0;
+  font-size: 24px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-text {
