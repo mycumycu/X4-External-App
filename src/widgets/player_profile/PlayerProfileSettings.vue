@@ -57,6 +57,7 @@ export default {
       },
       set (v) {
         store.commit('updateSettings', { ...store.state.settings, showPlayerName: v })
+        this.emitter.emit('resizeWidgets')
       }
     },
     showBanner: {
@@ -77,6 +78,7 @@ export default {
         if (!v) {
           store.commit('updateSettings', { ...store.state.settings, showSectorOwner: v })
         }
+        this.emitter.emit('resizeWidgets')
       }
     },
     showSectorOwner: {
@@ -88,6 +90,7 @@ export default {
         if (v) {
           store.commit('updateSettings', { ...store.state.settings, showSectorName: v })
         }
+        this.emitter.emit('resizeWidgets')
       }
     }
   },

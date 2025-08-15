@@ -73,10 +73,17 @@ export default {
       return this.player.sectorname;
     },
     minResizableHeight() {
-      if (this.settings.showBanner) {
-        return 190;
+      let maxHeight = 190;
+      if (!this.settings.showBanner) {
+        maxHeight -= 50;
       }
-      return 95;
+      if (!this.settings.showPlayerName) {
+        maxHeight -= 20;
+      }
+      if (!this.settings.showSectorName) {
+        maxHeight -= 20;
+      }
+      return maxHeight;
     }
   },
 
