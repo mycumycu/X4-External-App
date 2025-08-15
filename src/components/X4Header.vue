@@ -1,6 +1,6 @@
 <template>
-  <div class="x4-header-hover-zone" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave"></div>
-  <header class="header x4-slide-header" :class="{ visible: isHeaderVisible }" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+  <div v-if="autoHideHeader" class="x4-header-hover-zone" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave"></div>
+  <header class="header" :class="[ autoHideHeader ? 'x4-slide-header' : 'x4-fixed-header', { visible: autoHideHeader ? isHeaderVisible : true } ]" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <nav class="navbar navbar-expand-lg py-2 bg-dash-dark-2 border-bottom border-dash-dark-1 z-index-10">
       <div class="container-fluid d-flex align-items-center justify-content-between py-1">
         <div class="navbar-header d-flex align-items-center"><a class="navbar-brand text-uppercase text-reset" href="index.html">
@@ -26,6 +26,7 @@
       </div>
     </nav>
   </header>
+  <div v-if="!autoHideHeader" class="x4-header-spacer"></div>
   <Modal id="layout-setings" :title="$t('app.header.layout_settings')" size="modal-xl">
     <LayoutSettings/>
   </Modal>
@@ -35,6 +36,7 @@
 import Modal from "../components/Modal.vue";
 import LayoutSettings from "./LayoutSettings.vue";
 import LanguageSelector from "@/components/LanguageSelector.vue";
+import GlobalStore from "../globalStore";
 
 export default {
   components: {
@@ -55,6 +57,11 @@ export default {
       isFullscreen: false,
       isHeaderVisible: false,
       hideTimer: null,
+    }
+  },
+  computed: {
+    autoHideHeader() {
+      return GlobalStore.state.layout.autoHideHeader;
     }
   },
   methods: {
@@ -135,6 +142,16 @@ export default {
 }
 .x4-slide-header.visible {
   transform: translateY(0);
+}
+.x4-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+.x4-header-spacer {
+  height: 60px;
 }
 
 .brand-text {
