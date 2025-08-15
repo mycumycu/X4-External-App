@@ -1,5 +1,6 @@
 <template>
-  <header class="header">
+  <div class="x4-header-hover-zone" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave"></div>
+  <header class="header x4-slide-header" :class="{ visible: isHeaderVisible }" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <nav class="navbar navbar-expand-lg py-2 bg-dash-dark-2 border-bottom border-dash-dark-1 z-index-10">
       <div class="container-fluid d-flex align-items-center justify-content-between py-1">
         <div class="navbar-header d-flex align-items-center"><a class="navbar-brand text-uppercase text-reset" href="index.html">
@@ -52,6 +53,8 @@ export default {
       ],
       htmlClassIndex: 0,
       isFullscreen: false,
+      isHeaderVisible: false,
+      hideTimer: null,
     }
   },
   methods: {
@@ -83,6 +86,20 @@ export default {
       htmlElement.className = '';
       htmlElement.classList.add(this.htmlClassArray[this.htmlClassIndex]);
       localStorage.setItem("fontSizeIndex", JSON.stringify(this.htmlClassIndex));
+    },
+    onMouseEnter() {
+      if (this.hideTimer) {
+        clearTimeout(this.hideTimer);
+        this.hideTimer = null;
+      }
+      this.isHeaderVisible = true;
+    },
+
+    onMouseLeave() {
+      if (this.hideTimer) clearTimeout(this.hideTimer);
+      this.hideTimer = setTimeout(() => {
+        this.isHeaderVisible = false;
+      }, 300);
     }
   },
   /**
@@ -90,11 +107,36 @@ export default {
   mounted() {
     this.htmlClassIndex = parseInt(JSON.parse(localStorage.getItem("fontSizeIndex")) || 0)
     this.setFontSize();
+    this.isHeaderVisible = false;
+  },
+  beforeUnmount() {
+    if (this.hideTimer) clearTimeout(this.hideTimer);
   }
 }
 </script>
 
 <style lang="scss">
+.x4-header-hover-zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 12px;
+  z-index: 1049;
+}
+.x4-slide-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  transition: transform 0.25s ease;
+  z-index: 1050;
+}
+.x4-slide-header.visible {
+  transform: translateY(0);
+}
+
 .brand-text {
   span {
     color: #999;
