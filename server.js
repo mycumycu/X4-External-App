@@ -14,10 +14,12 @@ const port = process.env.APP_PORT || 8080;
 const chalk = require('chalk');
 const { version } = require("./package.json");
 
+const isPackaged = !!process.pkg;
+const runtimeDir = isPackaged ? path.dirname(process.execPath) : __dirname;
+const devFilePath = path.join(runtimeDir, 'dev-data.json');
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
-
-const devFilePath = path.join(__dirname, 'dev-data.json');
 
 class Server {
     dataObject = null;
@@ -51,7 +53,7 @@ class Server {
             } else {
                 this.outputMessage(chalk.green(`You are up to date.`));
             }
-        }).catch(function (error) {
+        }).catch(function () {
             console.error(chalk.red(`Couldn't connect to github server to check updates.`));
         });
 
@@ -104,8 +106,14 @@ class Server {
          * Handle data consumed by components
          */
         this.app.get('/api/data', (request, response) => {
-            if (process.env.ENV === 'development' && fs.existsSync(devFilePath)){
-                this.dataObject = require(devFilePath);
+            if (!isPackaged && fs.existsSync(devFilePath)) {
+                try {
+                    // In local env - load from file
+                    const raw = fs.readFileSync(devFilePath, 'utf8');
+                    this.dataObject = JSON.parse(raw);
+                } catch (e) {
+                    console.error(chalk.red(`Failed to load ${devFilePath}:`), e);
+                }
             }
 
             if (this.dataObject) {
@@ -121,10 +129,15 @@ class Server {
         this.app.post('/api/data', (request, response) => {
             this.dataObject = request.body;
 
-            if (process.env.ENV === 'development') {
-                if (!fs.existsSync(devFilePath) && this.dataObject !== null) {
-                    fs.writeFileSync(devFilePath, JSON.stringify(this.dataObject, null, 2));
-                    this.outputMessage(chalk.green(`Development data file created at ${devFilePath}`));
+            if (!isPackaged) {
+                try {
+                    if (!fs.existsSync(devFilePath) && this.dataObject != null) {
+                        // In local env: create dev-data.json
+                        fs.writeFileSync(devFilePath, JSON.stringify(this.dataObject, null, 2));
+                        this.outputMessage(chalk.green(`Development data file created at ${devFilePath}`));
+                    }
+                } catch (e) {
+                    console.error(chalk.red(`Failed to write ${devFilePath}:`), e);
                 }
             }
 

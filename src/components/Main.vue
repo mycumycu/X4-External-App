@@ -105,10 +105,8 @@ export default {
               } else this.dataFetchError = true;
             })
       } catch (e) {
-        if (process.env.NODE_ENV || 'development') {
-          console.log(e)
-        }
         this.dataFetchError = true;
+        console.log(e)
       }
     },
 
