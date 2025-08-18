@@ -112,6 +112,25 @@
 
     </div>
   </div>
+  <div class="row mt-3">
+    <div class="col-sm-2 p-1 caption">
+      {{ $t('app.layout_settings.settings_io') }}
+      <br/><small>{{ $t('app.layout_settings.settings_help') }}</small>
+    </div>
+    <div class="col-sm-10 d-flex gap-2">
+      <button type="button" class="btn btn-sm btn-outline-primary" @click="exportSettings"
+              :title="$t('app.layout_settings.export_settings_hint')">
+        {{ $t('app.layout_settings.export_settings') }}
+      </button>
+      <button type="button" class="btn btn-sm btn-outline-secondary" @click="triggerImport"
+              :title="$t('app.layout_settings.import_settings_hint')">
+        {{ $t('app.layout_settings.import_settings') }}
+      </button>
+      <input ref="settingsFileInput" type="file" accept="application/json,.json" class="d-none"
+             @change="onImportFileSelected">
+    </div>
+  </div>
+
 
 </template>
 
@@ -125,7 +144,7 @@ export default {
     draggable,
   },
   props: ['settings'],
-  data() {
+  data () {
     return {
       maxWidgetsInColumn: 4,
       columnsNo: null,
@@ -140,12 +159,12 @@ export default {
   /**
    *
    */
-  mounted() {
+  mounted () {
     this.columnsNo = this.layout.columns.length
     this.setAvailableWidgets();
   },
   computed: {
-    layout() {
+    layout () {
       return GlobalStore.state.layout
     }
   },
@@ -156,7 +175,7 @@ export default {
      *
      */
     columnsNo: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.columnsNo = parseInt(newVal);
         this.layout.columns = this.layout.columns.filter((column, index) => {
           if (index >= this.columnsNo) {
@@ -186,7 +205,7 @@ export default {
      *
      */
     layout: {
-      handler(newVal, oldVal) {
+      handler (newVal, oldVal) {
         this.storeLayoutConfiguration();
       },
       deep: true,
@@ -198,7 +217,7 @@ export default {
     /**
      * @param event
      */
-    onColumnWidthChange(event) {
+    onColumnWidthChange (event) {
       let currentColumnNo = parseInt(event.target.dataset.columnNo);
       let currentColumnValue = parseInt(event.target.value);
       this.columnWidthAdjust(currentColumnNo, currentColumnValue)
@@ -206,7 +225,7 @@ export default {
     /**
      * @returns {number[]}
      */
-    columnWidthOptions() {
+    columnWidthOptions () {
       const columnCount = this.layout.columns.length
       const maxAllowedWidth = 12 - (columnCount - 1);
       return this.selectOptions.columnWidths.filter(width => width <= maxAllowedWidth)
@@ -217,7 +236,7 @@ export default {
      * @param columnNo
      * @param widthValue
      */
-    columnWidthAdjust(columnNo, widthValue) {
+    columnWidthAdjust (columnNo, widthValue) {
       const maxGridSize = 12;
       const columns = this.layout.columns;
       let currentSum = columns.reduce((sum, column) => Math.max(0, sum) + parseInt(column.width), 0);
@@ -243,7 +262,7 @@ export default {
     /**
      * @param event
      */
-    onWidgetHeightChange(event) {
+    onWidgetHeightChange (event) {
       let currentColumnNo = parseInt(event.target.dataset.columnNo);
       let currentWidgetNo = parseInt(event.target.dataset.widgetNo);
       let currentColumnValue = parseInt(event.target.value);
@@ -254,7 +273,7 @@ export default {
      * @param columnNo
      * @returns {number[]}
      */
-    widgetHeightOptions(columnNo) {
+    widgetHeightOptions (columnNo) {
       const widgetCount = this.layout.columns[columnNo].widgets.length
       const maxAllowedHeight = 100 - ((widgetCount - 1) * 10);
       return this.selectOptions.widgetHeights.filter(height => height <= maxAllowedHeight)
@@ -264,7 +283,7 @@ export default {
      * @param widgetNo
      * @param heightValue
      */
-    widgetHeightAdjust(columnNo, widgetNo, heightValue) {
+    widgetHeightAdjust (columnNo, widgetNo, heightValue) {
       if (columnNo) {
         let maxSum = 100;
         const widgets = this.layout.columns[columnNo].widgets;
@@ -292,7 +311,7 @@ export default {
     /**
      *
      */
-    storeLayoutConfiguration() {
+    storeLayoutConfiguration () {
       if (!this.layout.limitHeight) {
         const heightWorker = new WidgetHeightWorker();
         heightWorker.clear();
@@ -306,14 +325,14 @@ export default {
      * @param evt
      * @returns {boolean}
      */
-    onMove(evt) {
+    onMove (evt) {
       const widgetsCount = evt.to.children.length;
       return evt.to === evt.from || widgetsCount <= this.maxWidgetsInColumn;
     },
     /**
      * @param evt
      */
-    onAdd(evt) {
+    onAdd (evt) {
       const columnNo = evt.to.dataset.columnNo;
       const widgetNo = evt.newIndex;
       this.widgetHeightAdjust(columnNo, widgetNo, 50);
@@ -325,7 +344,7 @@ export default {
      * @param index
      * @param element
      */
-    remove(column, index, element) {
+    remove (column, index, element) {
       element.maxHeight = 50;
       this.layout.columns[column].widgets.splice(index, 1)
       this.availableWidgets.push(element);
@@ -334,7 +353,7 @@ export default {
     /**
      * Set available widgets
      */
-    setAvailableWidgets() {
+    setAvailableWidgets () {
       let usedWidgets = [];
 
       // get all widgets
@@ -357,7 +376,83 @@ export default {
         return !usedWidgets.some(object => object.component === value.component)
       });
     },
+    exportSettings () {
+      try {
+        const data = {};
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          data[key] = localStorage.getItem(key);
+        }
+        const json = JSON.stringify(data, null, 2);
+        const blob = new Blob([json], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'x4ea-settings.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } catch (e) {
+        alert(this.$t('app.layout_settings.export_error') + ': ' + e.message);
+      }
+    },
+    triggerImport () {
+      if (this.$refs.settingsFileInput) {
+        this.$refs.settingsFileInput.value = '';
+        this.$refs.settingsFileInput.click();
+      }
+    },
+    async onImportFileSelected (event) {
+      try {
+        const file = event && event.target && event.target.files ? event.target.files[0] : null;
+        if (!file) {
+          return;
+        }
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (!this.validateImportedData(data)) {
+          alert(this.$t('app.layout_settings.import_invalid_file'));
+          return;
+        }
+        if (!confirm(this.$t('app.layout_settings.import_confirm'))) {
+          return;
+        }
+        // overwrite localStorage
+        localStorage.clear();
+        Object.keys(data).forEach(key => {
+          const val = data[key];
+          if (typeof val === 'string') {
+            localStorage.setItem(key, val);
+          } else {
+            // fallback: ensure value is stored as string
+            localStorage.setItem(key, JSON.stringify(val));
+          }
+        });
+        alert(this.$t('app.layout_settings.import_success'));
+        window.location.reload();
+      } catch (e) {
+        alert(this.$t('app.layout_settings.import_parse_error') + ': ' + e.message);
+      } finally {
+        if (this.$refs.settingsFileInput) {
+          this.$refs.settingsFileInput.value = '';
+        }
+      }
+    },
+    validateImportedData (data) {
+      if (!data || Array.isArray(data) || typeof data !== 'object') {
+        return false;
+      }
+      // each localStorage values should be strings in the exported file
+      const allStringValues = Object.keys(data).every(k => typeof data[k] === 'string');
+      if (!allStringValues) return false;
 
+      const requiredKeys = [
+        'layout',
+        'fontSizeIndex',
+      ];
+      return requiredKeys.every(k => Object.prototype.hasOwnProperty.call(data, k));
+    },
   },
 }
 </script>

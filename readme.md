@@ -90,6 +90,26 @@ All changes made are stored automatically.
 
 Clicking ![Font size icon](https://i.imgur.com/neFE6wC.png) icon switches between different font sizes. 
 
+## Settings import/export
+
+You can export and import the application's settings.
+
+Where to find it:
+- Open the layout configuration screen by clicking the layout icon ![layout icon](https://i.imgur.com/DsukxhO.png).
+- In the layout settings, find the "Manage settings" / "Settings" section and use the `Export settings` and `Import settings` buttons.
+
+Export:
+- Saves all application settings into a `x4ea-settings.json` file.
+- The file is standard JSON and can be backed up or moved to another device/browser.
+
+Import:
+- Pick a previously exported `x4ea-settings.json` file. The app validates the file before applying it.
+- If valid, the import will overwrite all current settings and the app will reload to apply them.
+
+Notes and troubleshooting:
+- Import will replace all existing settings. Consider exporting first to create a backup.
+- If import fails, ensure you are using a file exported by this app and that it wasn't manually edited.
+
 ## Widgets
 
 ### Logbook

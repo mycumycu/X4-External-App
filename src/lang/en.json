@@ -12,9 +12,9 @@
       "credits": "Cr"
     },
     "header": {
-      "layout_settings": "Layout settings",
+      "settings": "Settings",
       "change_font_size": "Change font size",
-      "change_layout": "Change layout",
+      "change_layout": "Change settings",
       "toggle_fullscreen": "Toggle fullscreen",
       "change_language": "Change language",
       "new_version": "New version is out.",
@@ -35,7 +35,18 @@
       "set_column_width": "set column width",
       "remove_widget": "remove widget from the column",
       "max_height": "Max height",
-      "set_max_widget_height": "set max widget height within the viewport"
+      "set_max_widget_height": "set max widget height within the viewport",
+      "settings_io": "Manage settings",
+      "settings_help": "Import and export settings",
+      "export_settings": "Export settings",
+      "export_settings_hint": "Save all settings to x4ea-settings.json file",
+      "import_settings": "Import settings",
+      "import_settings_hint": "Load settings from a previously exported file",
+      "export_error": "Export failed",
+      "import_invalid_file": "Invalid settings file",
+      "import_confirm": "Import will overwrite all current settings. Continue?",
+      "import_success": "Settings imported successfully. The app will reload.",
+      "import_parse_error": "Import failed"
     },
     "no_connection": {
       "logo_title": "X4 Foundations",
