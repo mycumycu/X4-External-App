@@ -10,6 +10,8 @@ export default createStore({
         ) || {
             limitHeight: true,
             showBreadcrumb: true,
+            compact: false,
+            autoHideHeader: false,
             columns: [
                 {
                     width: 3,

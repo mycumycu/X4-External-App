@@ -37,6 +37,16 @@
         {{ $t('app.layout_settings.compact_mode') }}</label>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10 pt-2">
+      <label><input type="checkbox"
+                    class="form-check-input"
+                    v-model="this.layout.autoHideHeader"
+                    :value="true"/>
+        {{ $t('app.layout_settings.auto_hide_header') }}</label>
+    </div>
+  </div>
 
   <div class="row mt-3">
     <div class="col-sm-2 p-1 caption">{{ $t('app.layout_settings.available_widgets') }}<br/><small>{{ $t('app.layout_settings.drag_to_column') }}</small></div>

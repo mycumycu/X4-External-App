@@ -1,5 +1,7 @@
 <template>
-  <header class="header">
+  <div v-if="autoHideHeader" class="x4-header-hover-zone" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave"></div>
+  <font-awesome-icon v-if="autoHideHeader && !isHeaderVisible" icon="ellipsis-h" class="x4-header-indicator" />
+  <header class="header" :class="[ autoHideHeader ? 'x4-slide-header' : 'x4-fixed-header', { visible: autoHideHeader ? isHeaderVisible : true } ]" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
     <nav class="navbar navbar-expand-lg py-2 bg-dash-dark-2 border-bottom border-dash-dark-1 z-index-10">
       <div class="container-fluid d-flex align-items-center justify-content-between py-1">
         <div class="navbar-header d-flex align-items-center"><a class="navbar-brand text-uppercase text-reset" href="index.html">
@@ -25,6 +27,7 @@
       </div>
     </nav>
   </header>
+  <div v-if="!autoHideHeader" class="x4-header-spacer"></div>
   <Modal id="layout-setings" :title="$t('app.header.layout_settings')" size="modal-xl">
     <LayoutSettings/>
   </Modal>
@@ -34,6 +37,7 @@
 import Modal from "../components/Modal.vue";
 import LayoutSettings from "./LayoutSettings.vue";
 import LanguageSelector from "@/components/LanguageSelector.vue";
+import GlobalStore from "../globalStore";
 
 export default {
   components: {
@@ -52,6 +56,13 @@ export default {
       ],
       htmlClassIndex: 0,
       isFullscreen: false,
+      isHeaderVisible: false,
+      hideTimer: null,
+    }
+  },
+  computed: {
+    autoHideHeader() {
+      return GlobalStore.state.layout.autoHideHeader;
     }
   },
   methods: {
@@ -83,6 +94,20 @@ export default {
       htmlElement.className = '';
       htmlElement.classList.add(this.htmlClassArray[this.htmlClassIndex]);
       localStorage.setItem("fontSizeIndex", JSON.stringify(this.htmlClassIndex));
+    },
+    onMouseEnter() {
+      if (this.hideTimer) {
+        clearTimeout(this.hideTimer);
+        this.hideTimer = null;
+      }
+      this.isHeaderVisible = true;
+    },
+
+    onMouseLeave() {
+      if (this.hideTimer) clearTimeout(this.hideTimer);
+      this.hideTimer = setTimeout(() => {
+        this.isHeaderVisible = false;
+      }, 300);
     }
   },
   /**
@@ -90,11 +115,62 @@ export default {
   mounted() {
     this.htmlClassIndex = parseInt(JSON.parse(localStorage.getItem("fontSizeIndex")) || 0)
     this.setFontSize();
+    this.isHeaderVisible = false;
+  },
+  beforeUnmount() {
+    if (this.hideTimer) clearTimeout(this.hideTimer);
   }
 }
 </script>
 
 <style lang="scss">
+.x4-header-hover-zone {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 16px;
+  z-index: 1049;
+}
+.x4-slide-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(-100%);
+  transition: transform 0.25s ease;
+  z-index: 1050;
+}
+.x4-slide-header.visible {
+  transform: translateY(0);
+}
+.x4-fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+}
+.x4-header-spacer {
+  height: 60px;
+}
+.x4-header-indicator {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1048;
+  background: transparent;
+  color: #ccc;
+  border: none;
+  padding: 0;
+  font-size: 24px;
+  line-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .brand-text {
   span {
     color: #999;

@@ -3,9 +3,6 @@ export default class WidgetHeightWorker {
     constructor() {
     }
 
-    /**
-     * @returns {string}
-     */
     run($refs, widget) {
         const element = widget.$el;
         const maxHeight = widget.maxHeight;
