@@ -28,21 +28,21 @@
     </nav>
   </header>
   <div v-if="!autoHideHeader" class="x4-header-spacer"></div>
-  <Modal id="layout-setings" :title="$t('app.header.layout_settings')" size="modal-xl">
-    <LayoutSettings/>
+  <Modal id="layout-setings" :title="$t('app.header.settings')" size="modal-xl">
+    <Settings/>
   </Modal>
 </template>
 
 <script>
 import Modal from "../components/Modal.vue";
-import LayoutSettings from "./LayoutSettings.vue";
+import Settings from "./Settings.vue";
 import LanguageSelector from "@/components/LanguageSelector.vue";
 import GlobalStore from "../globalStore";
 
 export default {
   components: {
     LanguageSelector,
-    LayoutSettings,
+    Settings,
     Modal
   },
   props: ['isPendingUpdate'],
