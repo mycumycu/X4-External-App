@@ -26,6 +26,7 @@
       "limit_widgets_height": "ограничить высоту виджетов разрешением экрана (отключить прокрутку страницы)",
       "show_breadcrumb": "показать панель навигации",
       "compact_mode": "компактный режим (уменьшает пространство между виджетами)",
+	  "auto_hide_header": "автоматически скрыть заголовок",												  
       "available_widgets": "Доступные виджеты",
       "drag_to_column": "перетяните в нужный столбец",
       "columns_title": "Столбцы",
@@ -35,7 +36,18 @@
       "set_column_width": "Настройте ширину столбца",
       "remove_widget": "убрать виджет из столбца",
       "max_height": "Макс. высота",
-      "set_max_widget_height": "установите максимальную высоту виджета"
+      "set_max_widget_height": "установите максимальную высоту виджета",
+	  "settings_io": "Управление настройками",
+      "settings_help": "Настройки импорта и экспорта",
+      "export_settings": "Экспорт настроек",
+      "export_settings_hint": "Сохранить все настройки в файл x4ea-settings.json",
+      "import_settings": "Настройки импорта",
+      "import_settings_hint": "Загрузить настройки из ранее экспортированного файла",
+      "export_error": "Ошибка экспорта",
+      "import_invalid_file": "Неверный файл настроек",
+      "import_confirm": "Импорт перезапишет все текущие настройки. Продолжить?",
+      "import_success": "Настройки успешно импортированы. Приложение перезагрузится.",
+      "import_parse_error": "Ошибка испорта"							   
     },
     "no_connection": {
       "logo_title": "X4 Foundations",
@@ -47,7 +59,14 @@
     },
     "widgets": {
       "player_profile": {
-        "title": "Профиль игрока"
+        "title": "Профиль игрока",
+		"settings": {
+          "title": "Настройки профиля игрока",
+          "show_player_name": "Показать имя игрока",
+          "show_widget_banner": "Показать баннер виджета",
+          "show_sector_name" : "Показать название сектора",
+          "show_sector_owner" : "Показать владельца сектора"
+        }
       },
       "current_research": {
         "title": "Текущее исследование",
