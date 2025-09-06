@@ -13,6 +13,7 @@ const port = process.env.APP_PORT || 8080;
 
 const chalk = require('chalk');
 const { version } = require("./package.json");
+const { normalizeObjectRecursively } = require('./utils/textProcessor');
 
 const isPackaged = !!process.pkg;
 const runtimeDir = isPackaged ? path.dirname(process.execPath) : __dirname;
@@ -149,7 +150,8 @@ class Server {
          * Handle incoming data from X4
          */
         this.app.post('/api/data', (request, response) => {
-            this.dataObject = request.body;
+            // Normalize output (handle line breaks, color codes, etc.)
+            this.dataObject = normalizeObjectRecursively(request.body);
 
             if (!isPackaged) {
                 try {
