@@ -151,7 +151,10 @@ class Server {
          */
         this.app.post('/api/data', (request, response) => {
             // Normalize output (handle line breaks, color codes, etc.)
-            this.dataObject = normalizeObjectRecursively(request.body);
+            const newData = normalizeObjectRecursively(request.body);
+
+            // Merge new data with existing
+            this.dataObject = { ...this.dataObject, ...newData };
 
             if (!isPackaged) {
                 try {
