@@ -9,7 +9,13 @@
       "disabled": "disabled",
       "enabled": "enabled",
       "start_typing": "Start typing...",
-      "credits": "Cr"
+      "credits": "Cr",
+      "time": {
+        "day_short": "d",
+        "hour_short": "h",
+        "minute_short": "m",
+        "ago": "ago"
+      }
     },
     "header": {
       "settings": "Settings",

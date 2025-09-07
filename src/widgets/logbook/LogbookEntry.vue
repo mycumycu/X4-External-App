@@ -4,7 +4,7 @@
       <div class="ms-12 w-100">
         <div class="d-flex justify-content-between">
           <h5 :class="entryTitleClass" class="title" v-html="parsedTitle"></h5>
-          <small class="text-nowrap">{{ entry.passedtime }}</small>
+          <small class="text-nowrap">{{ formattedPassedTime }}</small>
         </div>
         <div class="text-muted text-sm" v-html="parsedText"></div>
         <div class="mt-2">
@@ -23,36 +23,14 @@
 </template>
 
 <script>
+import passedTimeMixin from '../../mixins/passedTimeMixin.js'
+
 export default {
+  mixins: [passedTimeMixin],
   props: [
     'name',
     'entry',
   ],
-  methods: {
-    /**
-     * @return {boolean}
-     */
-    isFeatured() {
-      return this.entry.rules && this.entry.rules.type === 'featured'
-    },
-    /**
-     * @return {string}
-     */
-    color(source) {
-      const color = source.match(/\#\w{8}\#/g)
-      if (Array.isArray(color)) {
-          return `#${color[0].slice(3, -1)}`
-      }
-      return ''
-    },
-    /**
-     * @return {string}
-     */
-    replaced(color) {
-      return color ? `<span style="color: ${color}">` : ''
-    }
-  },
-
   computed: {
     /**
      * @return {string|null}
@@ -96,8 +74,29 @@ export default {
       return withBonus.toLocaleString() + ' ' + cr + ' (' + this.$t('app.widgets.logbook.base') + ' ' + this.entry.money.toLocaleString() + ' ' + cr + ' + ' + this.$t('app.widgets.logbook.bonus') + ' ' + this.entry.bonus.toLocaleString() + ' ' + cr + ')';
     }
   },
-  data() {
-    return {}
+  methods: {
+    /**
+     * @return {boolean}
+     */
+    isFeatured() {
+      return this.entry.rules && this.entry.rules.type === 'featured'
+    },
+    /**
+     * @return {string}
+     */
+    color(source) {
+      const color = source.match(/\#\w{8}\#/g)
+      if (Array.isArray(color)) {
+          return `#${color[0].slice(3, -1)}`
+      }
+      return ''
+    },
+    /**
+     * @return {string}
+     */
+    replaced(color) {
+      return color ? `<span style="color: ${color}">` : ''
+    }
   },
 }
 </script>

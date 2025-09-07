@@ -101,6 +101,9 @@ export default {
                 this.gameData = gameData;
                 this.$emit('updatePending', gameData.updatePending);
 
+                // Update game time in store for time calculations
+                GlobalStore.commit('setGameTime', gameData.time);
+
                 this.dataFetchError = false;
               } else this.dataFetchError = true;
             })
@@ -137,7 +140,7 @@ export default {
   mounted() {
     this.emitter.on('resizeWidgets', this.resizeWidgets)
 
-    let dataFetchInterval = 2000;
+    const dataFetchInterval = 1000;
 
     this.getData();
     setInterval(() => {

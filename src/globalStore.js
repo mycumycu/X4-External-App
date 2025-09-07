@@ -5,6 +5,7 @@ export default createStore({
     state: {
         currentLanguage: defaultLocale,
         languages,
+        gameTime: null,
         layout: JSON.parse(
             localStorage.getItem("layout")
         ) || {
@@ -54,6 +55,9 @@ export default createStore({
         },
         setLanguage(state, lang) {
             state.currentLanguage = lang
+        },
+        setGameTime(state, gameTime) {
+            state.gameTime = gameTime
         }
     },
     getters: {

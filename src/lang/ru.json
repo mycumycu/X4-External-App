@@ -9,7 +9,13 @@
       "disabled": "выключено",
       "enabled": "включено",
       "start_typing": "Начните вводить...",
-      "credits": "Кр"
+      "credits": "Кр",
+      "time": {
+        "day_short": "д",
+        "hour_short": "ч",
+        "minute_short": "м",
+        "ago": "назад"
+      }
     },
     "header": {
       "layout_settings": "Настройка макета",
