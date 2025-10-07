@@ -2,10 +2,10 @@
   <div class="list-group-item border-start-0 border-end-0 border-top-0 px-lg-0 py-3">
     <div class="d-flex" :class="[{ featured: isFeatured }, colorClass]">
       <div class="ms-12 w-100">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between align-items-center">
           <div>
-            <h5 :class="entryTitleClass" class="text-sm" v-html="parsedTitle"></h5>
-            <div class="text-sm">{{ entry.eventtypename }}</div>
+            <h5 :class="entryTitleClass" class="text-sm" v-html="parsedTitle || entry.eventtypename"></h5>
+            <div class="text-sm" v-if="parsedTitle">{{ entry.eventtypename }}</div>
           </div>
           <div class="flex-shrink-0 text-end right-block">
             <small class="text-nowrap">{{ formattedPassedTime }}</small>
