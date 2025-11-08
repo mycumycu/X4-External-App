@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "Aplicación externa X4",
+    "title": "X4 External App",
     "common": {
       "on": "encendido",
       "off": "apagado",
@@ -29,10 +29,10 @@
     "layout_settings": {
       "number_of_columns": "N.º de columnas",
       "columns": "columna(s)",
-      "limit_widgets_height": "limitar la altura de los widgets al alto visible (oculta la barra de desplazamiento)",
-      "show_breadcrumb": "mostrar ruta de navegación",
-      "compact_mode": "modo compacto (reduce espacios y reorganiza elementos para mayor densidad de información)",
-      "auto_hide_header": "ocultar automáticamente el encabezado",
+      "limit_widgets_height": "Limitar la altura de los widgets al alto visible (oculta la barra de desplazamiento)",
+      "show_breadcrumb": "Mostrar ruta de navegación",
+      "compact_mode": "Modo compacto (reduce espacios y reorganiza elementos para mayor densidad de información)",
+      "auto_hide_header": "Ocultar automáticamente el encabezado",
       "available_widgets": "Widgets disponibles",
       "drag_to_column": "arrastra a la columna deseada",
       "columns_title": "Columnas",
