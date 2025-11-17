@@ -9,7 +9,7 @@ function handleLineBreaks(value) {
     if (typeof value !== 'string') {
         return value;
     }
-    
+
     return value.replace(/\r?\n/g, '<br />');
 }
 
@@ -38,6 +38,10 @@ function handleColorCodes(value) {
     result = result.replace(/\u001A/g, '<span class=\'pale-grey\'>');
     result = result.replace(/\u0018/g, '</span>');
 
+    // Strip ESC-based tokens: remove ESCX (reset) and any stray ESC
+    result = result.replace(/\u001B[Xx]/g, '');
+    result = result.replace(/\u001B/g, '');
+
     // Remove null characters
     result = result.replace(/\u0000/g, '');
 
@@ -51,10 +55,10 @@ function handleFactionColors(value) {
     if (typeof value !== 'string') {
         return value;
     }
-    
+
     // Remove color codes between #FF and # (case insensitive)
     const result = value.replace(/#[Ff][Ff].*?#/g, '');
-    
+
     return result || value;
 }
 
@@ -68,7 +72,7 @@ function normalizeOutput(value) {
     if (elementType === 'object' && value !== null) {
         return value;
     }
-    
+
     if (elementType === 'string') {
         let processed = value;
         processed = handleLineBreaks(processed);
@@ -76,7 +80,7 @@ function normalizeOutput(value) {
         processed = handleFactionColors(processed);
         return processed;
     }
-    
+
     return value;
 }
 
@@ -87,11 +91,11 @@ function normalizeObjectRecursively(object) {
     if (typeof object === 'string') {
         return normalizeOutput(object);
     }
-    
+
     if (Array.isArray(object)) {
         return object.map(item => normalizeObjectRecursively(item));
     }
-    
+
     if (object !== null && typeof object === 'object') {
         const normalized = {};
         for (const [key, value] of Object.entries(object)) {
@@ -99,7 +103,7 @@ function normalizeObjectRecursively(object) {
         }
         return normalized;
     }
-    
+
     return object;
 }
 
