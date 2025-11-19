@@ -79,7 +79,7 @@
             class="mission-time text-xs text-muted"
           >
             <font-awesome-icon :icon="'clock'" class="fa-icon me-1" />
-            {{ agent.currentMission.timeLeftText }}
+            {{ missionTimeLeftText }}
           </div>
         </template>
         <template v-else>
@@ -95,8 +95,11 @@
 </template>
 
 <script>
+import passedTimeMixin from "../../mixins/passedTimeMixin";
+
 export default {
   name: 'AgentsEntry',
+  mixins: [passedTimeMixin],
   props: {
     agent: {
       type: Object,
@@ -109,6 +112,67 @@ export default {
         showAgentDetails: true,
         showMissionDetails: true,
       }),
+    },
+  },
+  computed: {
+    missionTimeLeftText() {
+      if (!this.agent || !this.agent.currentMission) {
+        return null;
+      }
+
+      const currentMission = this.agent.currentMission;
+
+      // Prefer endTime if it is available so we can count down based on global game time
+      if (typeof currentMission.endTime === 'number') {
+        const totalSeconds = Math.max(0, Math.round(currentMission.endTime - this.gameTime));
+
+        if (totalSeconds <= 0) {
+          // Mission is finished according to game time; keep original text if any
+          return currentMission.timeLeftText || null;
+        }
+
+        return this.formatMissionTimeFromSeconds(totalSeconds);
+      }
+
+      // Fallback: if only timeLeftSeconds are available, use them as-is
+      if (typeof currentMission.timeLeftSeconds === 'number') {
+        const totalSeconds = Math.max(0, Math.round(currentMission.timeLeftSeconds));
+
+        if (totalSeconds <= 0) {
+          return currentMission.timeLeftText || null;
+        }
+
+        return this.formatMissionTimeFromSeconds(totalSeconds);
+      }
+
+      // Last fallback: show whatever text backend provided
+      return currentMission.timeLeftText || null;
+    },
+  },
+  methods: {
+    formatMissionTimeFromSeconds(totalSeconds) {
+      const days = Math.floor(totalSeconds / (24 * 3600));
+      const hours = Math.floor((totalSeconds % (24 * 3600)) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = Math.floor(totalSeconds % 60);
+
+      const parts = [];
+
+      if (days > 0) {
+        parts.push(`${days}d`);
+      }
+
+      if (hours > 0) {
+        parts.push(`${hours}h`);
+      }
+
+      if (minutes > 0) {
+        parts.push(`${minutes}m`);
+      }
+
+      parts.push(`${seconds}s`);
+
+      return parts.join(' ');
     },
   },
 }
