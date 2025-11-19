@@ -1,0 +1,27 @@
+@import "variables";
+
+.agents-widget {
+  .agents-entry {
+    .agent-main {
+      min-width: 0;
+    }
+
+    .agent-avatar-img {
+      height: 6.25em; // ~100px at 16px base, scales with font size
+      width: auto;
+      object-fit: cover;
+      margin-top: 4px;
+    }
+
+    .agent-skills {
+      min-width: 120px;
+
+      .badge {
+        font-weight: 400;
+        font-size: 0.7rem;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+

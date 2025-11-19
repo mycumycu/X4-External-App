@@ -195,6 +195,20 @@
           "capital": "Capital ship licence"
         },
         "relation_change": "Recent relation change"
+      },
+      "agents": {
+        "title": "Agents",
+        "no_agents": "No agents available",
+        "prestige": "Prestige",
+        "success_chance": "Success chance",
+        "risk_to_agent": "Risk to agent",
+        "rewards": "Rewards",
+        "settings": {
+          "title": "Agents settings",
+          "show_agent_image": "Show agent image",
+          "show_agent_details": "Show agent details",
+          "show_mission_details": "Show mission details"
+        }
       }
     }
   }
