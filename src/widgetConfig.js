@@ -29,4 +29,7 @@ export default {
     factions: {
         widgetName: 'app.widgets.factions.title',
     },
+    agents: {
+        widgetName: 'app.widgets.agents.title',
+    },
 }
