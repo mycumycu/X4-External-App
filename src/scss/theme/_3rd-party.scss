@@ -53,3 +53,13 @@
 .choices__list--dropdown {
     border-color: $input-border-color !important;
 }
+
+
+/* ==========================================
+    PERFECT SCROLLBAR
+   ========================================== */
+// Hide PerfectScrollbar rails on hover when there is nothing to scroll
+.ps:not(.ps--active-y):not(.ps--active-x):hover > .ps__rail-y,
+.ps:not(.ps--active-y):not(.ps--active-x):hover > .ps__rail-x {
+    opacity: 0;
+}

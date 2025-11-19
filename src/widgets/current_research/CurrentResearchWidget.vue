@@ -4,7 +4,7 @@
       <h4>{{ $t('app.widgets.current_research.title') }}</h4>
     </template>
 
-    <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="40" :options="{ suppressScrollX: true }">
+    <perfect-scrollbar class="resizable-element" data-min-resizable-height="40">
       <div v-if="currentResearch.name">
         <current-research-entry :research="currentResearch"/>
       </div>

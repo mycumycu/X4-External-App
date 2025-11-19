@@ -80,6 +80,6 @@ app.config.globalProperties.widgetConfig = WidgetConfig
 app.config.unwrapInjectedRef = true
 app.component('font-awesome-icon', FontAwesomeIcon)
 app.use(GlobalStore)
-app.use(PerfectScrollbar, { options: { suppressScrollX: true } })
+app.use(PerfectScrollbar, { options: { suppressScrollX: true, scrollYMarginOffset: 40 } })
 app.use(i18n)
 app.mount('#app')
