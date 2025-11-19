@@ -1,7 +1,7 @@
 <template>
   <div class="list-group-item border-start-0 border-end-0 border-top-0 px-lg-0 py-3">
     <div class="d-flex w-100 justify-content-between align-items-start agents-entry">
-      <div class="agent-main d-flex text-truncate">
+      <div class="agent-main d-flex">
         <div v-if="settings.showAgentImage && agent.icon" class="agent-avatar me-3 flex-shrink-0">
           <img
             :src="`/agents/${agent.icon}.jpg`"
@@ -12,14 +12,14 @@
 
         <div class="flex-grow-1">
           <div class="d-flex align-items-baseline flex-wrap">
-            <h5 class="mb-0 me-2 text-truncate title" :title="agent.name">
+            <h5 class="mb-0 me-2 title" :title="agent.name">
               {{ agent.name }}
             </h5>
-            <small v-if="agent.originFactionNameShort" class="text-muted text-truncate me-2">
+            <small v-if="agent.originFactionNameShort" class="text-muted me-2">
               <span class="agent-name-separator">•</span>{{ agent.originFactionNameShort }}
             </small>
           </div>
-          <div v-if="agent.shipName" class="text-sm text-muted text-truncate">
+          <div v-if="agent.shipName" class="text-sm text-muted">
             <span class="me-1">{{ agent.shipName }}</span>
             <span v-if="agent.shipPrestige !== null && agent.shipPrestige !== undefined">
               <span class="agent-name-separator">•</span>{{ $t('app.widgets.agents.prestige') }}: {{ agent.shipPrestige }}
@@ -44,9 +44,9 @@
       </div>
       <div class="agent-mission text-sm text-end ms-3">
         <template v-if="agent.currentMission">
-          <div class="d-flex justify-content-end align-items-center">
+          <div class="d-flex justify-content-start justify-content-lg-end align-items-center">
             <span
-              class="mission-name title text-white text-wrap text-end"
+              class="mission-name title text-white text-wrap"
               :title="agent.currentMission.name"
             >
               <font-awesome-icon :icon="'star'" class="fa-icon me-1" />
@@ -55,7 +55,7 @@
           </div>
           <div
             v-if="agent.currentMission.target"
-            class="mission-target text-sm text-muted text-truncate"
+            class="mission-target text-sm text-muted"
           >
             {{ agent.currentMission.target }}
           </div>
@@ -222,6 +222,32 @@ export default {
 
     .mission-time {
       white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .agents-entry {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .agent-mission {
+      margin-left: 0 !important;
+      margin-top: 1rem;
+      text-align: left !important;
+    }
+
+    .agent-mission > .d-flex {
+      justify-content: flex-start;
+    }
+
+    .mission-target {
+      text-align: left;
+    }
+
+    .agent-mission.text-end,
+    .mission-name.text-end {
+      text-align: left !important;
     }
   }
 }
