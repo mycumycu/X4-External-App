@@ -15,9 +15,6 @@
             <h5 class="mb-0 me-2 title" :title="agent.name">
               {{ agent.name }}
             </h5>
-            <small v-if="agent.originFactionNameShort" class="text-muted me-2">
-              <span class="agent-name-separator">•</span>{{ agent.originFactionNameShort }}
-            </small>
           </div>
           <div v-if="agent.shipName" class="text-sm text-muted">
             <span class="me-1">{{ agent.shipName }}</span>
@@ -26,7 +23,10 @@
             </span>
           </div>
           <div v-if="agent.rank" class="agent-rank text-xs text-muted">
-            Rank: {{ agent.rank }}
+            {{ agent.rank }}
+            <span v-if="agent.originFactionNameShort">
+              <span class="agent-name-separator">•</span>{{ agent.originFactionNameShort }}
+            </span>
           </div>
 
           <div
