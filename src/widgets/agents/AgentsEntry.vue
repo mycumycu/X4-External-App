@@ -43,7 +43,25 @@
         </div>
       </div>
       <div class="agent-mission text-sm text-end ms-3">
-        <template v-if="agent.currentMission">
+        <template v-if="agent.isInjured">
+          <div class="d-flex justify-content-start justify-content-lg-end align-items-center">
+            <span
+              class="mission-name title text-white text-wrap"
+              title="Agent injured"
+            >
+              <font-awesome-icon :icon="'star'" class="fa-icon me-1" />
+              Agent injured
+            </span>
+          </div>
+          <div
+            v-if="injuryTimeLeftText"
+            class="mission-time text-xs text-muted"
+          >
+            <font-awesome-icon :icon="'clock'" class="fa-icon me-1" />
+            {{ injuryTimeLeftText }}
+          </div>
+        </template>
+        <template v-else-if="agent.currentMission">
           <div class="d-flex justify-content-start justify-content-lg-end align-items-center">
             <span
               class="mission-name title text-white text-wrap"
@@ -147,6 +165,20 @@ export default {
 
       // Last fallback: show whatever text backend provided
       return currentMission.timeLeftText || null;
+    },
+
+    injuryTimeLeftText() {
+      if (!this.agent || !this.agent.isInjured || typeof this.agent.injuryEndTime !== 'number') {
+        return null;
+      }
+
+      const totalSeconds = Math.max(0, Math.round(this.agent.injuryEndTime - this.gameTime));
+
+      if (totalSeconds <= 0) {
+        return null;
+      }
+
+      return this.formatMissionTimeFromSeconds(totalSeconds);
     },
   },
   methods: {

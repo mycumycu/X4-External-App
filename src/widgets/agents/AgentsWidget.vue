@@ -155,6 +155,8 @@ export default {
         shipId: shipData.id,
         shipName: shipData.name,
         shipPrestige: shipData.prestige,
+        isInjured: agentData.isInjured,
+        injuryEndTime: agentData.injuryEndTime,
         currentMission,
       };
     },
