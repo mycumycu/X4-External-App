@@ -203,6 +203,10 @@
         "success_chance": "Success chance",
         "risk_to_agent": "Risk to agent",
         "rewards": "Rewards",
+        "negotiation": "Negotiation",
+        "espionage": "Espionage",
+        "agent_injured": "Agent injured",
+        "no_mission_assigned": "No mission assigned",
         "settings": {
           "title": "Agents settings",
           "show_agent_image": "Show agent image",

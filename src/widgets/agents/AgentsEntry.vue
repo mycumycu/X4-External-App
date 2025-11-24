@@ -34,10 +34,10 @@
             class="agent-skills text-xs text-muted"
           >
             <div v-if="agent.negotiationLevel">
-              Negotiation: {{ agent.negotiationLevel }}
+              {{ $t('app.widgets.agents.negotiation') }}: {{ agent.negotiationLevel }}
             </div>
             <div v-if="agent.espionageLevel">
-              Espionage: {{ agent.espionageLevel }}
+              {{ $t('app.widgets.agents.espionage') }}: {{ agent.espionageLevel }}
             </div>
           </div>
         </div>
@@ -47,10 +47,10 @@
           <div class="d-flex justify-content-start justify-content-lg-end align-items-center">
             <span
               class="mission-name title text-white text-wrap"
-              title="Agent injured"
+              :title="$t('app.widgets.agents.agent_injured')"
             >
               <font-awesome-icon :icon="'star'" class="fa-icon me-1" />
-              Agent injured
+              {{ $t('app.widgets.agents.agent_injured') }}
             </span>
           </div>
           <div
@@ -103,7 +103,7 @@
         <template v-else>
           <div class="mission-status">
             <span class="mission-name badge bg-dark text-white text-wrap text-start">
-              No mission assigned
+              {{ $t('app.widgets.agents.no_mission_assigned') }}
             </span>
           </div>
         </template>
