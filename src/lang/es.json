@@ -1,0 +1,201 @@
+{
+  "app": {
+    "title": "X4 External App",
+    "common": {
+      "on": "encendido",
+      "off": "apagado",
+      "close": "Cerrar",
+      "add_new": "Agregar nuevo",
+      "disabled": "desactivado",
+      "enabled": "activado",
+      "start_typing": "Empieza a escribir...",
+      "credits": "Cr",
+      "time": {
+        "day_short": "d",
+        "hour_short": "h",
+        "minute_short": "m",
+        "ago": "atrás"
+      }
+    },
+    "header": {
+      "settings": "Configuración",
+      "change_font_size": "Cambiar tamaño de fuente",
+      "change_layout": "Cambiar configuración",
+      "toggle_fullscreen": "Alternar pantalla completa",
+      "change_language": "Cambiar idioma",
+      "new_version": "Hay una nueva versión disponible.",
+      "download_from_github": "Descárgala desde GitHub."
+    },
+    "layout_settings": {
+      "number_of_columns": "N.º de columnas",
+      "columns": "columna(s)",
+      "limit_widgets_height": "Limitar la altura de los widgets al alto visible (oculta la barra de desplazamiento)",
+      "show_breadcrumb": "Mostrar ruta de navegación",
+      "compact_mode": "Modo compacto (reduce espacios y reorganiza elementos para mayor densidad de información)",
+      "auto_hide_header": "Ocultar automáticamente el encabezado",
+      "available_widgets": "Widgets disponibles",
+      "drag_to_column": "arrastra a la columna deseada",
+      "columns_title": "Columnas",
+      "set_width": "establecer el ancho de cada columna",
+      "and_max_height": "y la altura máxima de cada widget",
+      "column": "Columna",
+      "set_column_width": "establecer ancho de columna",
+      "remove_widget": "eliminar widget de la columna",
+      "max_height": "Altura máxima",
+      "set_max_widget_height": "establecer altura máxima del widget dentro del área visible",
+      "settings_io": "Gestionar configuración",
+      "settings_help": "Importar y exportar configuración",
+      "export_settings": "Exportar configuración",
+      "export_settings_hint": "Guardar toda la configuración en el archivo x4ea-settings.json",
+      "import_settings": "Importar configuración",
+      "import_settings_hint": "Cargar configuración desde un archivo exportado previamente",
+      "export_error": "Error al exportar",
+      "import_invalid_file": "Archivo de configuración no válido",
+      "import_confirm": "La importación sobrescribirá toda la configuración actual. ¿Continuar?",
+      "import_success": "Configuración importada correctamente. La aplicación se recargará.",
+      "import_parse_error": "Error al importar"
+    },
+    "no_connection": {
+      "logo_title": "X4 Foundations",
+      "logo_alt": "Logotipo de X4",
+      "waiting_for_connection": "Esperando conexión",
+      "no_water_in_pipe": "No hay agua en la tubería...",
+      "game_data_fetch_error": "El servidor no pudo obtener datos del juego.",
+      "game_save_loaded": "La partida debería estar cargada. Verifica también que el puerto del servidor coincida con la configuración del mod."
+    },
+    "widgets": {
+      "player_profile": {
+        "title": "Perfil del jugador",
+        "settings": {
+          "title": "Configuración del perfil del jugador",
+          "show_player_name": "Mostrar nombre del jugador",
+          "show_widget_banner": "Mostrar banner del widget",
+          "show_sector_name": "Mostrar nombre del sector",
+          "show_sector_owner": "Mostrar propietario del sector"
+        }
+      },
+      "current_research": {
+        "title": "Investigación actual",
+        "research_time": "Tiempo de investigación",
+        "completed": "Completado",
+        "tasks_required": "Tareas requeridas",
+        "required_resources": "Recursos requeridos",
+        "none": "ninguno"
+      },
+      "player_goals": {
+        "title": "Objetivos del jugador",
+        "settings_title": "Configuración de objetivos del jugador",
+        "add_new_goal": "Agregar nuevo objetivo...",
+        "short_term": "Corto plazo",
+        "long_term": "Largo plazo",
+        "split_list": "Dividir la lista en corto y largo plazo",
+        "make_featured": "Marcar como destacado",
+        "disable_featured": "Quitar destacado",
+        "edit_goal": "Editar objetivo",
+        "remove": "Eliminar",
+        "default_short_goal": "Agrega tu primer objetivo a corto plazo",
+        "default_long_goal": "También puedes agregar tus objetivos a largo plazo"
+      },
+      "transaction_log": {
+        "title": "Registro de transacciones",
+        "settings_title": "Configuración del registro de transacciones",
+        "adjust_settings": "Ajusta la configuración del registro de transacciones usando el ícono {icon} arriba",
+        "excluded": "Excluido",
+        "featured": "Destacado",
+        "press_add_new": "Presiona el botón 'Agregar nuevo' para añadir reglas.",
+        "when": "Cuando",
+        "then": "Entonces",
+        "enter_phrase": "introducir frase",
+        "type_placeholder": "Escribir...",
+        "make_excluded": "Marcar como excluido",
+        "make_featured": "Marcar como destacado",
+        "title_only": "considerar frase solo en el título",
+        "make_blink": "hacer parpadear el título",
+        "remove_row": "eliminar fila",
+        "is_less_than": "es menor que",
+        "is_more_than": "es mayor que"
+      },
+      "logbook": {
+        "title": "Registro",
+        "settings_title": "Configuración del registro",
+        "adjust_settings": "Ajusta la configuración del registro usando el ícono {icon} arriba",
+        "excluded": "Excluido",
+        "featured": "Destacado",
+        "press_add_new": "Presiona el botón 'Agregar nuevo' para añadir reglas.",
+        "when": "Cuando",
+        "then": "Entonces",
+        "enter_phrase": "introducir frase",
+        "type_placeholder": "Escribir...",
+        "make_excluded": "Marcar como excluido",
+        "make_featured": "Marcar como destacado",
+        "title_only": "considerar frase solo en el título",
+        "make_blink": "hacer parpadear el título",
+        "remove_row": "eliminar fila",
+        "is_less_than": "es menor que",
+        "is_more_than": "es mayor que",
+        "base": "base",
+        "bonus": "bono"
+      },
+      "mission_offers": {
+        "title": "Ofertas de misiones",
+        "settings_title": "Configuración de ofertas de misiones",
+        "adjust_settings": "Ajusta la configuración de las ofertas de misiones usando el ícono {icon} arriba",
+        "difficulties": "Dificultades",
+        "types": "Tipos",
+        "other_settings": "Otras configuraciones",
+        "show_first_chars": "mostrar los primeros {count} caracteres",
+        "mission_descriptions": "Descripciones de misiones",
+        "mission_objectives": "Objetivos de misiones",
+        "mission": "Misión",
+        "missions": "Misiones",
+        "difficulty_levels": {
+          "trivial": "trivial",
+          "very_easy": "muy fácil",
+          "easy": "fácil",
+          "medium": "media",
+          "hard": "difícil",
+          "very_hard": "muy difícil"
+        },
+        "mission_types": {
+          "plot": "historia",
+          "guild": "gremio",
+          "other": "otra",
+          "coalition": "coalición"
+        }
+      },
+      "active_mission": {
+        "title": "Misión activa",
+        "completed": "completada",
+        "reward": "Recompensa",
+        "time_left": "Tiempo restante",
+        "none": "ninguna"
+      },
+      "factions": {
+        "title": "Facciones",
+        "settings": {
+          "title": "Configuración de facciones",
+          "exclude": "Excluir facciones de la lista",
+          "comma_separated": "(separadas por comas)",
+          "placeholder": "Ej. ARG, KHK, ZYA",
+          "relation_level": "Mostrar solo facciones con nivel de relación",
+          "from_to": "de {min} a {max}",
+          "other": "Otras",
+          "show_relation_changes": "Mostrar cambios recientes en relaciones",
+          "show_licence_indicators": "Mostrar indicadores de licencias militar y de capital"
+        },
+        "relation_levels": {
+          "ally": "aliado",
+          "enemy": "enemigo",
+          "friend": "amigo",
+          "hostile": "hostil",
+          "neutral": "neutral"
+        },
+        "licences": {
+          "military": "Licencia militar",
+          "capital": "Licencia de naves capitales"
+        },
+        "relation_change": "Cambio reciente en relaciones"
+      }
+    }
+  }
+}
