@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content id="ExternalApp"
+         name="Mycu: External App"
+         author="Mycu"
+         version="350"
+         date="2025-11-19"
+         save="false"
+         enabled="1"
+         description="X4 External App">
+    <dependency id="djfhe_http" optional="false" name="djfhe Http library for x4"/>
+    <dependency id="VerboseTransactionLog" optional="true" name="Mycu: Verbose Transaction Log"/>
+</content>

@@ -196,6 +196,16 @@
         },
         "relation_change": "Cambio reciente en relaciones"
       }
+      ,
+      "inventory": {
+        "title": "Inventario",
+        "no_data": "Aún no se han recibido datos de inventario.",
+        "filter_placeholder": "Filtrar por nombre...",
+        "sort_name": "Ordenar: nombre",
+        "sort_amount": "Ordenar: cantidad",
+        "price_label": "Precio:",
+        "unknown": "Desconocido"
+      }
     }
   }
 }

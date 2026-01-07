@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mdscript name="ExternalApp" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://mycu.kylos.pl/md.xsd">
+    <cues>
+        <cue name="EA_Main">
+            <conditions>
+                <check_any>
+                    <event_cue_signalled cue="md.Setup.GameStart"/>
+                    <event_game_loaded/>
+                </check_any>
+            </conditions>
+            <actions>
+                <set_value name="$debugchance" exact="0"/>
+            </actions>
+            <cues>
+                <cue name="EA_callMessages" instantiate="true" checkinterval="1s">
+                    <actions>
+                        <raise_lua_event name="'externalapp.getMessages'" />
+                    </actions>
+                </cue>
+            </cues>
+        </cue>
+    </cues>
+</mdscript>
