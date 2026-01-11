@@ -6,7 +6,7 @@
       </div>
     </template>
 
-    <div class="overflow-hidden px-2 mb-2" style="height: 50px">
+    <div class="overflow-hidden ps-2 mb-2" style="height: 50px">
       <div v-if="items && items.length" class="d-flex gap-2 align-items-center pt-2">
         <input v-model="filters.q" class="form-control form-control-sm" :placeholder="$t('app.widgets.inventory.filter_placeholder')" />
         <select v-model="sort.by" class="form-select form-select-sm sort-select">
@@ -14,13 +14,13 @@
           <option value="amount">{{ $t('app.widgets.inventory.sort_amount') }}</option>
           <option value="value">{{ $t('app.widgets.inventory.sort_value') }}</option>
         </select>
-        <button class="btn btn-sm btn-outline-secondary" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
+        <button class="btn btn-sm btn-outline-secondary rounded-0" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
       </div>
       <div v-else class="text-muted small pt-2">{{ $t('app.widgets.inventory.no_data') }}</div>
     </div>
 
     <perfect-scrollbar class="inventory-widget resizable-element" data-min-resizable-height="90">
-      <div v-if="items && items.length" class="list-group list-group-flush px-2">
+      <div v-if="items && items.length" class="list-group list-group-flush ps-2 inventory-list">
         <div
           v-for="it in displayedItems"
           :key="it.name"
@@ -162,5 +162,20 @@ pre {
 .illegal-indicator {
   font-weight: bold;
   margin-right: 0.25rem;
+}
+
+.inventory-list {
+  padding-right: 0.1rem;
+}
+
+:deep(.inventory-widget) {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  .ps__rail-y {
+    z-index: 10;
+    pointer-events: auto !important;
+  }
 }
 </style>
