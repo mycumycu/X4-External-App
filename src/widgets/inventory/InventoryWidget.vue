@@ -6,46 +6,41 @@
       </div>
     </template>
 
-    <div class="p-2">
-      <div v-if="!gameData" class="text-muted small">{{ $t('app.widgets.inventory.no_data') }}</div>
-
-      <div v-else>
-        <div v-if="items && items.length">
-          <div class="d-flex mb-2 gap-2 align-items-center">
-            <input v-model="filters.q" class="form-control form-control-sm" :placeholder="$t('app.widgets.inventory.filter_placeholder')" />
-            <select v-model="sort.by" class="form-select form-select-sm sort-select">
-              <option value="name">{{ $t('app.widgets.inventory.sort_name') }}</option>
-              <option value="amount">{{ $t('app.widgets.inventory.sort_amount') }}</option>
-              <option value="value">{{ $t('app.widgets.inventory.sort_value') }}</option>
-            </select>
-            <button class="btn btn-sm btn-outline-secondary" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
-          </div>
-
-          <perfect-scrollbar :class="'resizable-element'" data-min-resizable-height="90">
-            <div class="list-group list-group-flush">
-              <div
-                v-for="it in displayedItems"
-                :key="it.name"
-                class="list-group-item border-start-0 border-end-0 border-top-0 d-flex justify-content-between align-items-center px-0 py-2"
-              >
-                <div class="me-auto">
-                  <div class="text-sm" :class="{ 'illegal-ware': it.illegal }" :title="it.illegal ? $t('app.widgets.inventory.illegal_tooltip') : null">
-                    <span v-if="it.illegal" class="illegal-indicator">!</span>{{ it.name || $t('app.widgets.inventory.unknown') }}
-                  </div>
-                  <div v-if="it.price !== undefined && it.price !== null" class="price-text text-muted">
-                    <font-awesome-icon :icon="'coins'" class="fa-icon"/>
-                    {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
-                  </div>
-                </div>
-                <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ displayAmount(it).toLocaleString() }}</span>
-              </div>
-            </div>
-          </perfect-scrollbar>
-        </div>
-
-        <pre v-else class="small mt-2" style="white-space: pre-wrap; word-break: break-word;">{{ formatted }}</pre>
+    <div class="overflow-hidden px-2 mb-2" style="height: 50px">
+      <div v-if="items && items.length" class="d-flex gap-2 align-items-center pt-2">
+        <input v-model="filters.q" class="form-control form-control-sm" :placeholder="$t('app.widgets.inventory.filter_placeholder')" />
+        <select v-model="sort.by" class="form-select form-select-sm sort-select">
+          <option value="name">{{ $t('app.widgets.inventory.sort_name') }}</option>
+          <option value="amount">{{ $t('app.widgets.inventory.sort_amount') }}</option>
+          <option value="value">{{ $t('app.widgets.inventory.sort_value') }}</option>
+        </select>
+        <button class="btn btn-sm btn-outline-secondary" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
       </div>
+      <div v-else class="text-muted small pt-2">{{ $t('app.widgets.inventory.no_data') }}</div>
     </div>
+
+    <perfect-scrollbar class="inventory-widget resizable-element" data-min-resizable-height="90">
+      <div v-if="items && items.length" class="list-group list-group-flush px-2">
+        <div
+          v-for="it in displayedItems"
+          :key="it.name"
+          class="list-group-item border-start-0 border-end-0 border-top-0 d-flex justify-content-between align-items-center px-0 py-2"
+        >
+          <div class="me-auto">
+            <div class="text-sm" :class="{ 'illegal-ware': it.illegal }" :title="it.illegal ? $t('app.widgets.inventory.illegal_tooltip') : null">
+              <span v-if="it.illegal" class="illegal-indicator">!</span>{{ it.name || $t('app.widgets.inventory.unknown') }}
+            </div>
+            <div v-if="it.price !== undefined && it.price !== null" class="price-text text-muted">
+              <font-awesome-icon :icon="'coins'" class="fa-icon"/>
+              {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
+            </div>
+          </div>
+          <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ displayAmount(it).toLocaleString() }}</span>
+        </div>
+      </div>
+
+      <pre v-else class="small mt-2 px-2" style="white-space: pre-wrap; word-break: break-word;">{{ formatted }}</pre>
+    </perfect-scrollbar>
   </widget>
 </template>
 
