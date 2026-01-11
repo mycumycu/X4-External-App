@@ -218,7 +218,8 @@
         "sort_name": "Sort by name",
         "sort_amount": "Sort by amount",
         "sort_value": "Sort by value",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "illegal_tooltip": "This ware is illegal in the current sector"
       }
     }
   }

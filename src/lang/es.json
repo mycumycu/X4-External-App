@@ -204,7 +204,8 @@
         "sort_name": "Ordenar por nombre",
         "sort_amount": "Ordenar por cantidad",
         "sort_value": "Ordenar por valor",
-        "unknown": "Desconocido"
+        "unknown": "Desconocido",
+        "illegal_tooltip": "Esta mercancía es ilegal en el sector actual"
       }
     }
   }

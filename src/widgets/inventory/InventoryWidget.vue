@@ -29,13 +29,15 @@
                 class="list-group-item border-start-0 border-end-0 border-top-0 d-flex justify-content-between align-items-center px-0 py-2"
               >
                 <div class="me-auto">
-                  <div class="text-sm">{{ it.name || $t('app.widgets.inventory.unknown') }}</div>
-                  <div v-if="it.price !== undefined && it.price !== null" class="text-muted price-text">
+                  <div class="text-sm" :class="{ 'illegal-ware': it.illegal }" :title="it.illegal ? $t('app.widgets.inventory.illegal_tooltip') : null">
+                    <span v-if="it.illegal" class="illegal-indicator">!</span>{{ it.name || $t('app.widgets.inventory.unknown') }}
+                  </div>
+                  <div v-if="it.price !== undefined && it.price !== null" class="price-text text-muted">
                     <font-awesome-icon :icon="'coins'" class="fa-icon"/>
                     {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
                   </div>
                 </div>
-                <span class="text-muted">{{ displayAmount(it).toLocaleString() }}</span>
+                <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ displayAmount(it).toLocaleString() }}</span>
               </div>
             </div>
           </perfect-scrollbar>
@@ -54,7 +56,7 @@ export default {
   name: 'InventoryWidget',
   components: { Widget },
   props: {
-    gameData: [Object, Array, String],
+    gameData: Object,
     maxHeight: {
       type: Number,
       default: 40,
@@ -94,42 +96,14 @@ export default {
       }
     },
     items() {
-      if (!this.gameData) return [];
+      if (!this.gameData?.inventory) return [];
 
-      // If gameData is an object that contains `.inventory` (our normalized format)
-      if (typeof this.gameData === 'object' && !Array.isArray(this.gameData) && this.gameData.inventory) {
-        const inv = this.gameData.inventory;
-        if (Array.isArray(inv)) {
-          return inv.map((it) => ({
-            amount: Number(it.amount ?? it.quantity) || 0,
-            name: it.name || null,
-            price: it.price ?? null,
-          }));
-        }
-        if (typeof inv === 'object') {
-          return Object.entries(inv).map(([k, v]) => {
-            if (v && typeof v === 'object') {
-              return {
-                amount: Number(v.amount ?? v.quantity) || 0,
-                name: v.name || null,
-                price: v.price ?? null,
-              };
-            }
-            return { amount: Number(v) || 0, name: null, price: null };
-          });
-        }
-      }
-
-      // If gameData itself is an array of items
-      if (Array.isArray(this.gameData)) {
-        return this.gameData.map((it) => ({
-          amount: Number(it.amount ?? it.quantity) || 0,
-          name: it.name || null,
-          price: it.price ?? null,
-        }));
-      }
-
-      return [];
+      return Object.values(this.gameData.inventory).map((item) => ({
+        name: item.name,
+        amount: Number(item.amount) || 0,
+        price: item.price ?? null,
+        illegal: !!item.illegal,
+      }));
     },
     displayedItems() {
       let list = (this.items || []).slice();
@@ -184,5 +158,14 @@ pre {
 
 .sort-select {
   width: 180px;
+}
+
+.illegal-ware {
+  color: #d4a846;
+}
+
+.illegal-indicator {
+  font-weight: bold;
+  margin-right: 0.25rem;
 }
 </style>
