@@ -201,8 +201,9 @@
         "title": "Inventario",
         "no_data": "Aún no se han recibido datos de inventario.",
         "filter_placeholder": "Filtrar por nombre...",
-        "sort_name": "Ordenar: nombre",
-        "sort_amount": "Ordenar: cantidad",
+        "sort_name": "Ordenar por nombre",
+        "sort_amount": "Ordenar por cantidad",
+        "sort_value": "Ordenar por valor",
         "unknown": "Desconocido"
       }
     }

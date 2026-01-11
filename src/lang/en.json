@@ -215,8 +215,9 @@
         "title": "Inventory",
         "no_data": "No inventory data received yet.",
         "filter_placeholder": "Filter name...",
-        "sort_name": "Sort: name",
-        "sort_amount": "Sort: amount",
+        "sort_name": "Sort by name",
+        "sort_amount": "Sort by amount",
+        "sort_value": "Sort by value",
         "unknown": "Unknown"
       }
     }

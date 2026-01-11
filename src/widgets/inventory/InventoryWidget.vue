@@ -13,9 +13,10 @@
         <div v-if="items && items.length">
           <div class="d-flex mb-2 gap-2 align-items-center">
             <input v-model="filters.q" class="form-control form-control-sm" :placeholder="$t('app.widgets.inventory.filter_placeholder')" />
-            <select v-model="sort.by" class="form-select form-select-sm" style="width:120px">
+            <select v-model="sort.by" class="form-select form-select-sm sort-select">
               <option value="name">{{ $t('app.widgets.inventory.sort_name') }}</option>
               <option value="amount">{{ $t('app.widgets.inventory.sort_amount') }}</option>
+              <option value="value">{{ $t('app.widgets.inventory.sort_value') }}</option>
             </select>
             <button class="btn btn-sm btn-outline-secondary" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
           </div>
@@ -149,6 +150,11 @@ export default {
           const nb = Number(b.amount || 0);
           return (na - nb) * dir;
         }
+        if (by === 'value') {
+          const va = Number(a.price || 0);
+          const vb = Number(b.price || 0);
+          return (va - vb) * dir;
+        }
         // default: sort by name
         const sa = ((a.name) || '').toString().toLowerCase();
         const sb = ((b.name) || '').toString().toLowerCase();
@@ -174,5 +180,9 @@ pre {
 
 .price-text {
   font-size: 0.65rem;
+}
+
+.sort-select {
+  width: 180px;
 }
 </style>
