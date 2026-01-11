@@ -25,13 +25,16 @@
               <div
                 v-for="it in displayedItems"
                 :key="it.name"
-                class="list-group-item d-flex justify-content-between align-items-start"
+                class="list-group-item border-start-0 border-end-0 border-top-0 d-flex justify-content-between align-items-center px-0 py-2"
               >
-                <div class="me-auto small">
-                  <div>{{ it.name || $t('app.widgets.inventory.unknown') }}</div>
-                  <div v-if="it.price !== undefined && it.price !== null" class="text-muted small">{{ $t('app.widgets.inventory.price_label') }} {{ it.price }}</div>
+                <div class="me-auto">
+                  <div class="text-sm">{{ it.name || $t('app.widgets.inventory.unknown') }}</div>
+                  <div v-if="it.price !== undefined && it.price !== null" class="text-muted price-text">
+                    <font-awesome-icon :icon="'coins'" class="fa-icon"/>
+                    {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
+                  </div>
                 </div>
-                <div class="badge bg-secondary rounded-pill small">{{ displayAmount(it) }}</div>
+                <span class="text-muted">{{ displayAmount(it).toLocaleString() }}</span>
               </div>
             </div>
           </perfect-scrollbar>
@@ -70,11 +73,14 @@ export default {
   methods: {
     toggleSortDir() {
       this.sort.dir = this.sort.dir === 'asc' ? 'desc' : 'asc';
-    }
-    ,
+    },
     displayAmount(it) {
       const n = Number(it.amount) || 0;
       return n;
+    },
+    formatPrice(price) {
+      const n = Number(price) || 0;
+      return n.toLocaleString('fr-FR').replace(/,/g, '.');
     }
   },
   computed: {
@@ -166,4 +172,7 @@ pre {
   margin: 0;
 }
 
+.price-text {
+  font-size: 0.65rem;
+}
 </style>

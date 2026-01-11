@@ -217,7 +217,6 @@
         "filter_placeholder": "Filter name...",
         "sort_name": "Sort: name",
         "sort_amount": "Sort: amount",
-        "price_label": "Price:",
         "unknown": "Unknown"
       }
     }
