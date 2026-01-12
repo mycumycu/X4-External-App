@@ -3,6 +3,17 @@
     <template #header>
       <div class="d-flex justify-content-between">
         <h4 class="card-title pb-0 mb-0">{{ $t('app.widgets.inventory.title') }}</h4>
+        <div>
+          <font-awesome-icon
+            class="cursor-pointer"
+            :icon="'cogs'"
+            data-bs-toggle="modal"
+            data-bs-target="#inventory-settings"
+          />
+          <Modal id="inventory-settings" :title="$t('app.widgets.inventory.settings.title')">
+            <InventorySettings :settings="settings" />
+          </Modal>
+        </div>
       </div>
     </template>
 
@@ -20,7 +31,46 @@
     </div>
 
     <perfect-scrollbar class="inventory-widget resizable-element" data-min-resizable-height="90">
-      <div v-if="items && items.length" class="list-group list-group-flush ps-2 inventory-list">
+      <!-- Grouped view when categories enabled -->
+      <div v-if="settings.showCategories && groupedItems && groupedItems.length" class="accordion inventory-list">
+        <div v-for="group in groupedItems" :key="group.id" class="accordion-item border-top-0 border-start-0 border-end-0">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button align-items-start"
+              type="button"
+              data-bs-toggle="collapse"
+              :data-bs-target="`#inv-cat-${group.id}`"
+            >
+              <span class="group-name">[{{ group.items.length }}] {{ group.name }}</span>
+            </button>
+          </h2>
+          <div :id="`inv-cat-${group.id}`" class="accordion-collapse collapse show">
+            <div class="accordion-body px-2 py-1">
+              <div class="list-group list-group-flush">
+                <div
+                  v-for="it in group.items"
+                  :key="it.name"
+                  class="list-group-item border-start-0 border-end-0 border-top-0 d-flex justify-content-between align-items-center px-0 py-2"
+                >
+                  <div class="me-auto">
+                    <div class="text-sm" :class="{ 'illegal-ware': it.illegal }" :title="it.illegal ? $t('app.widgets.inventory.illegal_tooltip') : null">
+                      <span v-if="it.illegal" class="illegal-indicator">!</span>{{ it.name || $t('app.widgets.inventory.unknown') }}
+                    </div>
+                    <div v-if="it.price != null" class="price-text text-muted">
+                      <font-awesome-icon :icon="'coins'" class="fa-icon"/>
+                      {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
+                    </div>
+                  </div>
+                  <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ it.amount.toLocaleString() }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flat view (default) -->
+      <div v-else-if="items && items.length" class="list-group list-group-flush ps-2 inventory-list">
         <div
           v-for="it in displayedItems"
           :key="it.name"
@@ -30,12 +80,12 @@
             <div class="text-sm" :class="{ 'illegal-ware': it.illegal }" :title="it.illegal ? $t('app.widgets.inventory.illegal_tooltip') : null">
               <span v-if="it.illegal" class="illegal-indicator">!</span>{{ it.name || $t('app.widgets.inventory.unknown') }}
             </div>
-            <div v-if="it.price !== undefined && it.price !== null" class="price-text text-muted">
+            <div v-if="it.price != null" class="price-text text-muted">
               <font-awesome-icon :icon="'coins'" class="fa-icon"/>
               {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
             </div>
           </div>
-          <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ displayAmount(it).toLocaleString() }}</span>
+          <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ it.amount.toLocaleString() }}</span>
         </div>
       </div>
 
@@ -46,10 +96,12 @@
 
 <script>
 import Widget from "../Widget.vue";
+import Modal from "../../components/Modal.vue";
+import InventorySettings from "./InventorySettings.vue";
 
 export default {
   name: 'InventoryWidget',
-  components: { Widget },
+  components: { Widget, Modal, InventorySettings },
   props: {
     gameData: Object,
     maxHeight: {
@@ -57,24 +109,39 @@ export default {
       default: 40,
     },
   },
-    data() {
+  data() {
     return {
       filters: {
         q: '',
       },
       sort: {
-          by: 'name',
+        by: 'name',
         dir: 'asc',
       },
+      settings: JSON.parse(localStorage.getItem('inventorySettings')) || {
+        showCategories: false,
+        categories: [],
+      },
     };
+  },
+  watch: {
+    gameData: {
+      handler(newData) {
+        if (newData && typeof newData === 'object') {
+          Object.values(newData).forEach(item => {
+            if (item.category?.id && !this.settings.categories.find(c => c.id === item.category.id)) {
+              this.settings.categories.push({ ...item.category, enabled: true });
+            }
+          });
+        }
+      },
+      immediate: true,
+      deep: true,
+    },
   },
   methods: {
     toggleSortDir() {
       this.sort.dir = this.sort.dir === 'asc' ? 'desc' : 'asc';
-    },
-    displayAmount(it) {
-      const n = Number(it.amount) || 0;
-      return n;
     },
     formatPrice(price) {
       const n = Number(price) || 0;
@@ -91,22 +158,51 @@ export default {
       }
     },
     items() {
-      if (!this.gameData?.inventory) return [];
+      if (!this.gameData || typeof this.gameData !== 'object') return [];
 
-      return Object.values(this.gameData.inventory).map((item) => ({
+      return Object.values(this.gameData).map((item) => ({
         name: item.name,
         amount: Number(item.amount) || 0,
         price: item.price ?? null,
         illegal: !!item.illegal,
+        category: item.category || { id: '', name: '' },
       }));
+    },
+    groupedItems() {
+      if (!this.settings.showCategories) {
+        return null;
+      }
+
+      const groups = {};
+      const enabledCatIds = this.settings.categories
+        .filter(c => c.enabled)
+        .map(c => c.id);
+
+      this.displayedItems.forEach(item => {
+        const catId = item.category?.id;
+        if (catId && enabledCatIds.includes(catId)) {
+          if (!groups[catId]) {
+            groups[catId] = {
+              id: catId,
+              name: item.category?.name || '',
+              items: []
+            };
+          }
+          groups[catId].items.push(item);
+        }
+      });
+
+      return Object.values(groups)
+        .filter(g => g.items.length > 0)
+        .sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     },
     displayedItems() {
       let list = (this.items || []).slice();
 
       // Filter by search text
-      const q = (this.filters.q || '').toString().toLowerCase().trim();
+      const q = (this.filters.q || '').toLowerCase().trim();
       if (q) {
-        list = list.filter((it) => ((it.name) || '').toString().toLowerCase().indexOf(q) !== -1);
+        list = list.filter((it) => (it.name || '').toLowerCase().includes(q));
       }
 
       // Sorting
@@ -115,21 +211,15 @@ export default {
 
       list.sort((a, b) => {
         if (by === 'amount') {
-          const na = Number(a.amount || 0);
-          const nb = Number(b.amount || 0);
-          return (na - nb) * dir;
+          return (a.amount - b.amount) * dir;
         }
         if (by === 'value') {
-          const va = Number(a.price || 0);
-          const vb = Number(b.price || 0);
-          return (va - vb) * dir;
+          return ((a.price || 0) - (b.price || 0)) * dir;
         }
         // default: sort by name
-        const sa = ((a.name) || '').toString().toLowerCase();
-        const sb = ((b.name) || '').toString().toLowerCase();
-        if (sa < sb) return -1 * dir;
-        if (sa > sb) return 1 * dir;
-        return 0;
+        const sa = (a.name || '').toLowerCase();
+        const sb = (b.name || '').toLowerCase();
+        return sa.localeCompare(sb) * dir;
       });
 
       return list;
@@ -166,6 +256,25 @@ pre {
 
 .inventory-list {
   padding-right: 0.1rem;
+}
+
+:deep(.accordion) {
+  .accordion-button {
+    padding: 0.4rem 0.4rem 0.4rem 0;
+
+    &:not(.collapsed) {
+      background: none;
+      box-shadow: none;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .group-name {
+    color: var(--bs-primary);
+  }
 }
 
 :deep(.inventory-widget) {

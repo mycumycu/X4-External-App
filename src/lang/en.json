@@ -219,7 +219,12 @@
         "sort_amount": "Sort by amount",
         "sort_value": "Sort by value",
         "unknown": "Unknown",
-        "illegal_tooltip": "This ware is illegal in the current sector"
+        "illegal_tooltip": "This ware is illegal in the current sector",
+        "settings": {
+          "title": "Inventory Settings",
+          "show_categories": "Show categories",
+          "categories": "Categories"
+        }
       }
     }
   }

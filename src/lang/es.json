@@ -205,7 +205,12 @@
         "sort_amount": "Ordenar por cantidad",
         "sort_value": "Ordenar por valor",
         "unknown": "Desconocido",
-        "illegal_tooltip": "Esta mercancía es ilegal en el sector actual"
+        "illegal_tooltip": "Esta mercancía es ilegal en el sector actual",
+        "settings": {
+          "title": "Configuración de inventario",
+          "show_categories": "Mostrar categorías",
+          "categories": "Categorías"
+        }
       }
     }
   }
