@@ -217,13 +217,17 @@
         "filter_placeholder": "Filter name...",
         "sort_name": "Sort by name",
         "sort_amount": "Sort by amount",
+        "sort_price": "Sort by price",
         "sort_value": "Sort by value",
         "unknown": "Unknown",
         "illegal_tooltip": "This ware is illegal in the current sector",
         "settings": {
           "title": "Inventory Settings",
           "show_categories": "Show categories",
-          "categories": "Categories"
+          "categories": "Categories",
+          "display_mode": "Display mode",
+          "display_price": "Price",
+          "display_value": "Value"
         }
       }
     }

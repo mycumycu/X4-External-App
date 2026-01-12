@@ -203,13 +203,17 @@
         "filter_placeholder": "Filtrar por nombre...",
         "sort_name": "Ordenar por nombre",
         "sort_amount": "Ordenar por cantidad",
+        "sort_price": "Ordenar por precio",
         "sort_value": "Ordenar por valor",
         "unknown": "Desconocido",
         "illegal_tooltip": "Esta mercancía es ilegal en el sector actual",
         "settings": {
           "title": "Configuración de inventario",
           "show_categories": "Mostrar categorías",
-          "categories": "Categorías"
+          "categories": "Categorías",
+          "display_mode": "Modo de visualización",
+          "display_price": "Precio",
+          "display_value": "Valor"
         }
       }
     }

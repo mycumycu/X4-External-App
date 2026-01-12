@@ -23,7 +23,7 @@
         <select v-model="sort.by" class="form-select form-select-sm sort-select">
           <option value="name">{{ $t('app.widgets.inventory.sort_name') }}</option>
           <option value="amount">{{ $t('app.widgets.inventory.sort_amount') }}</option>
-          <option value="value">{{ $t('app.widgets.inventory.sort_value') }}</option>
+          <option value="value">{{ settings.displayMode === 'value' ? $t('app.widgets.inventory.sort_value') : $t('app.widgets.inventory.sort_price') }}</option>
         </select>
         <button class="btn btn-sm btn-outline-secondary rounded-0" @click="toggleSortDir()">{{ sort.dir === 'asc' ? '↑' : '↓' }}</button>
       </div>
@@ -58,7 +58,7 @@
                     </div>
                     <div v-if="it.price != null" class="price-text text-muted">
                       <font-awesome-icon :icon="'coins'" class="fa-icon"/>
-                      {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
+                      {{ formatPrice(settings.displayMode === 'value' ? it.price * it.amount : it.price) }} {{ $t('app.common.credits') }}
                     </div>
                   </div>
                   <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ it.amount.toLocaleString() }}</span>
@@ -82,7 +82,7 @@
             </div>
             <div v-if="it.price != null" class="price-text text-muted">
               <font-awesome-icon :icon="'coins'" class="fa-icon"/>
-              {{ formatPrice(it.price) }} {{ $t('app.common.credits') }}
+              {{ formatPrice(settings.displayMode === 'value' ? it.price * it.amount : it.price) }} {{ $t('app.common.credits') }}
             </div>
           </div>
           <span :class="it.illegal ? 'illegal-ware' : 'text-muted'">{{ it.amount.toLocaleString() }}</span>
@@ -118,9 +118,11 @@ export default {
         by: 'name',
         dir: 'asc',
       },
-      settings: JSON.parse(localStorage.getItem('inventorySettings')) || {
+      settings: {
         showCategories: false,
         categories: [],
+        displayMode: 'price',
+        ...JSON.parse(localStorage.getItem('inventorySettings') || '{}'),
       },
     };
   },
@@ -214,7 +216,13 @@ export default {
           return (a.amount - b.amount) * dir;
         }
         if (by === 'value') {
-          return ((a.price || 0) - (b.price || 0)) * dir;
+          const va = this.settings.displayMode === 'value'
+            ? (a.price || 0) * a.amount
+            : (a.price || 0);
+          const vb = this.settings.displayMode === 'value'
+            ? (b.price || 0) * b.amount
+            : (b.price || 0);
+          return (va - vb) * dir;
         }
         // default: sort by name
         const sa = (a.name || '').toLowerCase();

@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div class="d-flex gap-3 mb-3 align-items-center">
+      <label class="text-muted small mb-0">{{ $t('app.widgets.inventory.settings.display_mode') }}</label>
+      <select v-model="settings.displayMode" class="form-select form-select-sm display-mode-select">
+        <option value="price">{{ $t('app.widgets.inventory.settings.display_price') }}</option>
+        <option value="value">{{ $t('app.widgets.inventory.settings.display_value') }}</option>
+      </select>
+    </div>
+
     <div class="d-flex gap-3 mb-3">
       <Toggle
         v-model="settings.showCategories"

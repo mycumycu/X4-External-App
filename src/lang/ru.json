@@ -216,13 +216,17 @@
         "filter_placeholder": "Фильтр по названию...",
         "sort_name": "Сортировать по имени",
         "sort_amount": "Сортировать по количеству",
+        "sort_price": "Сортировать по цене",
         "sort_value": "Сортировать по стоимости",
         "unknown": "Неизвестно",
         "illegal_tooltip": "Этот товар нелегален в текущем секторе",
         "settings": {
           "title": "Настройки инвентаря",
           "show_categories": "Показать категории",
-          "categories": "Категории"
+          "categories": "Категории",
+          "display_mode": "Режим отображения",
+          "display_price": "Цена",
+          "display_value": "Стоимость"
         }
       }
     }
