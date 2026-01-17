@@ -8,3 +8,4 @@ dist-ssr
 .env
 .vscode
 dev-data.json
+dev-dist/

@@ -32,4 +32,7 @@ export default {
     agents: {
         widgetName: 'app.widgets.agents.title',
     },
+    inventory: {
+        widgetName: 'app.widgets.inventory.title',
+    },
 }

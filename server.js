@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
 class Server {
-    dataObject = null;
+    dataObject = {};
     updatePending = false;
     lastOutputMessage = null;
 
@@ -143,6 +143,14 @@ class Server {
                 this.dataObject.updatePending = this.updatePending;
             }
 
+            // Log GET access and a brief summary of current data
+            try {
+                const keys = this.dataObject ? Object.keys(this.dataObject) : [];
+                this.outputMessage(chalk.cyan(`[api/data] GET -> keys: ${keys.join(', ')}`));
+            } catch (e) {
+                // ignore logging errors
+            }
+
             response.json(this.dataObject);
         });
 
@@ -150,18 +158,42 @@ class Server {
          * Handle incoming data from X4
          */
         this.app.post('/api/data', (request, response) => {
+            // If payload is an array of pairs like [[key, value], ...], convert to object first
+            let payload = request.body;
+            try {
+                if (Array.isArray(payload)) {
+                    const isPairs = payload.every((el) => Array.isArray(el) && typeof el[0] === 'string');
+                    if (isPairs) {
+                        const mapped = {};
+                        payload.forEach((pair) => { mapped[pair[0]] = pair[1]; });
+                        payload = mapped;
+                        this.outputMessage(chalk.yellow('[api/data] Converted array-of-pairs payload to object'));
+                    }
+                }
+            } catch (e) {
+                // ignore conversion errors and fall back to original payload
+            }
+
             // Normalize output (handle line breaks, color codes, etc.)
-            const newData = normalizeObjectRecursively(request.body);
+            const newData = normalizeObjectRecursively(payload);
 
             // Merge new data with existing
             this.dataObject = { ...this.dataObject, ...newData };
 
+            // Log POSTed data keys
+            try {
+                const keys = newData ? Object.keys(newData) : [];
+                this.outputMessage(chalk.green(`[api/data] POST <- keys: ${keys.join(', ')}`));
+            } catch (e) {
+                // swallow logging errors
+            }
+
             if (!isPackaged) {
                 try {
-                    if (!fs.existsSync(devFilePath) && this.dataObject != null) {
-                        // In local env: create dev-data.json
+                    if (this.dataObject != null) {
+                        // In local env: persist dev-data.json so GET can pick up changes
                         fs.writeFileSync(devFilePath, JSON.stringify(this.dataObject, null, 2));
-                        this.outputMessage(chalk.green(`Development data file created at ${devFilePath}`));
+                        this.outputMessage(chalk.green(`Development data file updated at ${devFilePath}`));
                     }
                 } catch (e) {
                     console.error(chalk.red(`Failed to write ${devFilePath}:`), e);
