@@ -133,7 +133,7 @@
         "remove_row": "удалить",
         "is_less_than": "меньше чем",
         "is_more_than": "больше чем",
-	"base": "базовый",
+        "base": "базовый",
         "bonus": "бонус"
       },
       "mission_offers": {
@@ -195,25 +195,44 @@
           "capital": "Лицензия на капитальные корабли"
         },
         "relation_change": "Недавние изменения отношений"
-       },
-       "agents": {
-         "title": "Агенты",
-         "no_agents": "Нет доступных агентов",
-         "prestige": "Престиж",
-         "success_chance": "Шанс успеха",
-         "risk_to_agent": "Риск для агента",
-         "rewards": "Награда",
+      },
+      "agents": {
+        "title": "Агенты",
+        "no_agents": "Нет доступных агентов",
+        "prestige": "Престиж",
+        "success_chance": "Шанс успеха",
+        "risk_to_agent": "Риск для агента",
+        "rewards": "Награда",
          "negotiation": "Переговоры",
          "espionage": "Шпионаж",
          "agent_injured": "Агент ранен",
          "no_mission_assigned": "Нет назначенной миссии",
-         "settings": {
-           "title": "Настройки агентов",
-           "show_agent_image": "Показывать изображение агента",
-           "show_agent_details": "Показывать детали агента",
-           "show_mission_details": "Показывать детали миссии"
-         }
-       }
+        "settings": {
+          "title": "Настройки агентов",
+          "show_agent_image": "Показывать изображение агента",
+          "show_agent_details": "Показывать детали агента",
+          "show_mission_details": "Показывать детали миссии"
+        }
+      },
+      "inventory": {
+        "title": "Инвентарь",
+        "no_data": "Данные инвентаря ещё не получены.",
+        "filter_placeholder": "Фильтр по названию...",
+        "sort_name": "Сортировать по имени",
+        "sort_amount": "Сортировать по количеству",
+        "sort_price": "Сортировать по цене",
+        "sort_value": "Сортировать по стоимости",
+        "unknown": "Неизвестно",
+        "illegal_tooltip": "Этот товар нелегален в текущем секторе",
+        "settings": {
+          "title": "Настройки инвентаря",
+          "show_categories": "Показать категории",
+          "categories": "Категории",
+          "display_mode": "Режим отображения",
+          "display_price": "Цена",
+          "display_value": "Стоимость"
+        }
+      }
     }
   }
 }
