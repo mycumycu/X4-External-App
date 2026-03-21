@@ -34,9 +34,10 @@
 
     <perfect-scrollbar class="logbook resizable-element" data-min-resizable-height="90">
       <logbook-entry
-          v-for="(entry, name) in logbook.filtered"
+          v-for="(entry, name) in logbookVisible"
           :name="name"
           :entry="entry"/>
+      <div ref="logbookSentinel" style="height: 1px;"></div>
     </perfect-scrollbar>
   </widget>
 </template>
@@ -48,8 +49,8 @@ import Modal from "../../components/Modal.vue";
 import LogbookSettings from "./LogbookSettings.vue";
 import LogbookEntry from "./LogbookEntry.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import { reactive } from "vue";
-import { I18nT } from 'vue-i18n'
+import {reactive} from "vue";
+import {I18nT} from 'vue-i18n'
 
 export default {
   components: {
@@ -61,6 +62,24 @@ export default {
       type: Number,
       default: 100
     },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const sentinel = this.$refs.logbookSentinel;
+      if (sentinel) {
+        this._logbookObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            this.loadMoreLogbook();
+          }
+        }, { threshold: 0 });
+        this._logbookObserver.observe(sentinel);
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this._logbookObserver) {
+      this._logbookObserver.disconnect();
+    }
   },
   /**
    */
@@ -79,17 +98,28 @@ export default {
   },
   methods: {
     /**
+     * Load more entries when sentinel becomes visible
+     */
+    loadMoreLogbook() {
+      if (this.logbook.displayCount < this.logbook.filtered.length) {
+        this.logbook.displayCount = Math.min(
+            this.logbook.displayCount + 100,
+            this.logbook.filtered.length
+        );
+      }
+    },
+    /**
      *
      */
     parseLogbookData(gameData) {
       this.logbook.list = gameData;
       this.logbook.filtered = this.logbook.list;
-      this.filterLogbook(this.logbook.searchPhrase)
+      this.filterLogbook(this.logbook.searchPhrase, false)
     },
     /**
      * Filter logbook
      */
-    filterLogbook(phrase) {
+    filterLogbook(phrase, resetDisplay = true) {
       this.logbook.searchPhrase = phrase.toLowerCase();
       let filtered = [];
       this.logbook.filtered = this.logbook.list;
@@ -134,9 +164,20 @@ export default {
         }
       }
       this.logbook.filtered = filtered;
+      if (resetDisplay) {
+        this.logbook.displayCount = Math.min(100, filtered.length);
+      } else {
+        this.logbook.displayCount = Math.min(this.logbook.displayCount, filtered.length);
+      }
     },
   },
   computed: {
+    /**
+     * Lazy-loaded subset of filtered entries
+     */
+    logbookVisible() {
+      return this.logbook.filtered.slice(0, this.logbook.displayCount);
+    },
     /**
      * @return {*}
      */
@@ -167,6 +208,7 @@ export default {
       logbook: {
         list: [],
         filtered: [],
+        displayCount: 100,
         searchPhrase: '',
         settings: reactive(
             JSON.parse(localStorage.getItem("logbookSettings")) || {

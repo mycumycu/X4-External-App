@@ -34,6 +34,27 @@ class Server {
     }
 
     /**
+     * Merge new entries into existing ones, deduplicating by key and sorting by time (newest first)
+     */
+    mergeEntries (existing, incoming, key) {
+        if (!existing || !Array.isArray(existing)) {
+            return incoming;
+        }
+
+        const compositeKey = (entry) => `${entry[key]}_${entry.time}`;
+
+        const map = new Map();
+        for (const entry of existing) {
+            map.set(compositeKey(entry), entry);
+        }
+        for (const entry of incoming) {
+            map.set(compositeKey(entry), entry);
+        }
+
+        return Array.from(map.values()).sort((a, b) => (b.time || 0) - (a.time || 0));
+    }
+
+    /**
      * Check if new release is out
      */
     checkVersion () {
@@ -152,6 +173,18 @@ class Server {
         this.app.post('/api/data', (request, response) => {
             // Normalize output (handle line breaks, color codes, etc.)
             const newData = normalizeObjectRecursively(request.body);
+
+            // Incrementally accumulate list-type data instead of replacing
+            if (newData.transactionLog && Array.isArray(newData.transactionLog)) {
+                newData.transactionLog = this.mergeEntries(
+                    this.dataObject?.transactionLog, newData.transactionLog, 'entryid'
+                );
+            }
+            if (newData.logbook && Array.isArray(newData.logbook)) {
+                newData.logbook = this.mergeEntries(
+                    this.dataObject?.logbook, newData.logbook, 'id'
+                );
+            }
 
             // Merge new data with existing
             this.dataObject = { ...this.dataObject, ...newData };

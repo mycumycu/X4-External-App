@@ -34,9 +34,10 @@
 
     <perfect-scrollbar class="transaction-log resizable-element" data-min-resizable-height="90">
       <transaction-log-entry
-          v-for="(entry, name) in transactionLog.filtered"
+          v-for="(entry, name) in transactionLogVisible"
           :name="name"
           :entry="entry"/>
+      <div ref="transactionSentinel" style="height: 1px;"></div>
     </perfect-scrollbar>
   </widget>
 </template>
@@ -48,8 +49,8 @@ import Modal from "../../components/Modal.vue";
 import TransactionLogSettings from "./TransactionLogSettings.vue";
 import TransactionLogEntry from "./TransactionLogEntry.vue";
 import SearchBar from "../../components/SearchBar.vue";
-import { reactive } from "vue";
-import { I18nT } from "vue-i18n";
+import {reactive} from "vue";
+import {I18nT} from "vue-i18n";
 
 export default {
   components: {
@@ -61,6 +62,24 @@ export default {
       type: Number,
       default: 100
     },
+  },
+  mounted() {
+    this.$nextTick(() => {
+      const sentinel = this.$refs.transactionSentinel;
+      if (sentinel) {
+        this._transactionObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            this.loadMoreTransactions();
+          }
+        }, { threshold: 0 });
+        this._transactionObserver.observe(sentinel);
+      }
+    });
+  },
+  beforeUnmount() {
+    if (this._transactionObserver) {
+      this._transactionObserver.disconnect();
+    }
   },
   /**
    */
@@ -79,17 +98,28 @@ export default {
   },
   methods: {
     /**
+     * Load more entries when sentinel becomes visible
+     */
+    loadMoreTransactions() {
+      if (this.transactionLog.displayCount < this.transactionLog.filtered.length) {
+        this.transactionLog.displayCount = Math.min(
+            this.transactionLog.displayCount + 100,
+            this.transactionLog.filtered.length
+        );
+      }
+    },
+    /**
      *
      */
     parseTransactionLogData(gameData) {
       this.transactionLog.list = gameData;
       this.transactionLog.filtered = this.transactionLog.list;
-      this.filterTransactionLog(this.transactionLog.searchPhrase)
+      this.filterTransactionLog(this.transactionLog.searchPhrase, false)
     },
     /**
      * Filter transaction log
      */
-    filterTransactionLog(phrase) {
+    filterTransactionLog(phrase, resetDisplay = true) {
       this.transactionLog.searchPhrase = phrase.toLowerCase();
       let filtered = [];
       this.transactionLog.filtered = this.transactionLog.list;
@@ -135,9 +165,20 @@ export default {
         }
       }
       this.transactionLog.filtered = filtered;
+      if (resetDisplay) {
+        this.transactionLog.displayCount = Math.min(100, filtered.length);
+      } else {
+        this.transactionLog.displayCount = Math.min(this.transactionLog.displayCount, filtered.length);
+      }
     },
   },
   computed: {
+    /**
+     * Lazy-loaded subset of filtered entries
+     */
+    transactionLogVisible() {
+      return this.transactionLog.filtered.slice(0, this.transactionLog.displayCount);
+    },
     /**
      * @return {*}
      */
@@ -168,6 +209,7 @@ export default {
       transactionLog: {
         list: [],
         filtered: [],
+        displayCount: 100,
         searchPhrase: '',
         settings: reactive(
             JSON.parse(localStorage.getItem("transactionLogSettings")) || {
