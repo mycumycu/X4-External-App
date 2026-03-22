@@ -42,7 +42,7 @@ import Widget from "../Widget.vue";
 import AgentsEntry from "./AgentsEntry.vue";
 import Modal from "../../components/Modal.vue";
 import AgentsSettings from "./AgentsSettings.vue";
-import { reactive } from "vue";
+import {reactive} from "vue";
 
 export default {
   name: 'AgentsWidget',
@@ -69,7 +69,6 @@ export default {
   watch: {
     gameData: {
       handler(newData) {
-        console.log('newData', newData);
         this.parseAgentsData(newData);
       },
       immediate: true,
