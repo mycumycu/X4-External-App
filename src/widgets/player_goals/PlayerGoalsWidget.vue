@@ -26,11 +26,13 @@
       <player-goals-group
           :label="settings.enableLongTerm?$t('app.widgets.player_goals.short_term'):''"
           :goals="goals"
+          :split-list="settings.enableLongTerm"
           list-key="short"/>
       <div class="mt-4" v-if="settings.enableLongTerm">
         <player-goals-group
             :label="$t('app.widgets.player_goals.long_term')"
             :goals="goals"
+            :split-list="true"
             list-key="long"/>
       </div>
     </perfect-scrollbar>
@@ -44,10 +46,10 @@ import Widget from "../Widget.vue";
 import Modal from "../../components/Modal.vue";
 import PlayerGoalsGroup from "./PlayerGoalsGroup.vue";
 import PlayerGoalsSettings from "./PlayerGoalsSettings.vue";
-import { faCheck, faEllipsisH, faPlus } from '@fortawesome/free-solid-svg-icons'
-import { library } from "@fortawesome/fontawesome-svg-core";
+import {faCheck, faEllipsisH, faPlus} from '@fortawesome/free-solid-svg-icons'
+import {library} from "@fortawesome/fontawesome-svg-core";
 import GoalsStore from "./js/playerGoalsStore.js";
-import { reactive } from "vue";
+import {reactive} from "vue";
 import Helper from "./js/helper";
 
 library.add(faPlus, faEllipsisH, faCheck);

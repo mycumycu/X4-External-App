@@ -19,6 +19,12 @@
       />
     </template>
 
+    <template #footer v-if="splitList && goals[listKey].length === 0">
+      <li class="list-group-item empty-placeholder">
+        {{ emptyPlaceholder }}
+      </li>
+    </template>
+
   </draggable>
 </template>
 
@@ -36,6 +42,7 @@ export default {
     'label',
     'listKey',
     'goals',
+    'splitList',
   ],
   data() {
     return {
@@ -43,6 +50,11 @@ export default {
     }
   },
   computed: {
+    emptyPlaceholder() {
+      return this.listKey === 'short'
+          ? this.$t('app.widgets.player_goals.default_short_goal')
+          : this.$t('app.widgets.player_goals.default_long_goal');
+    },
     dragOptions() {
       return {
         animation: 500,

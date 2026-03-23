@@ -16,7 +16,7 @@
                  v-model="this.element.checked"
                  :value="true"/>
         </label>
-        <span class="goal-data">
+        <span class="goal-data" @dblclick="edit">
         <font-awesome-icon
             @click.prevent="makeFeatured"
             class="featured"
@@ -40,8 +40,8 @@
 <script>
 
 import GoalsStore from "./js/playerGoalsStore.js";
-import { faExclamation, faQuestion, faSearch, faShieldAlt, faStar } from '@fortawesome/free-solid-svg-icons'
-import { library } from "@fortawesome/fontawesome-svg-core";
+import {faExclamation, faQuestion, faSearch, faShieldAlt, faStar} from '@fortawesome/free-solid-svg-icons'
+import {library} from "@fortawesome/fontawesome-svg-core";
 
 library.add(faExclamation, faQuestion, faShieldAlt, faSearch, faStar);
 

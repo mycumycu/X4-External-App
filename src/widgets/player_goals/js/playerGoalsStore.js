@@ -1,4 +1,4 @@
-import { createStore } from "vuex";
+import {createStore} from "vuex";
 import Helper from "./helper";
 
 export default createStore({
@@ -6,22 +6,8 @@ export default createStore({
         goals: JSON.parse(
             localStorage.getItem("goals")
         ) || {
-            short: [
-                {
-                    id: '23qassa3',
-                    task: 'app.widgets.player_goals.default_short_goal',
-                    checked: false,
-                    featuredIndex: 0,
-                },
-            ],
-            long: [
-                {
-                    id: '55df5fd5df',
-                    task: 'app.widgets.player_goals.default_long_goal',
-                    checked: false,
-                    featuredIndex: 0,
-                },
-            ],
+            short: [],
+            long: [],
         }
 
     },
